@@ -97,9 +97,9 @@ export default function OurWorkPage() {
         eyebrow="Our work"
         title={
           <>
-            Yards we&apos;re proud
+            Work we put
             <br />
-            to put our name on
+            our name on.
           </>
         }
         lede="A look at the kinds of work we do across the Gulf Coast. See more recent jobs on our Facebook page."
