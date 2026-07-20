@@ -15,6 +15,21 @@
   --color-bark: #241f18;
   --color-ink: #1c261f;
 
+  /* Coast to Coast Roofing — "Architectural Dusk" tokens */
+  --color-slate: #1a1820;
+  --color-slate-2: #262330;
+  --color-graphite: #322e3b;
+  --color-steel: #a89d95;
+  --color-fog: #ece4d8;
+  --color-bone: #f1ebe1;
+  --color-sand: #e7d9d3;
+  --color-paper: #f9f4ec;
+  --color-amber: #e7d24a;
+  --color-amber-deep: #8a6d16;
+  --color-mauve: #b0857f;
+  --color-blush: #e7d3ce;
+  --color-gulf: #b0857f;
+
   --font-display: "Cormorant Garamond", "Georgia", serif;
   --font-sans: "Karla", "Helvetica Neue", Arial, sans-serif;
 
@@ -109,6 +124,26 @@ body {
   right: 0;
   top: 3px;
   border-top: 1px solid currentColor;
+}
+
+/* ——— Coast to Coast Roofing theme scope (/roofing) ——— */
+.theme-roofing {
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --tracking-cap: 0.22em;
+  font-family: var(--font-sans);
+}
+.theme-roofing .font-display {
+  letter-spacing: -0.015em;
+}
+.theme-roofing ::selection {
+  background: var(--color-amber);
+  color: var(--color-slate);
+}
+.rule-amber {
+  height: 3px;
+  width: 3.5rem;
+  background: var(--color-amber);
 }
 
 /* Scroll reveal */

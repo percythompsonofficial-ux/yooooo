@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
-import Reveal from "@/components/Reveal";
-import { Button, SectionHeading } from "@/components/ui";
-import { site } from "@/lib/site";
-import { IconCheck, IconShield, IconWrench, IconStar } from "@/components/icons";
+import PageHero from "@/components/roofing/PageHero";
+import Reveal from "@/components/roofing/Reveal";
+import { Button, SectionHeading } from "@/components/roofing/ui";
+import { site } from "@/lib/roofing-site";
+import { IconCheck, IconShield, IconWrench, IconStar } from "@/components/roofing/icons";
 
 export const metadata: Metadata = {
   title: "About",
@@ -77,7 +77,7 @@ export default function AboutPage() {
           <Reveal>
             <p className="font-display uppercase text-xs tracking-cap text-amber">BBB Accredited · Locally owned</p>
             <h2 className="mt-4 font-display text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.05] tracking-[-0.02em]">Let&apos;s get your roof taken care of.</h2>
-            <div className="mt-8"><Button href="/contact">Get a Free Inspection</Button></div>
+            <div className="mt-8"><Button href="/roofing/contact">Get a Free Inspection</Button></div>
           </Reveal>
         </div>
       </section>

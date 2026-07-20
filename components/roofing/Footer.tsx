@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import { IconPhone } from "./icons";
-import { site } from "@/lib/site";
+import { site } from "@/lib/roofing-site";
 
 export default function Footer() {
   return (
@@ -38,10 +38,10 @@ export default function Footer() {
             </h2>
             <ul className="space-y-3 text-sm">
               {[
-                ["Services", "/services"],
-                ["Projects", "/projects"],
-                ["About", "/about"],
-                ["Contact", "/contact"],
+                ["Services", "/roofing/services"],
+                ["Projects", "/roofing/projects"],
+                ["About", "/roofing/about"],
+                ["Contact", "/roofing/contact"],
               ].map(([label, href]) => (
                 <li key={href}>
                   <Link href={href} className="hover:text-amber transition-colors">

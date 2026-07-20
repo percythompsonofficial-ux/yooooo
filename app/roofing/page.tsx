@@ -1,9 +1,9 @@
 import Link from "next/link";
-import HeroBg from "@/components/HeroBg";
-import Reveal from "@/components/Reveal";
-import ProjectImage from "@/components/ProjectImage";
-import { Button, SectionHeading } from "@/components/ui";
-import { site } from "@/lib/site";
+import HeroBg from "@/components/roofing/HeroBg";
+import Reveal from "@/components/roofing/Reveal";
+import ProjectImage from "@/components/roofing/ProjectImage";
+import { Button, SectionHeading } from "@/components/roofing/ui";
+import { site } from "@/lib/roofing-site";
 import {
   IconRoof,
   IconLeak,
@@ -15,7 +15,7 @@ import {
   IconPhone,
   IconArrow,
   IconCheck,
-} from "@/components/icons";
+} from "@/components/roofing/icons";
 
 const services = [
   { icon: IconRoof, title: "Roof Replacement", body: "Full tear-off and new roof systems built to stand up to Gulf Coast sun and storms." },
@@ -27,9 +27,9 @@ const services = [
 ];
 
 const projects = [
-  { photo: "/photos/project-1.jpg", fallback: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=72", alt: "Completed shingle roof replacement on a coastal home", title: "Shingle Replacement", place: "Biloxi" },
-  { photo: "/photos/project-2.jpg", fallback: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=72", alt: "New roof on a Gulfport home after storm damage", title: "Storm Restoration", place: "Gulfport" },
-  { photo: "/photos/project-3.jpg", fallback: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=72", alt: "Metal roof installation on an Ocean Springs property", title: "Metal Roof", place: "Ocean Springs" },
+  { photo: "/photos/roofing/project-1.jpg", fallback: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=72", alt: "Completed shingle roof replacement on a coastal home", title: "Shingle Replacement", place: "Biloxi" },
+  { photo: "/photos/roofing/project-2.jpg", fallback: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=72", alt: "New roof on a Gulfport home after storm damage", title: "Storm Restoration", place: "Gulfport" },
+  { photo: "/photos/roofing/project-3.jpg", fallback: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=72", alt: "Metal roof installation on an Ocean Springs property", title: "Metal Roof", place: "Ocean Springs" },
 ];
 
 export default function Home() {
@@ -38,7 +38,7 @@ export default function Home() {
       {/* ——— Hero ——— */}
       <section className="relative bg-slate text-white overflow-hidden">
         <HeroBg
-          src="/photos/hero.jpg"
+          src="/photos/roofing/hero.jpg"
           fallbackSrc="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1900&q=72"
           idPrefix="hero"
         />
@@ -57,7 +57,7 @@ export default function Home() {
               fair price, with free inspections and honest estimates.
             </p>
             <div className="mt-9 flex flex-col sm:flex-row gap-4">
-              <Button href="/contact">Get a Free Inspection</Button>
+              <Button href="/roofing/contact">Get a Free Inspection</Button>
               <Button href={site.contact.phoneHref} variant="outline" external>
                 <IconPhone className="w-5 h-5" /> {site.contact.phoneDisplay}
               </Button>
@@ -80,13 +80,13 @@ export default function Home() {
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <SectionHeading eyebrow="What we do" title={<>Everything your<br />roof needs.</>} />
-              <Button href="/services" variant="ghost" className="shrink-0">All Services <IconArrow className="w-4 h-4" /></Button>
+              <Button href="/roofing/services" variant="ghost" className="shrink-0">All Services <IconArrow className="w-4 h-4" /></Button>
             </div>
           </Reveal>
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s, i) => (
               <Reveal key={s.title} delay={(i % 3) * 80}>
-                <Link href="/services" className="group block h-full bg-white border border-slate/10 p-8 hover:border-amber transition-colors duration-300">
+                <Link href="/roofing/services" className="group block h-full bg-white border border-slate/10 p-8 hover:border-amber transition-colors duration-300">
                   <div className="w-12 h-12 flex items-center justify-center bg-slate text-amber group-hover:bg-amber group-hover:text-slate transition-colors duration-300">
                     <s.icon className="w-6 h-6" />
                   </div>
@@ -119,7 +119,7 @@ export default function Home() {
                 ))}
               </ul>
               <div className="mt-9">
-                <Button href="/contact">Start My Free Inspection</Button>
+                <Button href="/roofing/contact">Start My Free Inspection</Button>
               </div>
             </div>
           </Reveal>
@@ -143,7 +143,7 @@ export default function Home() {
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {projects.map((p, i) => (
               <Reveal key={p.title} delay={i * 100}>
-                <Link href="/projects" className="group block">
+                <Link href="/roofing/projects" className="group block">
                   <ProjectImage src={p.photo} fallbackSrc={p.fallback} alt={p.alt} idPrefix={`h${i}`} className="w-full aspect-[4/3]" />
                   <div className="mt-4 flex items-baseline justify-between">
                     <h3 className="font-display uppercase text-lg font-semibold text-slate group-hover:text-amber-deep transition-colors">{p.title}</h3>

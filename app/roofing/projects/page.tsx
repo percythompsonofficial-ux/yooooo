@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
-import ProjectImage from "@/components/ProjectImage";
-import Reveal from "@/components/Reveal";
-import { Button } from "@/components/ui";
-import { site } from "@/lib/site";
+import PageHero from "@/components/roofing/PageHero";
+import ProjectImage from "@/components/roofing/ProjectImage";
+import Reveal from "@/components/roofing/Reveal";
+import { Button } from "@/components/roofing/ui";
+import { site } from "@/lib/roofing-site";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 };
 
 const projects = [
-  { photo: "/photos/project-1.jpg", fallback: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=72", alt: "Shingle roof replacement on a coastal home", title: "Shingle Replacement", place: "Biloxi", type: "Roof Replacement" },
-  { photo: "/photos/project-2.jpg", fallback: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1400&q=72", alt: "Full roof restoration after storm damage", title: "Storm Restoration", place: "Gulfport", type: "Insurance Claim" },
-  { photo: "/photos/project-3.jpg", fallback: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=72", alt: "Standing-seam metal roof installation", title: "Metal Roof Install", place: "Ocean Springs", type: "Metal Roofing" },
-  { photo: "/photos/project-4.jpg", fallback: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1400&q=72", alt: "New roof on a family home", title: "Full Re-Roof", place: "D'Iberville", type: "Roof Replacement" },
-  { photo: "/photos/project-5.jpg", fallback: "https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1400&q=72", alt: "Repaired roofline and flashing", title: "Leak & Flashing Repair", place: "Long Beach", type: "Roof Repair" },
-  { photo: "/photos/project-6.jpg", fallback: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1400&q=72", alt: "Commercial low-slope roof project", title: "Commercial Roof", place: "Pascagoula", type: "Commercial" },
+  { photo: "/photos/roofing/project-1.jpg", fallback: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=72", alt: "Shingle roof replacement on a coastal home", title: "Shingle Replacement", place: "Biloxi", type: "Roof Replacement" },
+  { photo: "/photos/roofing/project-2.jpg", fallback: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1400&q=72", alt: "Full roof restoration after storm damage", title: "Storm Restoration", place: "Gulfport", type: "Insurance Claim" },
+  { photo: "/photos/roofing/project-3.jpg", fallback: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=72", alt: "Standing-seam metal roof installation", title: "Metal Roof Install", place: "Ocean Springs", type: "Metal Roofing" },
+  { photo: "/photos/roofing/project-4.jpg", fallback: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1400&q=72", alt: "New roof on a family home", title: "Full Re-Roof", place: "D'Iberville", type: "Roof Replacement" },
+  { photo: "/photos/roofing/project-5.jpg", fallback: "https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1400&q=72", alt: "Repaired roofline and flashing", title: "Leak & Flashing Repair", place: "Long Beach", type: "Roof Repair" },
+  { photo: "/photos/roofing/project-6.jpg", fallback: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1400&q=72", alt: "Commercial low-slope roof project", title: "Commercial Roof", place: "Pascagoula", type: "Commercial" },
 ];
 
 export default function ProjectsPage() {
@@ -57,7 +57,7 @@ export default function ProjectsPage() {
         <div className="mx-auto max-w-3xl px-5 sm:px-8 py-16 sm:py-24 text-center">
           <Reveal>
             <h2 className="font-display text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.05] tracking-[-0.02em]">Want your roof on this page next?</h2>
-            <div className="mt-8"><Button href="/contact">Get a Free Inspection</Button></div>
+            <div className="mt-8"><Button href="/roofing/contact">Get a Free Inspection</Button></div>
           </Reveal>
         </div>
       </section>

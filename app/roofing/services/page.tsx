@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
-import Reveal from "@/components/Reveal";
-import { Button } from "@/components/ui";
+import PageHero from "@/components/roofing/PageHero";
+import Reveal from "@/components/roofing/Reveal";
+import { Button } from "@/components/roofing/ui";
 import {
   IconRoof, IconLeak, IconStorm, IconClipboardCheck, IconHome, IconBuilding, IconCheck,
-} from "@/components/icons";
+} from "@/components/roofing/icons";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -56,7 +56,7 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-3xl px-5 sm:px-8 py-16 sm:py-24 text-center">
           <Reveal>
             <h2 className="font-display text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.05] tracking-[-0.02em]">Not sure what you need? We&apos;ll take a look — free.</h2>
-            <div className="mt-8"><Button href="/contact">Get a Free Inspection</Button></div>
+            <div className="mt-8"><Button href="/roofing/contact">Get a Free Inspection</Button></div>
           </Reveal>
         </div>
       </section>

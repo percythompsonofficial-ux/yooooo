@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
-import Reveal from "@/components/Reveal";
-import QuoteForm from "@/components/QuoteForm";
-import { site } from "@/lib/site";
-import { IconPhone } from "@/components/icons";
+import PageHero from "@/components/roofing/PageHero";
+import Reveal from "@/components/roofing/Reveal";
+import QuoteForm from "@/components/roofing/QuoteForm";
+import { site } from "@/lib/roofing-site";
+import { IconPhone } from "@/components/roofing/icons";
 
 export const metadata: Metadata = {
   title: "Contact",

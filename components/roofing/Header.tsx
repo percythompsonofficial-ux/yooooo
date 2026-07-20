@@ -5,14 +5,14 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import { IconPhone } from "./icons";
-import { site } from "@/lib/site";
+import { site } from "@/lib/roofing-site";
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/projects", label: "Projects" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/roofing", label: "Home" },
+  { href: "/roofing/services", label: "Services" },
+  { href: "/roofing/projects", label: "Projects" },
+  { href: "/roofing/about", label: "About" },
+  { href: "/roofing/contact", label: "Contact" },
 ];
 
 export default function Header() {
@@ -30,14 +30,14 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-slate border-b border-white/10">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-[72px]">
-        <Link href="/" aria-label="Coast to Coast Roofing — home">
+        <Link href="/roofing" aria-label="Coast to Coast Roofing — home">
           <Logo />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-8" aria-label="Primary">
           {links.map((l) => {
             const active =
-              l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
+              l.href === "/roofing" ? pathname === "/roofing" : pathname.startsWith(l.href);
             return (
               <Link
                 key={l.href}
@@ -64,7 +64,7 @@ export default function Header() {
             </span>
           </a>
           <Link
-            href="/contact"
+            href="/roofing/contact"
             className="font-display uppercase text-sm font-semibold tracking-[0.1em] bg-amber text-slate hover:bg-amber-deep hover:text-white px-5 py-3 transition-colors"
           >
             Free Inspection
@@ -94,7 +94,7 @@ export default function Header() {
         <nav aria-label="Mobile" className="h-full overflow-y-auto flex flex-col items-center justify-center gap-1 py-12">
           {links.map((l) => {
             const active =
-              l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
+              l.href === "/roofing" ? pathname === "/roofing" : pathname.startsWith(l.href);
             return (
               <Link
                 key={l.href}
@@ -116,7 +116,7 @@ export default function Header() {
             {site.contact.phoneDisplay}
           </a>
           <Link
-            href="/contact"
+            href="/roofing/contact"
             className="mt-5 font-display uppercase text-sm font-semibold tracking-[0.1em] bg-amber text-slate px-8 py-4"
           >
             Free Inspection

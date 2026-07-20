@@ -14,7 +14,7 @@ export default function PageHero({
   return (
     <section className="relative bg-slate text-white overflow-hidden">
       <HeroBg
-        src="/photos/hero.jpg"
+        src="/photos/roofing/hero.jpg"
         fallbackSrc="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1900&q=72"
         idPrefix={idPrefix}
       />

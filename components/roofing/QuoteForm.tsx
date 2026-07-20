@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { site } from "@/lib/site";
+import { site } from "@/lib/roofing-site";
 import { IconCheck } from "./icons";
 
 type Errors = Partial<Record<"name" | "phone" | "message", string>>;
