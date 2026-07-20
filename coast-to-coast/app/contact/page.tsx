@@ -14,14 +14,14 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <PageHero idPrefix="ct" eyebrow="Contact" title={<>Free inspection,<br />no pressure</>} lede="Tell us what's going on with your roof and we'll call you right back to set up a free inspection." />
+      <PageHero idPrefix="ct" eyebrow="Get in touch" title={<>Let&apos;s look<br />at your roof.</>} lede="Tell us what's going on and we'll call you right back to set up a free inspection — no pressure, no obligation." />
 
       <section className="bg-bone">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
           <div className="grid gap-12 lg:grid-cols-[1fr_340px]">
             <Reveal>
               <div className="bg-white border border-slate/10 p-8 sm:p-10">
-                <h2 className="font-display uppercase text-2xl font-bold text-slate">Request your free inspection</h2>
+                <h2 className="font-display text-2xl font-bold tracking-[-0.02em] text-slate">Request your free inspection</h2>
                 <p className="mt-2 text-sm text-ink/60">We&apos;ll get back to you fast — usually the same day.</p>
                 <div className="mt-8"><QuoteForm /></div>
               </div>

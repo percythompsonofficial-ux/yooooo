@@ -23,7 +23,7 @@ export default function PageHero({
           {eyebrow}
         </p>
         <h1
-          className="mt-4 font-display font-bold uppercase leading-[0.95] text-[clamp(2.4rem,6vw,4.6rem)] animate-fade-up"
+          className="mt-4 font-display font-bold leading-[0.95] tracking-[-0.02em] text-[clamp(2.4rem,6vw,4.6rem)] animate-fade-up"
           style={{ animationDelay: "0.1s" }}
         >
           {title}

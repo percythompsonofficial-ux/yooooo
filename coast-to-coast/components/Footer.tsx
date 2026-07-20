@@ -9,8 +9,8 @@ export default function Footer() {
       {/* CTA strip */}
       <div className="bg-amber">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
-          <p className="font-display uppercase text-slate text-2xl sm:text-3xl font-bold leading-tight">
-            Storm damage? Leak? Get a free inspection.
+          <p className="font-display text-slate text-2xl sm:text-3xl font-bold leading-[1.05] tracking-[-0.02em]">
+            Storm damage? Leak? Let&apos;s take a look.
           </p>
           <a
             href={site.contact.phoneHref}

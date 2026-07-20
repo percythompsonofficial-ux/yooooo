@@ -79,7 +79,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-28">
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-              <SectionHeading eyebrow="What we do" title={<>Roofing services<br />for the whole coast</>} />
+              <SectionHeading eyebrow="What we do" title={<>Everything your<br />roof needs.</>} />
               <Button href="/services" variant="ghost" className="shrink-0">All Services <IconArrow className="w-4 h-4" /></Button>
             </div>
           </Reveal>

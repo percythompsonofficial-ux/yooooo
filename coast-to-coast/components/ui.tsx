@@ -37,7 +37,7 @@ export function SectionHeading({
     <div className={`${center ? "text-center" : ""} ${className}`}>
       {eyebrow && <Eyebrow dark={dark}>{eyebrow}</Eyebrow>}
       <h2
-        className={`mt-3 font-display font-bold uppercase leading-[0.98] text-[clamp(1.9rem,4.2vw,3.2rem)] ${
+        className={`mt-3 font-display font-bold leading-[1.0] tracking-[-0.02em] text-[clamp(1.9rem,4.2vw,3.2rem)] ${
           dark ? "text-white" : "text-slate"
         }`}
       >

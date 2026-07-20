@@ -24,7 +24,7 @@ const services = [
 export default function ServicesPage() {
   return (
     <>
-      <PageHero idPrefix="svc" eyebrow="Services" title={<>Roofing done<br />the right way</>} lede="From a quick repair to a full replacement or a storm claim, one local crew handles it all — with free inspections and honest pricing." />
+      <PageHero idPrefix="svc" eyebrow="What we do" title={<>Every roof,<br />done properly.</>} lede="From a quick repair to a full replacement or a storm claim — one local crew, one standard, and always a free inspection first." />
 
       <section className="bg-bone">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28 space-y-6">
@@ -36,7 +36,7 @@ export default function ServicesPage() {
                     <div className="w-12 h-12 flex items-center justify-center bg-slate text-amber shrink-0"><s.icon className="w-6 h-6" /></div>
                     <span className="font-display text-2xl text-slate/30 font-bold">{s.n}</span>
                   </div>
-                  <h2 className="mt-5 font-display uppercase text-3xl font-bold text-slate">{s.title}</h2>
+                  <h2 className="mt-5 font-display text-3xl font-bold tracking-[-0.02em] text-slate">{s.title}</h2>
                   <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">{s.body}</p>
                 </div>
                 <ul className="space-y-3 lg:border-l lg:border-slate/10 lg:pl-8">
@@ -55,7 +55,7 @@ export default function ServicesPage() {
       <section className="bg-slate text-white">
         <div className="mx-auto max-w-3xl px-5 sm:px-8 py-16 sm:py-24 text-center">
           <Reveal>
-            <h2 className="font-display uppercase text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-tight">Not sure what you need? We&apos;ll take a look — free.</h2>
+            <h2 className="font-display text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.05] tracking-[-0.02em]">Not sure what you need? We&apos;ll take a look — free.</h2>
             <div className="mt-8"><Button href="/contact">Get a Free Inspection</Button></div>
           </Reveal>
         </div>

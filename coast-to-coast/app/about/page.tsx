@@ -21,16 +21,16 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <PageHero idPrefix="ab" eyebrow="About us" title={<>Your local Gulf<br />Coast roofers</>} lede="Coast to Coast Roofing is a locally owned, BBB-accredited company built on quality work, fair prices, and treating your home like our own." />
+      <PageHero idPrefix="ab" eyebrow="About us" title={<>We are Coast<br />to Coast.</>} lede="A locally owned, BBB-accredited roofing company — built on quality work, fair prices, and treating your home like our own." />
 
       <section className="bg-bone">
         <div className="mx-auto max-w-4xl px-5 sm:px-8 py-20 sm:py-28">
           <Reveal>
-            <p className="font-display text-[clamp(1.3rem,2.4vw,1.7rem)] leading-[1.5] text-slate">
-              We started Coast to Coast Roofing to give Gulf Coast homeowners a
-              roofer they can actually trust — one that shows up, does quality
-              work, charges a fair price, and leaves the property cleaner than
-              they found it.
+            <p className="font-display text-[clamp(1.3rem,2.4vw,1.7rem)] leading-[1.45] tracking-[-0.01em] text-slate">
+              We started Coast to Coast with one idea: give the Gulf Coast a
+              roofer it can actually trust. One that shows up, does the work
+              right, charges a fair price — and leaves the property cleaner than
+              we found it.
             </p>
             <p className="mt-6 text-ink/75 leading-relaxed">
               We&apos;re a locally owned and operated business, BBB accredited,
@@ -76,7 +76,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-3xl px-5 sm:px-8 py-16 sm:py-24 text-center">
           <Reveal>
             <p className="font-display uppercase text-xs tracking-cap text-amber">BBB Accredited · Locally owned</p>
-            <h2 className="mt-4 font-display uppercase text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-tight">Let&apos;s get your roof taken care of</h2>
+            <h2 className="mt-4 font-display text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.05] tracking-[-0.02em]">Let&apos;s get your roof taken care of.</h2>
             <div className="mt-8"><Button href="/contact">Get a Free Inspection</Button></div>
           </Reveal>
         </div>

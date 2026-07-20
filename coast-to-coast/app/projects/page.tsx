@@ -23,7 +23,7 @@ const projects = [
 export default function ProjectsPage() {
   return (
     <>
-      <PageHero idPrefix="pj" eyebrow="Our work" title={<>Roofs we&apos;re<br />proud of</>} lede="A look at recent projects across the coast. See more on our Facebook page — new jobs go up all the time." />
+      <PageHero idPrefix="pj" eyebrow="Our work" title={<>Work we<br />stand behind.</>} lede="Recent roofs from across the coast — each one finished clean, and backed by the people who built it." />
 
       <section className="bg-bone">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-28">
@@ -56,7 +56,7 @@ export default function ProjectsPage() {
       <section className="bg-slate text-white">
         <div className="mx-auto max-w-3xl px-5 sm:px-8 py-16 sm:py-24 text-center">
           <Reveal>
-            <h2 className="font-display uppercase text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-tight">Want your roof on this page next?</h2>
+            <h2 className="font-display text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.05] tracking-[-0.02em]">Want your roof on this page next?</h2>
             <div className="mt-8"><Button href="/contact">Get a Free Inspection</Button></div>
           </Reveal>
         </div>
