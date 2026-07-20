@@ -1,4 +1,4 @@
-import OakScene from "./OakScene";
+import HeroPhoto from "./HeroPhoto";
 
 export default function PageHero({
   eyebrow,
@@ -13,10 +13,11 @@ export default function PageHero({
 }) {
   return (
     <section className="relative bg-pine text-ivory overflow-hidden grain">
-      <div className="absolute inset-0 opacity-50">
-        <OakScene className="w-full h-full" idPrefix={idPrefix} />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-pine/40 via-pine/30 to-pine" />
+      <HeroPhoto
+        src="/photos/hero.jpg"
+        fallbackSrc="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=2000&q=72"
+        idPrefix={idPrefix}
+      />
       <div className="relative z-10 mx-auto max-w-4xl px-6 sm:px-8 pt-44 pb-24 sm:pt-56 sm:pb-32 text-center">
         <p className="text-xs uppercase tracking-cap text-brass animate-fade-up">
           {eyebrow}

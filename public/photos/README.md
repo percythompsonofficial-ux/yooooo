@@ -19,6 +19,7 @@ finished, cleaned-up work in good daylight.
 
 | Filename                       | Where it shows            |
 | ------------------------------ | ------------------------- |
+| `hero.jpg`                     | Big hero + page banners   |
 | `landscape-installations.jpg`  | Home + Our Work           |
 | `lawn-maintenance.jpg`         | Home + Our Work           |
 | `sod-resodding.jpg`            | Home + Our Work           |

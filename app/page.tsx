@@ -1,5 +1,6 @@
 import Link from "next/link";
 import OakScene from "@/components/OakScene";
+import HeroPhoto from "@/components/HeroPhoto";
 import Reveal from "@/components/Reveal";
 import Wordmark from "@/components/Wordmark";
 import ProjectImage from "@/components/ProjectImage";
@@ -75,7 +76,11 @@ export default function Home() {
     <>
       {/* ——— Hero ——— */}
       <section className="relative min-h-dvh flex items-center justify-center overflow-hidden grain">
-        <OakScene className="absolute inset-0 w-full h-full" idPrefix="hero" />
+        <HeroPhoto
+          src="/photos/hero.jpg"
+          fallbackSrc="https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=2000&q=72"
+          idPrefix="hero"
+        />
         <div className="relative z-10 px-6 text-center animate-fade-in">
           <div className="animate-fade-up" style={{ animationDelay: "0.4s" }}>
             <h1>
