@@ -45,16 +45,16 @@ export default function Home() {
         <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 pt-20 pb-14 sm:pt-28 sm:pb-20">
           <div className="max-w-3xl animate-fade-up">
             <p className="font-display uppercase text-sm tracking-cap text-amber">
-              Locally owned · Mississippi Gulf Coast
+              We are Coast to Coast Roofing
             </p>
-            <h1 className="mt-4 font-display font-bold uppercase leading-[0.92] text-[clamp(2.6rem,7vw,5.4rem)]">
-              Gulf Coast roofs,
+            <h1 className="mt-5 font-display font-bold leading-[0.95] tracking-[-0.02em] text-[clamp(2.8rem,7.5vw,5.8rem)]">
+              Next-level roofing
               <br />
-              <span className="text-amber">done right.</span>
+              for the <span className="text-amber">Gulf Coast.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-fog/90 leading-relaxed">
-              {site.tagline} Quality roofing at competitive prices — with free
-              inspections and honest estimates across the coast.
+              Locally owned and built for the coast — quality craftsmanship at a
+              fair price, with free inspections and honest estimates.
             </p>
             <div className="mt-9 flex flex-col sm:flex-row gap-4">
               <Button href="/contact">Get a Free Inspection</Button>
@@ -87,7 +87,7 @@ export default function Home() {
             {services.map((s, i) => (
               <Reveal key={s.title} delay={(i % 3) * 80}>
                 <Link href="/services" className="group block h-full bg-white border border-slate/10 p-8 hover:border-amber transition-colors duration-300">
-                  <div className="w-12 h-12 flex items-center justify-center bg-slate text-amber group-hover:bg-amber group-hover:text-white transition-colors duration-300">
+                  <div className="w-12 h-12 flex items-center justify-center bg-slate text-amber group-hover:bg-amber group-hover:text-slate transition-colors duration-300">
                     <s.icon className="w-6 h-6" />
                   </div>
                   <h3 className="mt-6 font-display uppercase text-xl font-semibold text-slate">{s.title}</h3>

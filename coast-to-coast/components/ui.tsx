@@ -65,10 +65,10 @@ export function Button({
   external?: boolean;
 }) {
   const styles = {
-    solid: "bg-amber text-white hover:bg-amber-deep",
+    solid: "bg-amber text-slate hover:bg-amber-deep hover:text-white",
     outline:
       "border-2 border-white/40 text-white hover:border-amber hover:text-amber",
-    ghost: "border-2 border-slate/25 text-slate hover:border-amber hover:text-amber-deep",
+    ghost: "border-2 border-slate/25 text-slate hover:border-amber-deep hover:text-amber-deep",
   }[variant];
   const cls = `${buttonBase} ${styles} ${className}`;
   if (external) {

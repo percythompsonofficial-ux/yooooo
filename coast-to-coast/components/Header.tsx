@@ -65,7 +65,7 @@ export default function Header() {
           </a>
           <Link
             href="/contact"
-            className="font-display uppercase text-sm font-semibold tracking-[0.1em] bg-amber text-white hover:bg-amber-deep px-5 py-3 transition-colors"
+            className="font-display uppercase text-sm font-semibold tracking-[0.1em] bg-amber text-slate hover:bg-amber-deep hover:text-white px-5 py-3 transition-colors"
           >
             Free Inspection
           </Link>
@@ -117,7 +117,7 @@ export default function Header() {
           </a>
           <Link
             href="/contact"
-            className="mt-5 font-display uppercase text-sm font-semibold tracking-[0.1em] bg-amber text-white px-8 py-4"
+            className="mt-5 font-display uppercase text-sm font-semibold tracking-[0.1em] bg-amber text-slate px-8 py-4"
           >
             Free Inspection
           </Link>

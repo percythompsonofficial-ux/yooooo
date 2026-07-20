@@ -123,7 +123,7 @@ export default function QuoteForm() {
       </div>
 
       <button type="submit"
-        className="w-full sm:w-auto font-display uppercase text-sm font-semibold tracking-[0.12em] bg-amber text-white hover:bg-amber-deep px-10 py-4 transition-colors cursor-pointer">
+        className="w-full sm:w-auto font-display uppercase text-sm font-semibold tracking-[0.12em] bg-amber text-slate hover:bg-amber-deep hover:text-white px-10 py-4 transition-colors cursor-pointer">
         Request My Free Inspection
       </button>
     </form>

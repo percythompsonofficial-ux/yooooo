@@ -49,9 +49,9 @@ export default function HeroBg({
           }`}
         />
       )}
-      {/* slate overlays for legibility */}
-      <div className="absolute inset-0 bg-slate/72" />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate via-slate/70 to-slate/40" />
+      {/* dusk overlays for legibility — charcoal into dusty rose */}
+      <div className="absolute inset-0 bg-slate/70" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-slate via-slate/65 to-mauve/40" />
     </div>
   );
 }
