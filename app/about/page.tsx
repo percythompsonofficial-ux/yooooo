@@ -38,12 +38,12 @@ export default function AboutPage() {
         eyebrow="About us"
         title={
           <>
-            We are the
+            Two brothers,
             <br />
-            Songy Brothers.
+            one honest crew
           </>
         }
-        lede="A family-owned lawn care and landscaping company — two brothers, one honest crew, serving communities up and down the Mississippi Gulf Coast."
+        lede="Songy Brothers is a family-owned lawn care and landscaping company serving communities up and down the Mississippi Gulf Coast."
       />
 
       <section className="bg-linen text-ink">

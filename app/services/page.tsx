@@ -67,15 +67,15 @@ export default function ServicesPage() {
     <>
       <PageHero
         idPrefix="svc"
-        eyebrow="What we do"
+        eyebrow="Services"
         title={
           <>
-            Every yard,
+            Everything your yard
             <br />
-            kept right.
+            needs, one crew
           </>
         }
-        lede="One crew for everything your yard needs — a one-time job or a standing schedule, always with a free estimate and honest pricing."
+        lede="Call us for a one-time job or put your lawn on a regular schedule. Every service comes with a free estimate and honest pricing."
       />
 
       <section className="bg-linen text-ink">

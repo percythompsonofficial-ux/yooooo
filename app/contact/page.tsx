@@ -15,15 +15,15 @@ export default function ContactPage() {
     <>
       <PageHero
         idPrefix="ct"
-        eyebrow="Get in touch"
+        eyebrow="Contact"
         title={
           <>
-            Let&apos;s talk about
+            Get your
             <br />
-            your yard.
+            free estimate
           </>
         }
-        lede="Tell us what it needs and we'll get right back to you. No pressure, no obligation — just an honest quote."
+        lede="Tell us about your yard and we'll get right back to you. No pressure, no obligation — just an honest quote."
       />
 
       <section className="bg-linen text-ink">
