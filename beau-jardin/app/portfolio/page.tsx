@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
-import ProjectScene, { type SceneVariant } from "@/components/ProjectScene";
+import ProjectImage from "@/components/ProjectImage";
+import { type SceneVariant } from "@/components/ProjectScene";
 import Reveal from "@/components/Reveal";
 import { ButtonLink } from "@/components/ui";
 
@@ -12,6 +13,8 @@ export const metadata: Metadata = {
 
 const projects: {
   variant: SceneVariant;
+  photo: string;
+  photoAlt: string;
   title: string;
   place: string;
   year: string;
@@ -20,6 +23,10 @@ const projects: {
 }[] = [
   {
     variant: "allee",
+    photo:
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=70",
+    photoAlt:
+      "Sunlight falling through a long allée of mature trees over a quiet drive",
     title: "The Oak Allée",
     place: "East Beach Boulevard, Biloxi",
     year: "2025",
@@ -29,6 +36,10 @@ const projects: {
   },
   {
     variant: "parterre",
+    photo:
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1600&q=70",
+    photoAlt:
+      "A home framed by a deep manicured lawn and layered foundation planting",
     title: "Rue Magnolia Parterre",
     place: "Historic Biloxi",
     year: "2024",
@@ -38,6 +49,9 @@ const projects: {
   },
   {
     variant: "coastal",
+    photo:
+      "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=1600&q=70",
+    photoAlt: "A broad green lawn edged with deep planted borders",
     title: "Davis Bayou Lawn",
     place: "Ocean Springs",
     year: "2024",
@@ -47,6 +61,9 @@ const projects: {
   },
   {
     variant: "poolside",
+    photo:
+      "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?auto=format&fit=crop&w=1600&q=70",
+    photoAlt: "Still water reflecting the garden planted at its edge",
     title: "The Reflecting Pool",
     place: "Gulfport",
     year: "2023",
@@ -56,6 +73,9 @@ const projects: {
   },
   {
     variant: "evening",
+    photo:
+      "https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?auto=format&fit=crop&w=1600&q=70",
+    photoAlt: "Warm garden lights glowing along a path at dusk",
     title: "Lantern Walk",
     place: "Pass Christian",
     year: "2023",
@@ -65,6 +85,9 @@ const projects: {
   },
   {
     variant: "cottage",
+    photo:
+      "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=70",
+    photoAlt: "Hands tending a densely planted flower border in full bloom",
     title: "Ocean Springs Cottage Garden",
     place: "Ocean Springs",
     year: "2022",
@@ -87,7 +110,7 @@ export default function PortfolioPage() {
             company with
           </>
         }
-        lede="Each commission is drawn from its own site and story. Illustrated plans shown; photography shared at consultation."
+        lede="Each commission is drawn from its own site and story — shown here in photographs and drawn plans."
       />
 
       <section className="bg-linen text-ink">
@@ -99,13 +122,12 @@ export default function PortfolioPage() {
                   i % 2 ? "lg:[&>*:first-child]:order-2" : ""
                 }`}
               >
-                <div className="overflow-hidden">
-                  <ProjectScene
-                    variant={pr.variant}
-                    title={pr.title}
-                    className="w-full aspect-[4/3]"
-                  />
-                </div>
+                <ProjectImage
+                  src={pr.photo}
+                  alt={pr.photoAlt}
+                  variant={pr.variant}
+                  className="w-full aspect-[4/3]"
+                />
                 <div>
                   <p className="text-xs uppercase tracking-cap text-brass-deep">
                     {pr.place} — {pr.year}

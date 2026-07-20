@@ -2,7 +2,7 @@ import Link from "next/link";
 import OakScene from "@/components/OakScene";
 import Reveal from "@/components/Reveal";
 import Wordmark from "@/components/Wordmark";
-import ProjectScene from "@/components/ProjectScene";
+import ProjectImage from "@/components/ProjectImage";
 import { ButtonLink, SectionHeading } from "@/components/ui";
 import {
   IconArrowRight,
@@ -40,18 +40,29 @@ const services = [
 const projects = [
   {
     variant: "allee" as const,
+    photo:
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=70",
+    photoAlt:
+      "Sunlight falling through a long allée of mature trees over a quiet drive",
     title: "The Oak Allée",
     place: "East Beach Boulevard, Biloxi",
     summary: "A 300-foot live-oak drive restored with under-canopy fog irrigation and a crushed-shell approach.",
   },
   {
     variant: "parterre" as const,
+    photo:
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=70",
+    photoAlt:
+      "A home framed by a deep manicured lawn and layered foundation planting",
     title: "Rue Magnolia Parterre",
     place: "Historic Biloxi",
     summary: "A formal French quarter-garden — clipped boxwood, four beds, and a cast-stone fountain at center.",
   },
   {
     variant: "coastal" as const,
+    photo:
+      "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=1200&q=70",
+    photoAlt: "A broad green lawn edged with deep planted borders",
     title: "Davis Bayou Lawn",
     place: "Ocean Springs",
     summary: "A lawn that eases down to the bayou through sea oats, with a winding oyster-shell path to the water.",
@@ -179,9 +190,10 @@ export default function Home() {
               <Reveal key={pr.title} delay={i * 110}>
                 <Link href="/portfolio" className="group block">
                   <div className="overflow-hidden">
-                    <ProjectScene
+                    <ProjectImage
+                      src={pr.photo}
+                      alt={pr.photoAlt}
                       variant={pr.variant}
-                      title={pr.title}
                       className="w-full aspect-[4/3] transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
                   </div>
