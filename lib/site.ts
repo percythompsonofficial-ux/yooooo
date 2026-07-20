@@ -1,10 +1,9 @@
 /**
  * Single source of truth for Songy Brothers Lawn & Landscape.
  *
- * ⚠️  BEFORE GOING LIVE — replace the placeholder CONTACT values below.
- *     The phone and email are placeholders (000-0000 / example.com) so no
- *     real customer is ever sent to a wrong number. Everything else here is
- *     verified from the business's public listings.
+ * Phone is the real business number. The email is a placeholder address —
+ * set up an inbox at this address (or swap in the owner's preferred email,
+ * e.g. a Gmail) so the contact form and mailto links actually reach someone.
  */
 
 export const site = {
@@ -15,11 +14,11 @@ export const site = {
   established: "Family owned & operated",
 
   contact: {
-    // ⚠️ REPLACE — placeholder until the real number is provided
-    phoneDisplay: "(228) 000-0000",
-    phoneHref: "tel:+12280000000",
-    // ⚠️ REPLACE — placeholder email
-    email: "hello@songybrotherslawn.com",
+    // Real business number
+    phoneDisplay: "(601) 590-0893",
+    phoneHref: "tel:+16015900893",
+    // Made-up address — set up this inbox, or swap in the owner's real email
+    email: "info@songybrotherslawn.com",
     // Real, verified public links:
     facebook:
       "https://www.facebook.com/p/Songy-Brothers-Lawn-Landscape-100057048686797/",
