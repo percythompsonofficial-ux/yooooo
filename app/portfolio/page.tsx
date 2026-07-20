@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 const work: {
   variant: SceneVariant;
   photo: string;
+  fallbackSrc: string;
   photoAlt: string;
   title: string;
   summary: string;
@@ -22,7 +23,8 @@ const work: {
 }[] = [
   {
     variant: "cottage",
-    photo:
+    photo: "/photos/landscape-installations.jpg",
+    fallbackSrc:
       "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=70",
     photoAlt: "Freshly planted and mulched landscape beds along a home",
     title: "Landscape Installations",
@@ -32,7 +34,8 @@ const work: {
   },
   {
     variant: "coastal",
-    photo:
+    photo: "/photos/lawn-maintenance.jpg",
+    fallbackSrc:
       "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=1600&q=70",
     photoAlt: "A neatly mowed and edged green lawn beside a home",
     title: "Lawn Maintenance",
@@ -42,7 +45,8 @@ const work: {
   },
   {
     variant: "parterre",
-    photo:
+    photo: "/photos/sod-resodding.jpg",
+    fallbackSrc:
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1600&q=70",
     photoAlt: "A lush, freshly sodded green lawn in front of a home",
     title: "Sod & Resodding",
@@ -52,7 +56,8 @@ const work: {
   },
   {
     variant: "cottage",
-    photo:
+    photo: "/photos/flower-beds.jpg",
+    fallbackSrc:
       "https://images.unsplash.com/photo-1444392061186-9fc38f84f726?auto=format&fit=crop&w=1600&q=70",
     photoAlt: "A planted flower bed with seasonal color",
     title: "Flower Beds & Seasonal Color",
@@ -62,7 +67,8 @@ const work: {
   },
   {
     variant: "poolside",
-    photo:
+    photo: "/photos/shrub-hedge.jpg",
+    fallbackSrc:
       "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?auto=format&fit=crop&w=1600&q=70",
     photoAlt: "Trimmed shrubs and hedges framing a tidy landscape",
     title: "Shrub & Hedge Care",
@@ -72,7 +78,8 @@ const work: {
   },
   {
     variant: "allee",
-    photo:
+    photo: "/photos/tree-trimming.jpg",
+    fallbackSrc:
       "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=70",
     photoAlt: "Mature trees trimmed and cleared over a property",
     title: "Tree Trimming & Removal",
@@ -106,6 +113,7 @@ export default function OurWorkPage() {
                 <article>
                   <ProjectImage
                     src={w.photo}
+                    fallbackSrc={w.fallbackSrc}
                     alt={w.photoAlt}
                     variant={w.variant}
                     className="w-full aspect-[4/3]"

@@ -40,7 +40,8 @@ const services = [
 const work = [
   {
     variant: "cottage" as const,
-    photo:
+    photo: "/photos/landscape-installations.jpg",
+    fallbackSrc:
       "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=70",
     photoAlt: "Freshly planted and mulched landscape beds along a home",
     title: "Landscape Installations",
@@ -49,7 +50,8 @@ const work = [
   },
   {
     variant: "coastal" as const,
-    photo:
+    photo: "/photos/lawn-maintenance.jpg",
+    fallbackSrc:
       "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=1200&q=70",
     photoAlt: "A neatly mowed and edged green lawn",
     title: "Lawn Maintenance",
@@ -58,7 +60,8 @@ const work = [
   },
   {
     variant: "parterre" as const,
-    photo:
+    photo: "/photos/sod-resodding.jpg",
+    fallbackSrc:
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=70",
     photoAlt: "A lush, freshly sodded green lawn in front of a home",
     title: "Sod & Resodding",
@@ -190,6 +193,7 @@ export default function Home() {
                   <div className="overflow-hidden">
                     <ProjectImage
                       src={pr.photo}
+                      fallbackSrc={pr.fallbackSrc}
                       alt={pr.photoAlt}
                       variant={pr.variant}
                       className="w-full aspect-[4/3] transition-transform duration-700 ease-out group-hover:scale-[1.04]"
