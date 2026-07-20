@@ -27,5 +27,5 @@ finished, cleaned-up work in good daylight.
 | `shrub-hedge.jpg`              | Our Work                  |
 | `tree-trimming.jpg`            | Our Work                  |
 
-`.jpg`, `.jpeg`, `.png`, and `.webp` all work — just match the name before the
-dot (e.g. `lawn-maintenance.webp` is fine).
+`.jpg`, `.jpeg`, `.png`, and `.webp` all work — the site checks for each, so
+just match the name before the dot (e.g. `lawn-maintenance.png` is fine).

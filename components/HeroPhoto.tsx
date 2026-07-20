@@ -5,8 +5,21 @@ import OakScene from "./OakScene";
 
 /**
  * Full-bleed hero background photo with a dark overlay for text legibility.
- * Order: company photo (/public/photos) → stock photo → oak illustration.
+ * Order: company photo (/public/photos, any of .jpg/.jpeg/.png/.webp) →
+ * stock photo → oak illustration.
  */
+function buildCandidates(src: string, fallbackSrc?: string): string[] {
+  const list: string[] = [];
+  if (src.startsWith("/")) {
+    const base = src.replace(/\.[a-z0-9]+$/i, "");
+    for (const ext of [".jpg", ".jpeg", ".png", ".webp"]) list.push(base + ext);
+  } else {
+    list.push(src);
+  }
+  if (fallbackSrc) list.push(fallbackSrc);
+  return list;
+}
+
 export default function HeroPhoto({
   src,
   fallbackSrc,
@@ -16,21 +29,12 @@ export default function HeroPhoto({
   fallbackSrc?: string;
   idPrefix: string;
 }) {
-  const [stage, setStage] = useState<"primary" | "fallback" | "failed">(
-    "primary",
-  );
+  const candidates = buildCandidates(src, fallbackSrc);
+  const [idx, setIdx] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
-  const currentSrc = stage === "primary" ? src : fallbackSrc;
-  const showScene = stage === "failed" || !currentSrc;
-
-  function handleError() {
-    if (stage === "primary" && fallbackSrc) {
-      setStage("fallback");
-    } else {
-      setStage("failed");
-    }
-  }
+  const currentSrc = idx < candidates.length ? candidates[idx] : undefined;
+  const showScene = !currentSrc;
 
   return (
     <div className="absolute inset-0 overflow-hidden">
@@ -45,7 +49,7 @@ export default function HeroPhoto({
           alt=""
           aria-hidden="true"
           onLoad={() => setLoaded(true)}
-          onError={handleError}
+          onError={() => setIdx((i) => i + 1)}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
             loaded ? "opacity-100" : "opacity-0"
           }`}
