@@ -5,11 +5,11 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "Beau Jardin Landscape Co. — Biloxi, Mississippi",
-    template: "%s — Beau Jardin Landscape Co.",
+    default: "Songy Brothers Lawn & Landscape — Biloxi, Mississippi",
+    template: "%s — Songy Brothers Lawn & Landscape",
   },
   description:
-    "Estate-grade landscape design, build, and grounds care on the Mississippi Gulf Coast. Native coastal planting, outdoor living, and garden lighting in Biloxi and beyond.",
+    "Family-owned lawn care and landscaping on the Mississippi Gulf Coast. Mowing, landscaping, sod, tree work, and seasonal cleanups in Biloxi, Gulfport, Ocean Springs, and beyond. Free estimates.",
 };
 
 export default function RootLayout({

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { site } from "@/lib/site";
 
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
 
@@ -20,7 +21,7 @@ function validate(form: HTMLFormElement): Errors {
     errors.email = "That email doesn't look complete — check the address.";
   }
   if (!String(data.get("message") ?? "").trim()) {
-    errors.message = "Tell us a little about your grounds.";
+    errors.message = "Tell us a little about your yard.";
   }
   return errors;
 }
@@ -41,20 +42,20 @@ export default function ContactForm() {
     }
     const data = new FormData(form);
     const subject = encodeURIComponent(
-      `Consultation request — ${data.get("name")}`,
+      `Free estimate request — ${data.get("name")}`,
     );
     const body = encodeURIComponent(
       [
         `Name: ${data.get("name")}`,
         `Email: ${data.get("email")}`,
         `Phone: ${data.get("phone") || "—"}`,
-        `Property: ${data.get("location") || "—"}`,
-        `Interest: ${data.get("service")}`,
+        `Property location: ${data.get("location") || "—"}`,
+        `Service needed: ${data.get("service")}`,
         "",
         String(data.get("message")),
       ].join("\n"),
     );
-    window.location.href = `mailto:studio@beaujardin.co?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${site.contact.email}?subject=${subject}&body=${body}`;
     setSent(true);
   }
 
@@ -69,20 +70,20 @@ export default function ContactForm() {
         </p>
         <p className="mt-4 text-ink/75 leading-relaxed">
           Your email draft has opened in your mail app — send it on its way and
-          we&apos;ll reply within one business day. If it didn&apos;t open,
-          write us directly at{" "}
+          we&apos;ll get right back to you with your free estimate. If it
+          didn&apos;t open, write us at{" "}
           <a
-            href="mailto:studio@beaujardin.co"
+            href={`mailto:${site.contact.email}`}
             className="text-brass-deep underline underline-offset-4"
           >
-            studio@beaujardin.co
+            {site.contact.email}
           </a>{" "}
           or call{" "}
           <a
-            href="tel:+12285550184"
+            href={site.contact.phoneHref}
             className="text-brass-deep underline underline-offset-4"
           >
-            (228) 555-0184
+            {site.contact.phoneDisplay}
           </a>
           .
         </p>
@@ -106,7 +107,7 @@ export default function ContactForm() {
             aria-invalid={errors.name ? "true" : undefined}
             aria-describedby={errors.name ? "name-error" : undefined}
             className={inputClass}
-            placeholder="Marguerite Fontaine"
+            placeholder="Your name"
           />
           {errors.name && (
             <p id="name-error" role="alert" className="mt-2 text-sm text-red-800">
@@ -148,7 +149,7 @@ export default function ContactForm() {
             type="tel"
             autoComplete="tel"
             className={inputClass}
-            placeholder="(228) 555-0000"
+            placeholder="(228) 000-0000"
           />
         </div>
         <div>
@@ -160,29 +161,29 @@ export default function ContactForm() {
             name="location"
             type="text"
             className={inputClass}
-            placeholder="Biloxi, Ocean Springs…"
+            placeholder="Biloxi, Gulfport, Ocean Springs…"
           />
         </div>
       </div>
 
       <div>
         <label htmlFor="service" className="block text-xs uppercase tracking-[0.18em] text-ink/70 mb-2">
-          What can we help with?
+          What do you need?
         </label>
         <select id="service" name="service" className={`${inputClass} cursor-pointer`}>
-          <option>Landscape design & build</option>
-          <option>Native & coastal planting</option>
-          <option>Estate grounds care</option>
-          <option>Garden lighting</option>
-          <option>Irrigation & drainage</option>
-          <option>Outdoor living</option>
+          <option>Lawn maintenance &amp; mowing</option>
+          <option>Landscape design &amp; installation</option>
+          <option>Sod &amp; resodding</option>
+          <option>Shrubs, hedges &amp; flower beds</option>
+          <option>Tree trimming &amp; removal</option>
+          <option>Fertilization &amp; weed control</option>
           <option>Not sure yet — let&apos;s talk</option>
         </select>
       </div>
 
       <div>
         <label htmlFor="message" className="block text-xs uppercase tracking-[0.18em] text-ink/70 mb-2">
-          About your grounds <span aria-hidden="true" className="text-brass-deep">*</span>
+          About your yard <span aria-hidden="true" className="text-brass-deep">*</span>
         </label>
         <textarea
           id="message"
@@ -192,7 +193,7 @@ export default function ContactForm() {
           aria-invalid={errors.message ? "true" : undefined}
           aria-describedby={errors.message ? "message-error" : "message-help"}
           className={inputClass}
-          placeholder="The property, what you love about it, what isn't working…"
+          placeholder="Tell us what you're looking for — the size of the yard, what needs doing, and how often."
         />
         {errors.message ? (
           <p id="message-error" role="alert" className="mt-2 text-sm text-red-800">
@@ -200,7 +201,7 @@ export default function ContactForm() {
           </p>
         ) : (
           <p id="message-help" className="mt-2 text-xs text-ink/50">
-            A sentence or two is plenty — we&apos;ll ask the rest on the walk.
+            A sentence or two is plenty — we&apos;ll follow up with the rest.
           </p>
         )}
       </div>
@@ -209,7 +210,7 @@ export default function ContactForm() {
         type="submit"
         className="inline-block text-[0.78rem] uppercase tracking-[0.22em] px-10 py-4 bg-brass-deep text-linen hover:bg-ink transition-colors duration-200 cursor-pointer"
       >
-        Send Request
+        Request Free Estimate
       </button>
     </form>
   );

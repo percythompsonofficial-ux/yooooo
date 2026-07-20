@@ -4,75 +4,73 @@ import Reveal from "@/components/Reveal";
 import Wordmark from "@/components/Wordmark";
 import ProjectImage from "@/components/ProjectImage";
 import { ButtonLink, SectionHeading } from "@/components/ui";
+import { site } from "@/lib/site";
 import {
   IconArrowRight,
   IconCompassRose,
-  IconDrop,
-  IconLantern,
   IconOak,
   IconQuote,
   IconTopiary,
+  IconTrowel,
 } from "@/components/icons";
 
 const services = [
   {
-    icon: IconCompassRose,
-    title: "Landscape Design & Build",
-    body: "Master plans drawn for your grounds — grading, hardscape, planting — and built by our own crews.",
+    icon: IconTrowel,
+    title: "Lawn Maintenance & Mowing",
+    body: "Dependable weekly and biweekly mowing, edging, blowing, and trimming — the same crew, the same clean cut, every visit.",
   },
   {
-    icon: IconOak,
-    title: "Native & Coastal Planting",
-    body: "Live oaks, sweetbay, muhly grass, and salt-tolerant palettes that thrive in Gulf air and heavy summer rain.",
+    icon: IconCompassRose,
+    title: "Landscape Design & Installation",
+    body: "New beds, plantings, borders, and full yard makeovers designed for Gulf Coast heat, sand, and salt air.",
   },
   {
     icon: IconTopiary,
-    title: "Estate Grounds Care",
-    body: "Standing weekly care for fine gardens: pruning by hand, seasonal color, turf kept to a linen finish.",
+    title: "Shrubs, Hedges & Flower Beds",
+    body: "Pruning, shaping, mulching, and seasonal color that keep your beds sharp and your shrubs healthy year-round.",
   },
   {
-    icon: IconLantern,
-    title: "Garden Lighting",
-    body: "Moonlighting from oak canopies, path lanterns, and warm façade washes — designed for evenings outside.",
+    icon: IconOak,
+    title: "Tree Trimming & Removal",
+    body: "Careful trimming, storm cleanup, and safe removals — keeping your trees healthy and your property protected.",
   },
 ];
 
-const projects = [
+const work = [
   {
-    variant: "allee" as const,
+    variant: "cottage" as const,
     photo:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=70",
-    photoAlt:
-      "Sunlight falling through a long allée of mature trees over a quiet drive",
-    title: "The Oak Allée",
-    place: "East Beach Boulevard, Biloxi",
-    summary: "A 300-foot live-oak drive restored with under-canopy fog irrigation and a crushed-shell approach.",
-  },
-  {
-    variant: "parterre" as const,
-    photo:
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=70",
-    photoAlt:
-      "A home framed by a deep manicured lawn and layered foundation planting",
-    title: "Rue Magnolia Parterre",
-    place: "Historic Biloxi",
-    summary: "A formal French quarter-garden — clipped boxwood, four beds, and a cast-stone fountain at center.",
+      "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=70",
+    photoAlt: "Freshly planted and mulched landscape beds along a home",
+    title: "Landscape Installations",
+    place: "Design & planting",
+    summary: "Fresh beds, new plantings, and full front-yard makeovers built to last.",
   },
   {
     variant: "coastal" as const,
     photo:
       "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=1200&q=70",
-    photoAlt: "A broad green lawn edged with deep planted borders",
-    title: "Davis Bayou Lawn",
-    place: "Ocean Springs",
-    summary: "A lawn that eases down to the bayou through sea oats, with a winding oyster-shell path to the water.",
+    photoAlt: "A neatly mowed and edged green lawn",
+    title: "Lawn Maintenance",
+    place: "Weekly & biweekly care",
+    summary: "Crisp mowing, edging, and cleanup that keeps a yard looking cared-for.",
+  },
+  {
+    variant: "parterre" as const,
+    photo:
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=70",
+    photoAlt: "A lush, freshly sodded green lawn in front of a home",
+    title: "Sod & Resodding",
+    place: "New lawns",
+    summary: "Tired turf pulled and replaced with fresh, healthy sod graded to drain.",
   },
 ];
 
 export default function Home() {
   return (
     <>
-      {/* ——— Cinematic hero ——— */}
+      {/* ——— Hero ——— */}
       <section className="relative min-h-dvh flex items-center justify-center overflow-hidden grain">
         <OakScene className="absolute inset-0 w-full h-full" idPrefix="hero" />
         <div className="relative z-10 px-6 text-center animate-fade-in">
@@ -85,16 +83,15 @@ export default function Home() {
             className="mt-8 max-w-md mx-auto text-sm sm:text-base text-mist/90 animate-fade-up"
             style={{ animationDelay: "0.8s" }}
           >
-            Gardens composed under the live oaks — designed, built, and kept on
-            the Mississippi Gulf Coast.
+            {site.tagline} Honest work, fair prices, and free estimates.
           </p>
           <div
             className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up"
             style={{ animationDelay: "1.1s" }}
           >
-            <ButtonLink href="/contact">Begin a Consultation</ButtonLink>
+            <ButtonLink href="/contact">Get a Free Estimate</ButtonLink>
             <ButtonLink href="/portfolio" variant="outline">
-              View the Work
+              See Our Work
             </ButtonLink>
           </div>
         </div>
@@ -107,24 +104,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ——— Manifesto ——— */}
+      {/* ——— Statement ——— */}
       <section className="bg-linen text-ink">
         <div className="mx-auto max-w-4xl px-6 sm:px-8 py-24 sm:py-36 text-center">
           <Reveal>
             <p className="text-[0.7rem] sm:text-xs uppercase tracking-cap text-brass-deep">
-              Est. Biloxi — where the oaks meet the Sound
+              Family owned &amp; operated — Mississippi Gulf Coast
             </p>
             <p className="mt-8 font-display text-[clamp(1.7rem,3.6vw,2.9rem)] leading-[1.3] font-medium">
-              A garden here must hold its own against salt wind, July heat, and
-              four centuries of live oaks that were here first.{" "}
-              <em className="text-brass-deep">We design for all three.</em>
+              Two brothers, one standard: a yard we&apos;d be proud to put our
+              name on.{" "}
+              <em className="text-brass-deep">
+                Best price, highest quality — every job.
+              </em>
             </p>
             <div className="bed-rule mt-14 max-w-52 mx-auto text-ink" />
           </Reveal>
         </div>
       </section>
 
-      {/* ——— Services parterre grid ——— */}
+      {/* ——— Services ——— */}
       <section className="bg-parchment text-ink">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-24 sm:py-32">
           <Reveal>
@@ -133,9 +132,9 @@ export default function Home() {
                 eyebrow="What we do"
                 title={
                   <>
-                    Four disciplines,
+                    From weekly mowing
                     <br />
-                    one standard of care
+                    to full landscapes
                   </>
                 }
               />
@@ -145,7 +144,6 @@ export default function Home() {
             </div>
           </Reveal>
 
-          {/* bordered like a formal parterre plan */}
           <div className="mt-16 border border-ink/20 grid sm:grid-cols-2 lg:grid-cols-4">
             {services.map((s, i) => (
               <Reveal
@@ -181,12 +179,12 @@ export default function Home() {
             <SectionHeading
               dark
               center
-              eyebrow="Selected grounds"
-              title="Work that belongs to its place"
+              eyebrow="Our work"
+              title="Yards across the Coast"
             />
           </Reveal>
           <div className="mt-16 grid gap-10 lg:grid-cols-3">
-            {projects.map((pr, i) => (
+            {work.map((pr, i) => (
               <Reveal key={pr.title} delay={i * 110}>
                 <Link href="/portfolio" className="group block">
                   <div className="overflow-hidden">
@@ -223,12 +221,11 @@ export default function Home() {
             <IconQuote className="w-10 h-10 mx-auto text-brass-deep" />
             <blockquote className="mt-8">
               <p className="font-display text-[clamp(1.5rem,3vw,2.3rem)] leading-[1.35] font-medium">
-                “They treated our two-hundred-year-old oaks like elders of the
-                family. The garden they set beneath them looks as if it has
-                always been there.”
+                “The most conscientious, dedicated, and trustworthy lawn
+                professionals I have hired.”
               </p>
               <footer className="mt-8 text-xs uppercase tracking-cap text-ink/60">
-                E. Toche — East Beach Boulevard, Biloxi
+                Verified customer review
               </footer>
             </blockquote>
           </Reveal>
@@ -244,15 +241,15 @@ export default function Home() {
         <div className="relative z-10 mx-auto max-w-3xl px-6 sm:px-8 py-28 sm:py-40 text-center">
           <Reveal>
             <p className="text-xs uppercase tracking-cap text-brass">
-              Consultations for the coming season
+              Free estimates across the Gulf Coast
             </p>
             <h2 className="mt-5 font-display font-medium text-[clamp(2.2rem,5vw,4rem)] leading-[1.08]">
-              Let the grounds become
+              Ready for a yard
               <br />
-              the reason you stay home
+              you&apos;re proud of?
             </h2>
             <div className="mt-10">
-              <ButtonLink href="/contact">Request a Site Visit</ButtonLink>
+              <ButtonLink href="/contact">Get a Free Estimate</ButtonLink>
             </div>
           </Reveal>
         </div>

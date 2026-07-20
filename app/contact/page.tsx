@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Request a consultation with Beau Jardin Landscape Co. — landscape design, build, and estate grounds care in Biloxi, Mississippi. (228) 555-0184.",
+    "Request a free estimate from Songy Brothers Lawn & Landscape — lawn care and landscaping across the Mississippi Gulf Coast. Family owned & operated.",
 };
 
 export default function ContactPage() {
@@ -17,11 +18,12 @@ export default function ContactPage() {
         eyebrow="Contact"
         title={
           <>
-            Begin with
-            <br />a conversation
+            Get your
+            <br />
+            free estimate
           </>
         }
-        lede="Tell us about your grounds. We'll reply within one business day to arrange a walk of the property."
+        lede="Tell us about your yard and we'll get right back to you. No pressure, no obligation — just an honest quote."
       />
 
       <section className="bg-linen text-ink">
@@ -35,36 +37,45 @@ export default function ContactPage() {
               <aside className="space-y-10 lg:border-l lg:border-ink/15 lg:pl-12">
                 <div>
                   <h2 className="text-xs uppercase tracking-cap text-brass-deep mb-4">
-                    The studio
-                  </h2>
-                  <address className="not-italic text-sm leading-relaxed text-ink/75">
-                    1200 Rue Magnolia
-                    <br />
-                    Biloxi, MS 39530
-                  </address>
-                </div>
-                <div>
-                  <h2 className="text-xs uppercase tracking-cap text-brass-deep mb-4">
-                    Call or write
+                    Call or text
                   </h2>
                   <p className="text-sm leading-relaxed">
-                    <a href="tel:+12285550184" className="text-ink/80 hover:text-brass-deep transition-colors">
-                      (228) 555-0184
-                    </a>
-                    <br />
-                    <a href="mailto:studio@beaujardin.co" className="text-ink/80 hover:text-brass-deep transition-colors">
-                      studio@beaujardin.co
+                    <a href={site.contact.phoneHref} className="text-ink/80 hover:text-brass-deep transition-colors">
+                      {site.contact.phoneDisplay}
                     </a>
                   </p>
                 </div>
                 <div>
                   <h2 className="text-xs uppercase tracking-cap text-brass-deep mb-4">
-                    Hours
+                    Email
                   </h2>
-                  <p className="text-sm leading-relaxed text-ink/75">
-                    Monday–Friday, 7:30a–5p
-                    <br />
-                    Saturday by appointment
+                  <p className="text-sm leading-relaxed">
+                    <a href={`mailto:${site.contact.email}`} className="text-ink/80 hover:text-brass-deep transition-colors">
+                      {site.contact.email}
+                    </a>
+                  </p>
+                </div>
+                <div>
+                  <h2 className="text-xs uppercase tracking-cap text-brass-deep mb-4">
+                    Find us online
+                  </h2>
+                  <p className="text-sm leading-relaxed flex flex-col gap-2">
+                    <a
+                      href={site.contact.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-ink/80 hover:text-brass-deep transition-colors"
+                    >
+                      Facebook — Songy Brothers Lawn &amp; Landscape
+                    </a>
+                    <a
+                      href={site.contact.booking}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-ink/80 hover:text-brass-deep transition-colors"
+                    >
+                      Book online
+                    </a>
                   </p>
                 </div>
                 <div>
@@ -72,9 +83,7 @@ export default function ContactPage() {
                     Service area
                   </h2>
                   <p className="text-sm leading-relaxed text-ink/75">
-                    Biloxi · Ocean Springs · Gulfport
-                    <br />
-                    Pass Christian · Diamondhead · Bay St. Louis
+                    {site.serviceArea.join(" · ")}
                   </p>
                 </div>
               </aside>

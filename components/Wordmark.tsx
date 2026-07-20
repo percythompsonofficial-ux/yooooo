@@ -56,11 +56,11 @@ export default function Wordmark({
     return (
       <span className={`flex flex-col items-center gap-4 ${className}`}>
         <OakLeafMark className="w-12 h-12" />
-        <span className="font-display text-[clamp(2.6rem,7vw,5.5rem)] leading-none font-medium tracking-[0.14em] uppercase">
-          Beau Jardin
+        <span className="font-display text-[clamp(2.4rem,6.4vw,5rem)] leading-[0.95] font-medium tracking-[0.1em] uppercase">
+          Songy Brothers
         </span>
         <span className="text-[0.68rem] sm:text-xs tracking-cap uppercase opacity-80">
-          Landscape Co. — Biloxi, Mississippi
+          Lawn &amp; Landscape — Biloxi, Mississippi
         </span>
       </span>
     );
@@ -69,11 +69,11 @@ export default function Wordmark({
     <span className={`flex items-center gap-3 ${className}`}>
       <OakLeafMark className="w-8 h-8 shrink-0" />
       <span className="flex flex-col leading-tight">
-        <span className="font-display text-xl font-semibold tracking-[0.18em] uppercase">
-          Beau Jardin
+        <span className="font-display text-xl font-semibold tracking-[0.14em] uppercase">
+          Songy Brothers
         </span>
-        <span className="text-[0.6rem] tracking-[0.28em] uppercase opacity-70">
-          Landscape Co.
+        <span className="text-[0.6rem] tracking-[0.26em] uppercase opacity-70">
+          Lawn &amp; Landscape
         </span>
       </span>
     </span>

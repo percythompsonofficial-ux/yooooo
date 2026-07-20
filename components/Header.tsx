@@ -8,7 +8,7 @@ import Wordmark from "./Wordmark";
 const links = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/portfolio", label: "Portfolio" },
+  { href: "/portfolio", label: "Our Work" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -48,7 +48,7 @@ export default function Header() {
         <Link
           href="/"
           className="text-ivory hover:text-brass transition-colors duration-200"
-          aria-label="Beau Jardin Landscape Co. — home"
+          aria-label="Songy Brothers Lawn & Landscape — home"
         >
           <Wordmark />
         </Link>
@@ -75,12 +75,12 @@ export default function Header() {
               );
             })}
             <li>
-              <a
-                href="tel:+12285550184"
+              <Link
+                href="/contact"
                 className="text-[0.78rem] uppercase tracking-[0.22em] text-pine bg-brass hover:bg-ivory transition-colors duration-200 px-5 py-3"
               >
-                (228) 555-0184
-              </a>
+                Free Estimate
+              </Link>
             </li>
           </ul>
         </nav>
@@ -144,12 +144,12 @@ export default function Header() {
               }`}
               style={{ transitionDelay: open ? "400ms" : "0ms" }}
             >
-              <a
-                href="tel:+12285550184"
+              <Link
+                href="/contact"
                 className="text-sm uppercase tracking-[0.22em] text-pine bg-brass px-8 py-4 inline-block"
               >
-                (228) 555-0184
-              </a>
+                Free Estimate
+              </Link>
             </li>
           </ul>
         </nav>

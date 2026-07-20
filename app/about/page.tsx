@@ -3,37 +3,31 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { ButtonLink, SectionHeading } from "@/components/ui";
 import { OakLeafMark } from "@/components/Wordmark";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Beau Jardin Landscape Co. — a Biloxi landscape studio practicing estate-grade design, build, and grounds care on the Mississippi Gulf Coast since 2009.",
+    "Songy Brothers Lawn & Landscape is a family-owned lawn care and landscaping company serving the Mississippi Gulf Coast — Biloxi, Gulfport, Ocean Springs, and beyond.",
 };
 
 const values = [
   {
-    title: "The oaks come first",
-    body: "Some of our clients' trees predate the United States. Every plan we draw begins with what must be protected, then designs the garden around it.",
+    title: "Best price, highest quality",
+    body: "Our whole approach in one line: fair, honest pricing and work we'd be proud to put our own name on. No cutting corners, no surprise charges.",
   },
   {
-    title: "Built for this coast",
-    body: "Salt wind, sand, hurricanes, hundred-inch rains. We choose plants and build details for the Gulf Coast that exists — not the one in a catalog.",
+    title: "Family owned & operated",
+    body: "You're not dealing with a call center. You're dealing with the brothers whose name is on the truck, and a crew that treats your yard like their own.",
   },
   {
-    title: "Kept, not just installed",
-    body: "A garden is a practice, not a purchase. Most of our commissions stay with us for grounds care, and the work gets better every year we keep it.",
+    title: "The same crew, every time",
+    body: "Consistency is what keeps a yard looking cared-for. You get people who know your property, so nothing gets missed from one visit to the next.",
   },
   {
-    title: "One crew, one standard",
-    body: "Design, build, and care under one roof. The person who drew your plan walks your grounds during construction and after.",
+    title: "Built for the Gulf Coast",
+    body: "Heat, sand, salt air, and storm season are what we work in every day. We choose plants and methods that actually hold up to Mississippi weather.",
   },
-];
-
-const stats = [
-  ["2009", "Studio founded in Biloxi"],
-  ["140+", "Gardens designed & built"],
-  ["60", "Estates under standing care"],
-  ["0", "Heritage oaks lost on our watch"],
 ];
 
 export default function AboutPage() {
@@ -41,15 +35,15 @@ export default function AboutPage() {
     <>
       <PageHero
         idPrefix="ab"
-        eyebrow="About the studio"
+        eyebrow="About us"
         title={
           <>
-            Gardeners to the
+            Two brothers,
             <br />
-            Gulf Coast
+            one honest crew
           </>
         }
-        lede="Beau Jardin — 'beautiful garden' — borrows its name from the French who laid out this coast three centuries ago."
+        lede="Songy Brothers is a family-owned lawn care and landscaping company serving communities up and down the Mississippi Gulf Coast."
       />
 
       <section className="bg-linen text-ink">
@@ -57,28 +51,27 @@ export default function AboutPage() {
           <Reveal>
             <p className="font-display text-[clamp(1.4rem,2.6vw,1.9rem)] leading-[1.5]">
               <span className="font-display float-left text-[4.4em] leading-[0.8] pr-3 pt-1 text-brass-deep" aria-hidden="true">
-                B
+                W
               </span>
-              iloxi was drawn by French hands in 1699, and the town has never
-              lost the habit: gardens here still answer to shade, salt, and
-              company on the porch. Beau Jardin began in 2009 with one truck,
-              a set of hand tools, and a conviction that the coast deserved
-              gardens built to its own character — not imported from somewhere
-              with easier weather.
+              e started Songy Brothers on a simple idea: give people the best
+              price and the highest quality of work, and treat every yard like
+              it&apos;s our own. It&apos;s a family business, owned and
+              operated, and that&apos;s exactly how we run it — you deal with us
+              directly, and we stand behind everything we do.
             </p>
             <p className="mt-8 leading-relaxed text-ink/75">
-              Sixteen years on, we are a studio of designers, horticulturists,
-              masons, and grounds crews serving the beachfront and back-bay
-              neighborhoods from Bay St. Louis to Ocean Springs. The work ranges
-              from formal parterres behind historic cottages to shoreline lawns
-              that step down into the bayou — all of it drawn, built, and kept
-              by the same hands.
+              Today we take care of lawns and landscapes across the Mississippi
+              Gulf Coast — Bay St. Louis, Diamondhead, Pass Christian, Long
+              Beach, Gulfport, Biloxi, D&apos;Iberville, and Ocean Springs. From
+              a standing weekly mow to a full landscape install, sod, tree work,
+              or a seasonal cleanup, it&apos;s the same crew, the same standard,
+              and always a free estimate up front.
             </p>
           </Reveal>
 
           <Reveal className="mt-16">
             <div className="grid grid-cols-2 lg:grid-cols-4 border border-ink/20">
-              {stats.map(([n, label], i) => (
+              {site.proofPoints.map(([n, label], i) => (
                 <div
                   key={label}
                   className={`p-6 sm:p-8 text-center border-ink/20 ${
@@ -103,7 +96,7 @@ export default function AboutPage() {
       <section className="bg-parchment text-ink">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
           <Reveal>
-            <SectionHeading center eyebrow="How we practice" title="Four convictions" />
+            <SectionHeading center eyebrow="How we work" title="What you can count on" />
           </Reveal>
           <div className="mt-14 grid gap-x-14 gap-y-12 sm:grid-cols-2 max-w-4xl mx-auto">
             {values.map((v, i) => (
@@ -127,13 +120,13 @@ export default function AboutPage() {
         <div className="relative z-10 mx-auto max-w-3xl px-6 sm:px-8 py-20 sm:py-28 text-center">
           <Reveal>
             <p className="text-xs uppercase tracking-cap text-brass">
-              Licensed & insured · Mississippi landscape contractor
+              Serving the Mississippi Gulf Coast
             </p>
             <h2 className="mt-5 font-display text-[clamp(1.9rem,4vw,3rem)] font-medium leading-[1.15]">
-              Come walk your grounds with us
+              Let&apos;s take care of your yard
             </h2>
             <div className="mt-9">
-              <ButtonLink href="/contact">Meet the Studio</ButtonLink>
+              <ButtonLink href="/contact">Get a Free Estimate</ButtonLink>
             </div>
           </Reveal>
         </div>
