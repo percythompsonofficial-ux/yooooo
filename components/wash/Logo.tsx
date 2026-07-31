@@ -1,10 +1,10 @@
-import { IconFan } from "./icons";
+import { IconWasher } from "./icons";
 
 export default function Logo({ dark = false }: { dark?: boolean }) {
   return (
     <span className="flex items-center gap-2.5">
-      <IconFan
-        className={`w-[22px] h-[22px] ${dark ? "text-spray-lit" : "text-spray"}`}
+      <IconWasher
+        className={`w-[30px] h-[30px] shrink-0 ${dark ? "text-spray-lit" : "text-spray"}`}
       />
       <span className="leading-none">
         <span

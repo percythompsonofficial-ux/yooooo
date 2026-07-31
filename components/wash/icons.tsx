@@ -12,16 +12,42 @@ const base = {
 
 type P = { className?: string };
 
-/** The brand mark: a spray fan leaving a nozzle. */
-export function IconFan({ className = "" }: P) {
+/**
+ * The brand mark: a washer leaning into the work, wand down to the slab.
+ *
+ * Drawn on its own 32px grid rather than the 24px icon base, with the body
+ * heavier than the equipment — that weight difference is what keeps the
+ * figure legible once it shrinks to the header. The spray is a solid wedge
+ * rather than radiating lines, which collapse into a bird's foot at small
+ * sizes, and the cap brim gives the figure a direction to face.
+ */
+export function IconWasher({ className = "" }: P) {
   return (
-    <svg {...base} className={className}>
-      <path d="M6 4.5 L6 8" />
-      <path d="M6 6.25 L18.5 3" />
-      <path d="M6 6.25 L19.5 8.5" />
-      <path d="M6 6.25 L19 14" />
-      <path d="M6 6.25 L16.5 18.5" />
-      <path d="M6 6.25 L12 21" />
+    <svg
+      viewBox="0 0 32 32"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M26.2 20.9 L31 27.2 L24 27.2 Z"
+        fill="currentColor"
+        stroke="none"
+        opacity="0.3"
+      />
+      <path d="M4.5 27.4 L30.5 27.4" strokeWidth="1.6" opacity="0.5" />
+      <g strokeWidth="2.8">
+        <circle cx="11" cy="7.6" r="3.2" />
+        <path d="M12.4 5.8 L18.2 5.1" />
+        <path d="M11.8 11.2 L13.4 18.8" />
+        <path d="M13.4 18.8 L10 26.6" />
+        <path d="M13.4 18.8 L17.4 22.9 L17.8 26.6" />
+        <path d="M12.4 13.2 L18.8 16.7" />
+      </g>
+      <path d="M16.8 14.7 L26.2 20.9" strokeWidth="2" />
     </svg>
   );
 }
