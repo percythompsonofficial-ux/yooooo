@@ -30,6 +30,26 @@
   --color-blush: #e7d3ce;
   --color-gulf: #b0857f;
 
+  /* Saltline Surface Co. — "Wet Stone" tokens (/wash)
+     The palette is the physics of the trade: soiled stone is pale, chalky and
+     olive; clean wet stone is dark, cool and saturated. Accent colours are the
+     industry nozzle-tip code, which the site uses as a real spec system. */
+  --color-chalk: #edeae1;
+  --color-chalk-2: #f7f5ef;
+  --color-chalk-3: #e1ddd1;
+  --color-prussian: #0b1c26;
+  --color-deepwater: #10303f;
+  --color-stone: #59636a;
+  --color-efflor: #a9b7bc;
+  --color-algae: #6b7050;
+  --color-grime: #4a4b3c;
+  --color-spray: #00a2b8;
+  --color-spray-lit: #4fd9e8;
+  --color-spray-ink: #056c7c;
+  --color-tip-red: #e8402a;
+  --color-tip-yellow: #d8951b;
+  --color-tip-green: #2fa75f;
+
   --font-display: "Cormorant Garamond", "Georgia", serif;
   --font-sans: "Karla", "Helvetica Neue", Arial, sans-serif;
 
@@ -146,6 +166,101 @@ body {
   background: var(--color-amber);
 }
 
+/* ——— Saltline Surface Co. theme scope (/wash) ——— */
+.theme-wash {
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", monospace;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+.theme-wash .font-display {
+  letter-spacing: -0.03em;
+  font-optical-sizing: auto;
+}
+.theme-wash ::selection {
+  background: var(--color-spray-lit);
+  color: var(--color-prussian);
+}
+.theme-wash :focus-visible {
+  outline: 2px solid var(--color-spray);
+  outline-offset: 3px;
+}
+
+/* Spec label — equipment-plate typography for tip/PSI readouts */
+.spec {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hero layer 1 — clean, wet, saturated stone. What the wand reveals. */
+.wash-clean {
+  background:
+    radial-gradient(115% 85% at 16% 8%, #276f88 0%, transparent 58%),
+    radial-gradient(95% 80% at 86% 82%, #0f4257 0%, transparent 62%),
+    linear-gradient(158deg, #113244 0%, #071a26 100%);
+}
+/* wet aggregate — the speckle in poured concrete, visible once the film is off */
+.wash-clean::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23a)'/%3E%3C/svg%3E");
+}
+/* The one flourish: a rainbow in the spray fan. Pale, like the real thing. */
+.wash-prism {
+  background: linear-gradient(
+    102deg,
+    transparent 28%,
+    rgba(255, 206, 120, 0.09) 41%,
+    rgba(120, 255, 232, 0.13) 50%,
+    rgba(158, 164, 255, 0.09) 59%,
+    transparent 72%
+  );
+}
+/* Just enough veil to hold white text over the soiled film, and no more —
+   any heavier and the wand's trail stops reading as a change in the stone. */
+.wash-scrim {
+  background:
+    linear-gradient(
+      92deg,
+      rgba(6, 18, 25, 0.74) 0%,
+      rgba(6, 18, 25, 0.5) 40%,
+      rgba(6, 18, 25, 0.14) 72%,
+      rgba(6, 18, 25, 0) 100%
+    ),
+    linear-gradient(to top, rgba(6, 18, 25, 0.6) 0%, transparent 46%);
+}
+@media (pointer: fine) {
+  .wash-surface {
+    cursor: none;
+  }
+}
+
+/* Fan rule — a spray fan standing in for the usual divider line */
+.fan-rule {
+  height: 10px;
+  width: 4.5rem;
+  background: repeating-linear-gradient(
+    76deg,
+    currentColor 0 1px,
+    transparent 1px 7px
+  );
+}
+
+/* Surface plates wipe from soiled to clean along a wet diagonal edge */
+.plate-soil {
+  transition: clip-path 1.05s cubic-bezier(0.32, 0.72, 0.24, 1);
+}
+.plate-edge {
+  transition: transform 1.05s cubic-bezier(0.32, 0.72, 0.24, 1);
+}
+
 /* Scroll reveal */
 .reveal {
   opacity: 0;
@@ -158,6 +273,8 @@ body {
   opacity: 1;
   transform: none;
 }
+/* Scroll reveal is an enhancement — without scripting the content is simply there. */
+
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -173,5 +290,9 @@ body {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+  .plate-soil,
+  .plate-edge {
+    transition-duration: 0.01ms !important;
   }
 }
