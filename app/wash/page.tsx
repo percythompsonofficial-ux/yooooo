@@ -1,5 +1,5 @@
 import Link from "next/link";
-import WashHero from "@/components/wash/WashHero";
+import LensHero from "@/components/wash/LensHero";
 import SurfacePlate from "@/components/wash/SurfacePlate";
 import Reveal from "@/components/wash/Reveal";
 import QuoteForm from "@/components/wash/QuoteForm";
@@ -22,7 +22,7 @@ import {
 export default function WashHome() {
   return (
     <>
-      <WashHero />
+      <LensHero />
 
       {/* ——— The rig, in its own numbers ——— */}
       <section className="border-b border-prussian/10 bg-chalk-2">
@@ -54,19 +54,19 @@ export default function WashHome() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2 lg:gap-20">
           <Reveal>
             <SectionHeading
-              eyebrow="What's actually on there"
+              eyebrow="How you actually remove it"
               title={
                 <>
-                  Concrete doesn&rsquo;t fade.
+                  Killing it is the job.
                   <br />
-                  It gets covered.
+                  Rinsing is the finish.
                 </>
               }
-              lede="Nothing about a slab turns gray with age. What you're looking at is a film — algae from our humidity, salt carried in off the Sound, tyre rubber, oil, and the mildew that lives on all of it. It sits on the surface. It comes off the surface."
+              lede="Once you know the film is alive, the method follows. Detergent goes on and dwells long enough to kill the colony at the root, and only then does water come into it. That order is why a proper wash still looks clean next summer and a cheap one is green again by August."
             />
             <ul className="mt-9 space-y-4">
               {[
-                "Organic growth is killed with detergent, not scraped off with pressure",
+                "Detergent kills the growth; pressure alone just relocates it",
                 "Hot water lifts the oil and grease that cold water only spreads",
                 "Every material gets tested in a hidden spot before the job starts",
               ].map((point) => (
