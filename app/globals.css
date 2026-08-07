@@ -30,6 +30,21 @@
   --color-blush: #e7d3ce;
   --color-gulf: #b0857f;
 
+  /* AI AT WORK rep practice (/practice) — "dialer" tokens */
+  --color-dial: #0a0c10;
+  --color-dial-2: #12161d;
+  --color-dial-3: #1b212a;
+  --color-dial-4: #252d38;
+  --color-dial-line: #2c3542;
+  --color-dial-text: #e2e8f0;
+  --color-dial-dim: #8b97a8;
+  --color-signal: #4ade80;
+  --color-signal-deep: #166534;
+  --color-caution: #fbbf24;
+  --color-danger: #f87171;
+  --color-danger-deep: #7f1d1d;
+  --color-cyan: #67e8f9;
+
   --font-display: "Cormorant Garamond", "Georgia", serif;
   --font-sans: "Karla", "Helvetica Neue", Arial, sans-serif;
 
@@ -144,6 +159,46 @@ body {
   height: 3px;
   width: 3.5rem;
   background: var(--color-amber);
+}
+
+/* ——— AI AT WORK rep practice theme scope (/practice) ——— */
+.theme-practice {
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --tracking-cap: 0.18em;
+  font-family: var(--font-sans);
+  background: var(--color-dial);
+  color: var(--color-dial-text);
+}
+.theme-practice ::selection {
+  background: var(--color-cyan);
+  color: var(--color-dial);
+}
+.theme-practice :focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+/* Handset ring while the prospect is on the line */
+@keyframes dial-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+.dial-live {
+  animation: dial-pulse 1.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dial-live {
+    animation: none;
+  }
 }
 
 /* Scroll reveal */
