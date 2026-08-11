@@ -1,0 +1,13 @@
+# Your details and your list — never committed.
+config.toml
+data/prospects.csv
+data/suppression.txt
+
+# The send log. Local only, but keep your own backup — it's the record of who
+# was contacted and when.
+state/
+
+review.md
+.venv/
+__pycache__/
+*.pyc

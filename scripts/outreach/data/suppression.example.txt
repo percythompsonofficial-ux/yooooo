@@ -1,0 +1,16 @@
+# Never contact anyone listed here. Checked when drafting AND again at send
+# time, so an approved message still gets held back if you add the address in
+# between.
+#
+# One entry per line:
+#   someone@example.com     a single address
+#   @example.com            everyone at that domain
+#
+# When anyone replies STOP, asks to be removed, or tells you no — add them here
+# immediately. CAN-SPAM gives you 10 business days; do it the same day.
+
+# unsubscribed
+someone-who-said-no@example.com
+
+# competitors, current customers, family
+@competitor-roofing.example.com

@@ -1,0 +1,77 @@
+# Copy to config.toml and edit. config.toml is gitignored — it holds your
+# details, not secrets. The SMTP password comes from the environment.
+#
+# Everything under [sender] is the complete set of claims the drafter is
+# allowed to make about your business. If it isn't here, it can't be said.
+
+[sender]
+business = "Coast to Coast Roofing"
+person = "Your Name"
+role = "Owner"
+description = "Roofing repair, replacement, and storm damage work on the Mississippi Gulf Coast. Locally owned, BBB accredited, free inspections."
+phone = "(228) 234-1371"
+email = "c2c.roof.ms@gmail.com"
+website = "https://coasttocoastroofingms.com"
+
+# Required by CAN-SPAM in every commercial email. A PO box is fine.
+mailing_address = "PO Box 0000, Biloxi, MS 39532"
+
+service_area = [
+  "Biloxi", "Gulfport", "Ocean Springs", "D'Iberville",
+  "Long Beach", "Pass Christian", "Gautier", "Pascagoula",
+]
+
+# Only put things here you can actually back up if asked.
+proof_points = [
+  "BBB accredited",
+  "5.0 star rating, 100% recommended on Facebook",
+  "Serving the Gulf Coast since 2023",
+  "Free inspections",
+]
+
+offer = "A free roof inspection, no obligation, usually within a week."
+
+unsubscribe_line = "Not interested? Reply STOP and I won't email you again."
+
+
+[voice]
+tone = "Plain and local. Like an owner typing on his phone between jobs. Short sentences, contractions, no sales-speak."
+max_words_email = 130
+max_words_social = 90
+avoid = [
+  "I hope this email finds you well",
+  "I wanted to reach out",
+  "circle back",
+  "touch base",
+  "synergy",
+  "game-changer",
+  "As a fellow",
+]
+
+
+[claude]
+model = "claude-opus-5"
+# low | medium | high | xhigh | max. Short messages don't need deep reasoning;
+# medium is a good start. Try low if drafts are fine and you want it cheaper.
+effort = "medium"
+# Thinking is on by default and shares this budget with the message text, so
+# leave headroom well above the message length.
+max_tokens = 4000
+
+
+[email]
+smtp_host = "smtp.gmail.com"
+smtp_port = 587
+username = "c2c.roof.ms@gmail.com"
+from_name = "Your Name, Coast to Coast Roofing"
+reply_to = "c2c.roof.ms@gmail.com"
+
+# Guardrails. Slow, small batches from a normal mailbox look like a person
+# working through a list. Hundreds at once looks like a spam cannon and gets
+# the domain filtered.
+daily_limit = 40
+min_seconds_between = 45
+
+# Read the password from this environment variable. For Gmail: turn on
+# 2-Step Verification, then create an App Password.
+password_env = "OUTREACH_SMTP_PASSWORD"

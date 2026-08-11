@@ -1,0 +1,6 @@
+id,name,company,role,email,channel,profile_url,city,note,source
+lead-001,Dana Whitfield,,Homeowner,dana.whitfield@example.com,email,,Ocean Springs,Posted in the Ocean Springs community group asking who to call about missing shingles after the last storm,Facebook community group
+lead-002,Marcus Bell,Bell Property Management,Owner,marcus@example.com,email,,Gulfport,Manages six rental duplexes on Pass Road; mentioned at the chamber breakfast that two roofs are past 20 years,Chamber of Commerce breakfast
+lead-003,Priya Raman,Gulfview Dental,Practice Manager,,linkedin,https://www.linkedin.com/in/example-priya-raman,Biloxi,Their building permit for a rear extension was filed last month — new roof section likely needed,City permit filings
+lead-004,Tom Guidry,,Homeowner,,facebook,https://www.facebook.com/example.tom.guidry,D'Iberville,Asked for roofer recommendations in the D'Iberville neighbors group last Tuesday,Facebook neighbors group
+lead-005,Angela Soto,Soto Family Diner,Owner,angela@example.com,email,,Long Beach,,Walked past the storefront

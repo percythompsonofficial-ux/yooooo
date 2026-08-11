@@ -1,0 +1,2 @@
+# Python 3.11+ (tomllib and smtplib are stdlib; nothing else is needed)
+anthropic>=0.116.0
