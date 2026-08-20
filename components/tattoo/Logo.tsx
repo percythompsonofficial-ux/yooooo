@@ -9,7 +9,7 @@ import { site } from "@/lib/tattoo-site";
  * is never empty. `hasFile` gates the request so an absent logo costs
  * nothing on every page load.
  */
-const LOGO_SRC = ""; // set to "/brand/inkdupjo.png" once the file is added
+const LOGO_SRC = "/photos/tattoo/brand-logo.png";
 
 export default function Logo({
   className = "h-11 w-11",

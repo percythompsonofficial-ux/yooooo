@@ -14,11 +14,11 @@ export default function TattooHome() {
       {/* ——— Hero ——— */}
       <section className="relative min-h-[100svh] flex items-end overflow-hidden">
         <TattooImage
-          src="" /* set to "/photos/tattoo/hero.jpg" once the photo is added */
+          src="/photos/tattoo/work-madonna.jpg"
           alt=""
           label=""
           className="absolute inset-0"
-          imgClassName="object-center"
+          objectPosition="center 20%"
         />
         <div
           aria-hidden="true"

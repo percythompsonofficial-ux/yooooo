@@ -15,6 +15,7 @@ export default function TattooImage({
   label,
   className = "",
   imgClassName = "",
+  objectPosition,
 }: {
   /** Path under /public, e.g. "/photos/tattoo/work-01.jpg". Empty = no photo yet. */
   src?: string;
@@ -23,6 +24,8 @@ export default function TattooImage({
   label?: string;
   className?: string;
   imgClassName?: string;
+  /** CSS object-position, to keep the piece in frame when the card crops. */
+  objectPosition?: string;
 }) {
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -60,6 +63,7 @@ export default function TattooImage({
           src={src}
           alt={alt}
           loading="lazy"
+          style={objectPosition ? { objectPosition } : undefined}
           onLoad={() => setLoaded(true)}
           onError={() => {
             setLoaded(false);

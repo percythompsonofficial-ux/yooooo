@@ -124,7 +124,8 @@ export const site = {
       placement: "Upper arm — sleeve finish",
       style: "Script & Lettering",
       note: "Red script heading over a fine-script passage, with a winged cherub, cross, and cloud fill closing out the sleeve.",
-      photo: "", // "/photos/tattoo/work-proverbs.jpg"
+      focus: "center",
+      photo: "/photos/tattoo/work-proverbs.jpg",
     },
     {
       slug: "in-his-time",
@@ -132,7 +133,8 @@ export const site = {
       placement: "Forearm",
       style: "Script & Lettering",
       note: "A realistic eye above banked cloudwork, script running down the forearm into stacked gothic crosses.",
-      photo: "", // "/photos/tattoo/work-in-his-time.jpg"
+      focus: "center",
+      photo: "/photos/tattoo/work-in-his-time.jpg",
     },
     {
       slug: "no-mercy",
@@ -140,7 +142,8 @@ export const site = {
       placement: "Forearm to hand",
       style: "Script & Lettering",
       note: "Three-line script with the key words picked out in colour, running into smoke and skull work across the hand.",
-      photo: "", // "/photos/tattoo/work-no-mercy.jpg"
+      focus: "58% 34%",
+      photo: "/photos/tattoo/work-no-mercy.jpg",
     },
     {
       slug: "madonna",
@@ -148,7 +151,8 @@ export const site = {
       placement: "Half sleeve",
       style: "Black & Grey",
       note: "Veiled portrait with a single red tear above a radiant cross, shaded in soft black and grey.",
-      photo: "", // "/photos/tattoo/work-madonna.jpg"
+      focus: "center",
+      photo: "/photos/tattoo/work-madonna.jpg",
     },
     {
       slug: "dragon-hibiscus",
@@ -156,6 +160,7 @@ export const site = {
       placement: "Leg", // inferred from the photo — confirm with the artist
       style: "Colour",
       note: "A coiled dragon in full colour over a hibiscus bloom, finished with red lettering — the brightest piece in the portfolio.",
+      focus: "center",
       photo: "", // "/photos/tattoo/work-dragon.jpg"
     },
     {
@@ -164,6 +169,7 @@ export const site = {
       placement: "Full sleeve", // confirm with the artist
       style: "Sleeve Work",
       note: "Session work on a full sleeve, shot in the chair mid-build.",
+      focus: "center",
       photo: "", // "/photos/tattoo/work-sleeve-session.jpg"
     },
   ],

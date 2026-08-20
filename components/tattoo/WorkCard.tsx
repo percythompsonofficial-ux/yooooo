@@ -10,6 +10,7 @@ export default function WorkCard({ item }: { item: WorkItem }) {
         alt={`${item.name} — ${item.style}, ${item.placement}`}
         label={item.name}
         className="aspect-[4/5]"
+        objectPosition={item.focus}
         imgClassName="group-hover:scale-[1.04] transition-transform duration-700"
       />
       <figcaption className="p-4 border-t border-salt/12">

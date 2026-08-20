@@ -1,36 +1,40 @@
-# Iron Tide Tattoo photos
+# InkdUpJo photos
 
-Every visual slot takes a real photograph. Until one is supplied, the slot
-shows the studio's drawn flash instead, so nothing is ever blank.
+## What's here
 
-## Adding a photo
+| File | Used for |
+| --- | --- |
+| `brand-logo.png` | The logo mark, in the header and footer |
+| `work-proverbs.jpg` | Proverbs 13:4 |
+| `work-in-his-time.jpg` | When the Time Is Right |
+| `work-no-mercy.jpg` | Protect · Respect · Mercy |
+| `work-madonna.jpg` | Madonna — also the homepage hero |
 
-1. Drop the file in this folder — e.g. `work-01.jpg`, `artist-mara.jpg`.
-2. Point the matching entry in `lib/tattoo-site.ts` at it:
+All five were processed from the artist's originals: Instagram app chrome
+cropped off the two screenshots, the logo cropped to its circle, and
+everything resized to a 1400px long edge. The two originals were 6MB PNGs;
+they are now ~130KB JPEGs.
 
-   ```ts
-   photo: "/photos/tattoo/work-01.jpg",
-   ```
+## Still needed
 
-The photograph then replaces the flash, and falls back to the flash if it
-ever fails to load.
+- `work-dragon.jpg` — the colour dragon and hibiscus
+- `work-sleeve-session.jpg` — the sleeve in progress
+- `artist-jo.jpg` — a portrait of Jo for the artist section
+- a dedicated landscape hero shot, if he'd rather not reuse the Madonna
 
-`photo` is empty by default on purpose: an empty value means the browser
-makes no request at all, rather than hunting each page load for a file that
-isn't there yet.
+## Adding one
 
-## Slots
+Drop the file in this folder and point the matching entry in
+`lib/tattoo-site.ts` at it:
 
-| Where | Entry in `lib/tattoo-site.ts` | Crop |
-| --- | --- | --- |
-| Homepage hero | `src` on the hero `TattooImage` | landscape, 2000px+ wide |
-| Artists (3) | `artists[].photo` | portrait, 3:4 |
-| Work wall (8) | `flash[].photo` | portrait, 4:5 |
+```ts
+photo: "/photos/tattoo/work-dragon.jpg",
+```
 
-## Shooting notes
+Each entry also takes `focus` — a CSS object-position such as `"58% 34%"` —
+which decides what stays in frame when the 4:5 card crops a tall photo.
+Leave it `"center"` unless the subject sits off-centre.
 
-- Portrait 4:5 for work shots — the cards crop to that ratio.
-- 1600px on the long edge is plenty; larger files just slow the page down.
-- Shoot the tattoo filling the frame. Cards are ~350px wide on a laptop, so
-  a piece shot from across the room reads as nothing.
-- Healed work photographs better than fresh — less redness and shine.
+Shoot or crop to portrait 4:5 where you can, and keep the long edge around
+1400px. A slot with no photo shows a plain labelled panel, never a stand-in
+image.
