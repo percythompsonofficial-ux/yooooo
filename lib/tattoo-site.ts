@@ -164,13 +164,13 @@ export const site = {
       photo: "", // "/photos/tattoo/work-dragon.jpg"
     },
     {
-      slug: "sleeve-session",
-      name: "Sleeve in Progress",
-      placement: "Full sleeve", // confirm with the artist
-      style: "Sleeve Work",
-      note: "Session work on a full sleeve, shot in the chair mid-build.",
-      focus: "center",
-      photo: "", // "/photos/tattoo/work-sleeve-session.jpg"
+      slug: "sun-lilies-sleeve",
+      name: "Sun & Lilies",
+      placement: "Full sleeve",
+      style: "Colour",
+      note: "A red sun and crescent moon set over lilies, a rose, and butterflies, with black-and-grey shading carrying the fill down the arm.",
+      focus: "center 40%",
+      photo: "/photos/tattoo/work-sun-sleeve.jpg"
     },
   ],
 

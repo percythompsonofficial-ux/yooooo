@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import Marquee from "@/components/tattoo/Marquee";
+import HeroVideo from "@/components/tattoo/HeroVideo";
 import TattooImage from "@/components/tattoo/TattooImage";
 import WorkCard from "@/components/tattoo/WorkCard";
 import { ButtonLink, Eyebrow, SectionHeading } from "@/components/tattoo/ui";
@@ -13,17 +14,18 @@ export default function TattooHome() {
     <>
       {/* ——— Hero ——— */}
       <section className="relative min-h-[100svh] flex items-end overflow-hidden">
-        <TattooImage
-          src="/photos/tattoo/work-madonna.jpg"
-          alt=""
-          label=""
+        <HeroVideo
+          sources={[
+            { src: "/photos/tattoo/hero-sleeve.webm", type: "video/webm" },
+            { src: "/photos/tattoo/hero-sleeve.mp4", type: "video/mp4" },
+          ]}
+          poster="/photos/tattoo/hero-sleeve-poster.jpg"
+          objectPosition="center 32%"
           className="absolute inset-0"
-          objectPosition="center 20%"
-          imgClassName="ken-burns"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-tr from-void via-void/85 to-void/50"
+          className="absolute inset-0 bg-gradient-to-tr from-void via-void/80 to-void/35"
         />
 
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8 pb-16 pt-40 w-full">
