@@ -74,9 +74,10 @@ export const site = {
     "Realism",
     "Portraits",
     "Religious Pieces",
+    "Japanese",
+    "Colour Work",
     "Sleeve Work",
     "Cloud & Smoke Fill",
-    "Color Accents",
   ],
 
   services: [
@@ -111,15 +112,17 @@ export const site = {
   ],
 
   /**
-   * The artist's real posted work. `photo` stays empty until the image file
-   * is added to /public/photos/tattoo — no stand-in art is shown in its place.
+   * The artist's real posted work. `style` is kept to a few broad buckets so
+   * the gallery filter actually groups pieces; the finer description of each
+   * piece lives in its `note`. `photo` stays empty until the image file is
+   * added to /public/photos/tattoo — no stand-in art is shown in its place.
    */
   work: [
     {
       slug: "proverbs",
       name: "Proverbs 13:4",
       placement: "Upper arm — sleeve finish",
-      style: "Script & Black-and-Grey",
+      style: "Script & Lettering",
       note: "Red script heading over a fine-script passage, with a winged cherub, cross, and cloud fill closing out the sleeve.",
       photo: "", // "/photos/tattoo/work-proverbs.jpg"
     },
@@ -127,7 +130,7 @@ export const site = {
       slug: "in-his-time",
       name: "When the Time Is Right",
       placement: "Forearm",
-      style: "Script & Realism",
+      style: "Script & Lettering",
       note: "A realistic eye above banked cloudwork, script running down the forearm into stacked gothic crosses.",
       photo: "", // "/photos/tattoo/work-in-his-time.jpg"
     },
@@ -135,7 +138,7 @@ export const site = {
       slug: "no-mercy",
       name: "Protect · Respect · Mercy",
       placement: "Forearm to hand",
-      style: "Script & Colour Accents",
+      style: "Script & Lettering",
       note: "Three-line script with the key words picked out in colour, running into smoke and skull work across the hand.",
       photo: "", // "/photos/tattoo/work-no-mercy.jpg"
     },
@@ -143,9 +146,25 @@ export const site = {
       slug: "madonna",
       name: "Madonna",
       placement: "Half sleeve",
-      style: "Black & Grey Realism",
+      style: "Black & Grey",
       note: "Veiled portrait with a single red tear above a radiant cross, shaded in soft black and grey.",
       photo: "", // "/photos/tattoo/work-madonna.jpg"
+    },
+    {
+      slug: "dragon-hibiscus",
+      name: "Dragon & Hibiscus",
+      placement: "Leg", // inferred from the photo — confirm with the artist
+      style: "Colour",
+      note: "A coiled dragon in full colour over a hibiscus bloom, finished with red lettering — the brightest piece in the portfolio.",
+      photo: "", // "/photos/tattoo/work-dragon.jpg"
+    },
+    {
+      slug: "sleeve-session",
+      name: "Sleeve in Progress",
+      placement: "Full sleeve", // confirm with the artist
+      style: "Sleeve Work",
+      note: "Session work on a full sleeve, shot in the chair mid-build.",
+      photo: "", // "/photos/tattoo/work-sleeve-session.jpg"
     },
   ],
 
