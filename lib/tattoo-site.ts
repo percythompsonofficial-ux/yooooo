@@ -96,18 +96,20 @@ export const site = {
   ],
 
   /**
-   * The flash wall: original designs drawn by the shop, ready to book as-is.
-   * Each one is real artwork on this site, not a placeholder.
+   * The work wall. Each entry shows the studio's photograph when `photo`
+   * names a file under /public/photos/tattoo, and falls back to the drawn
+   * flash design otherwise — so a slot is never empty while photos are
+   * still being shot.
    */
   flash: [
-    { name: "Traditional Swallow", design: "swallow" as const, artist: "Mara Vex", style: "American Traditional", size: '3–4"', price: "$160" },
-    { name: "Rose & Banner", design: "rose" as const, artist: "Mara Vex", style: "American Traditional", size: '4–5"', price: "$200" },
-    { name: "Coast Serpent", design: "snake" as const, artist: "June Okafor", style: "Neo-Traditional", size: '6–8"', price: "$260" },
-    { name: "Anchor & Rope", design: "anchor" as const, artist: "Mara Vex", style: "American Traditional", size: '4"', price: "$180" },
-    { name: "Death's-Head Moth", design: "moth" as const, artist: "June Okafor", style: "Neo-Traditional", size: '5"', price: "$240" },
-    { name: "Dagger & Heart", design: "dagger" as const, artist: "Mara Vex", style: "American Traditional", size: '4–5"', price: "$200" },
-    { name: "Nautical Star", design: "star" as const, artist: "Theo Reyes", style: "American Traditional", size: '2–3"', price: "$120" },
-    { name: "Biloxi Light", design: "lighthouse" as const, artist: "Theo Reyes", style: "Neo-Traditional", size: '5"', price: "$210" },
+    { name: "Traditional Swallow", design: "swallow" as const, photo: "", artist: "Mara Vex", style: "American Traditional", size: '3–4"', price: "$160" },
+    { name: "Rose & Banner", design: "rose" as const, photo: "", artist: "Mara Vex", style: "American Traditional", size: '4–5"', price: "$200" },
+    { name: "Coast Serpent", design: "snake" as const, photo: "", artist: "June Okafor", style: "Neo-Traditional", size: '6–8"', price: "$260" },
+    { name: "Anchor & Rope", design: "anchor" as const, photo: "", artist: "Mara Vex", style: "American Traditional", size: '4"', price: "$180" },
+    { name: "Death's-Head Moth", design: "moth" as const, photo: "", artist: "June Okafor", style: "Neo-Traditional", size: '5"', price: "$240" },
+    { name: "Dagger & Heart", design: "dagger" as const, photo: "", artist: "Mara Vex", style: "American Traditional", size: '4–5"', price: "$200" },
+    { name: "Nautical Star", design: "star" as const, photo: "", artist: "Theo Reyes", style: "American Traditional", size: '2–3"', price: "$120" },
+    { name: "Biloxi Light", design: "lighthouse" as const, photo: "", artist: "Theo Reyes", style: "Neo-Traditional", size: '5"', price: "$210" },
   ],
 
   // A real sequence — the only place the site numbers anything

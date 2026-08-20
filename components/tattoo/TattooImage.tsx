@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FlashArt, { type FlashDesign } from "./FlashArt";
 
 /**
@@ -42,8 +42,16 @@ export default function TattooImage({
   const candidates = buildCandidates(src, fallbackSrc);
   const [idx, setIdx] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const currentSrc = idx < candidates.length ? candidates[idx] : undefined;
+
+  // A cached image can finish loading before React attaches onLoad, which
+  // would leave it faded out forever — catch that case on mount.
+  useEffect(() => {
+    const el = imgRef.current;
+    if (el?.complete && el.naturalWidth > 0) setLoaded(true);
+  }, [currentSrc]);
   const showScene = !currentSrc;
 
   // `relative` would collide with a caller-supplied absolute/fixed position and
@@ -64,6 +72,7 @@ export default function TattooImage({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           key={currentSrc}
+          ref={imgRef}
           src={currentSrc}
           alt={alt}
           loading="lazy"
