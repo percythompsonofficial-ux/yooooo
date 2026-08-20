@@ -4,8 +4,8 @@ import Footer from "@/components/tattoo/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "Iron Tide Tattoo — Custom Tattoos in Biloxi, Mississippi",
-    template: "%s — Iron Tide Tattoo",
+    default: "InkdUpJo Tattoo — Custom Tattoos in Biloxi, Mississippi",
+    template: "%s — InkdUpJo Tattoo",
   },
   description:
     "Custom tattoo studio on the Mississippi Gulf Coast. American traditional, fine line, blackwork, Japanese, and cover-ups. Walk-ins welcome. Book a free consult.",

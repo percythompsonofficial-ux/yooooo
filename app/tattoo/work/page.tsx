@@ -3,26 +3,27 @@ import WorkGallery from "./WorkGallery";
 import Marquee from "@/components/tattoo/Marquee";
 import { ButtonLink, Eyebrow } from "@/components/tattoo/ui";
 import { IconArrow } from "@/components/tattoo/icons";
+import { site } from "@/lib/tattoo-site";
 
 export const metadata: Metadata = {
-  title: "Flash",
+  title: "Work",
   description:
-    "The Iron Tide flash wall — original designs by our artists, priced and ready to book as drawn. Walk in and pick one off the sheet.",
+    "Recent tattoos by InkdUpJo — custom script, black-and-grey realism, portraits, and sleeve work.",
 };
 
 export default function WorkPage() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-5 sm:px-8 pt-40 pb-16">
-        <Eyebrow className="animate-fade-up">The flash wall</Eyebrow>
+        <Eyebrow className="animate-fade-up">The gallery</Eyebrow>
         <h1 className="mt-5 font-display font-extrabold uppercase leading-[0.88] text-[clamp(3rem,9vw,7.5rem)] text-salt animate-fade-up">
-          Pick it off
+          Recent
           <br />
-          <span className="stroke-volt">the wall</span>
+          <span className="stroke-volt">work</span>
         </h1>
         <p className="mt-6 max-w-xl text-salt/80 text-lg leading-relaxed animate-fade-up">
-          Original designs drawn by our artists, priced as shown and ready to
-          tattoo as-is. Want one changed to fit you? That&apos;s a consult.
+          Pieces off the machine — script, black-and-grey, portraits, and
+          sleeve work. Filter by style to find your lane.
         </p>
       </section>
 
@@ -31,10 +32,10 @@ export default function WorkPage() {
       <WorkGallery />
 
       <section className="mx-auto max-w-7xl px-5 sm:px-8 pb-24 text-center">
-        <p className="text-salt/75">Want something of your own instead?</p>
+        <p className="text-salt/75">Want something like this of your own?</p>
         <div className="mt-6 flex justify-center">
-          <ButtonLink href="/tattoo/booking">
-            Book a consult <IconArrow className="w-4 h-4" />
+          <ButtonLink href={site.contact.instagram}>
+            DM to book <IconArrow className="w-4 h-4" />
           </ButtonLink>
         </div>
       </section>

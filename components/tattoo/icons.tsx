@@ -1,4 +1,4 @@
-/** Shared inline icons for the Iron Tide theme. Stroke inherits currentColor. */
+/** Shared inline icons for the InkdUpJo theme. Stroke inherits currentColor. */
 
 export function IconStar({ className = "" }: { className?: string }) {
   // Nautical star — the studio's flash mark

@@ -1,58 +1,41 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import FlashArt, { type FlashDesign } from "./FlashArt";
 
 /**
- * Shows a real photograph, trying sources in order:
- *   1. the studio's own photo, when `src` names one (any extension)
- *   2. `fallbackSrc` — an optional explicit URL, if one is supplied
- *   3. the studio's own drawn flash — the default until photos are added
+ * A photograph of the studio's work.
+ *
+ * Shows the file at `src` when there is one. Until then it holds the space
+ * with a plain panel — no stand-in artwork, so nothing on the page can be
+ * mistaken for the shop's own work.
  */
-function buildCandidates(src: string, fallbackSrc?: string): string[] {
-  const list: string[] = [];
-  // No photo configured — show the studio's flash and make no requests at all.
-  if (!src) return fallbackSrc ? [fallbackSrc] : [];
-  if (src.startsWith("/")) {
-    const base = src.replace(/\.[a-z0-9]+$/i, "");
-    for (const ext of [".jpg", ".jpeg", ".png", ".webp"]) list.push(base + ext);
-  } else {
-    list.push(src);
-  }
-  if (fallbackSrc) list.push(fallbackSrc);
-  return list;
-}
-
 export default function TattooImage({
   src = "",
-  fallbackSrc,
   alt,
-  design,
+  label,
   className = "",
   imgClassName = "",
 }: {
-  /** Path under /public, e.g. "/photos/tattoo/hero". Empty = flash only. */
+  /** Path under /public, e.g. "/photos/tattoo/work-01.jpg". Empty = no photo yet. */
   src?: string;
-  fallbackSrc?: string;
   alt: string;
-  design: FlashDesign;
+  /** Shown in the empty state so the slot is identifiable. */
+  label?: string;
   className?: string;
   imgClassName?: string;
 }) {
-  const candidates = buildCandidates(src, fallbackSrc);
-  const [idx, setIdx] = useState(0);
+  const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
-  const currentSrc = idx < candidates.length ? candidates[idx] : undefined;
+  const showPhoto = Boolean(src) && !failed;
 
   // A cached image can finish loading before React attaches onLoad, which
   // would leave it faded out forever — catch that case on mount.
   useEffect(() => {
     const el = imgRef.current;
     if (el?.complete && el.naturalWidth > 0) setLoaded(true);
-  }, [currentSrc]);
-  const showScene = !currentSrc;
+  }, [src]);
 
   // `relative` would collide with a caller-supplied absolute/fixed position and
   // collapse the box, so only apply it when the caller hasn't set one.
@@ -62,24 +45,25 @@ export default function TattooImage({
     <div
       className={`${positioned ? "" : "relative"} overflow-hidden bg-char ${className}`}
     >
-      {(!loaded || showScene) && (
-        <FlashArt design={design} className="absolute inset-0 w-full h-full" />
+      {(!loaded || !showPhoto) && (
+        <div className="absolute inset-0 grid place-items-center border border-salt/10 px-4 text-center">
+          <span className="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-smoke">
+            {label ?? "Photo coming"}
+          </span>
+        </div>
       )}
-      {showScene && alt !== "" && (
-        <span className="sr-only">Original flash artwork drawn by the studio.</span>
-      )}
-      {!showScene && (
+      {showPhoto && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          key={currentSrc}
+          key={src}
           ref={imgRef}
-          src={currentSrc}
+          src={src}
           alt={alt}
           loading="lazy"
           onLoad={() => setLoaded(true)}
           onError={() => {
             setLoaded(false);
-            setIdx((i) => i + 1);
+            setFailed(true);
           }}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
             loaded ? "opacity-100" : "opacity-0"

@@ -35,7 +35,7 @@ export default function BookingForm() {
       [
         `Name: ${data.get("name")}`,
         `Phone / email: ${data.get("contact")}`,
-        `Artist: ${data.get("artist") || "No preference"}`,
+        `Rough size: ${data.get("size") || "—"}`,
         `Placement: ${data.get("placement") || "—"}`,
         `Budget: ${data.get("budget") || "—"}`,
         "",
@@ -55,12 +55,14 @@ export default function BookingForm() {
         </p>
         <p className="mt-3 text-salt/75 leading-relaxed">
           Your email draft opened — hit send and we&apos;ll get back to you
-          within two days to set up your consult. In a hurry? Call{" "}
+          shortly. In a hurry?{" "}
           <a
-            href={site.contact.phoneHref}
+            href={site.contact.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-volt font-semibold underline underline-offset-4"
           >
-            {site.contact.phoneDisplay}
+            DM {site.contact.instagramHandle}
           </a>
           .
         </p>
@@ -113,17 +115,15 @@ export default function BookingForm() {
 
       <div className="grid sm:grid-cols-3 gap-5">
         <div>
-          <label htmlFor="bk-artist" className={labelClass}>
-            Artist
+          <label htmlFor="bk-size" className={labelClass}>
+            Rough size
           </label>
-          <select id="bk-artist" name="artist" className={`${inputClass} cursor-pointer`}>
-            <option value="">No preference</option>
-            {site.artists.map((a) => (
-              <option key={a.slug} value={a.name}>
-                {a.name}
-              </option>
-            ))}
-          </select>
+          <input
+            id="bk-size"
+            name="size"
+            className={inputClass}
+            placeholder='e.g. 6" or half sleeve'
+          />
         </div>
         <div>
           <label htmlFor="bk-placement" className={labelClass}>

@@ -1,189 +1,152 @@
 /**
- * Single source of truth for Iron Tide Tattoo.
+ * Single source of truth for InkdUpJo.
  *
- * Iron Tide is a demo studio: every contact detail below is a placeholder.
- * Swap in the real phone, email, address, and socials before launch.
+ * CONFIRMED from the artist's own Instagram: the handle @inkdupjo, the
+ * studio name "Spittin Ink Kreations", and that booking runs through
+ * Instagram DMs.
  *
- * Visuals: each entry ships with an original drawn flash design. Drop the
- * studio's own photographs into /public/photos/tattoo using each entry's
- * `photo` filename and the photo takes over automatically — no code change.
+ * STILL PLACEHOLDER — replace before launch: phone, email, address, hours,
+ * the artist bio, and every FAQ answer. Nothing below invents a price, a
+ * deposit amount, a guarantee, or a client review.
+ *
+ * Photos: drop files in /public/photos/tattoo and point each `photo` field
+ * at them. A slot with no photo holds its space with a plain panel.
  */
 
 export const site = {
-  name: "Iron Tide",
-  fullName: "Iron Tide Tattoo",
-  tagline: "Custom tattoos on the Mississippi Gulf Coast.",
+  name: "InkdUpJo",
+  fullName: "InkdUpJo Tattoo",
+  studio: "Spittin Ink Kreations",
+  tagline: "Custom script, black-and-grey, and sleeve work.",
 
   contact: {
-    // Placeholder — replace with the studio's real number
-    phoneDisplay: "(228) 555-0144",
-    phoneHref: "tel:+12285550144",
-    // Placeholder — set up this inbox or swap in the studio's email
-    email: "bookings@irontidetattoo.com",
-    instagram: "https://instagram.com/irontidetattoo",
-    address: "1214 Howard Ave, Biloxi, MS 39530",
-    mapsHref: "https://maps.google.com/?q=1214+Howard+Ave+Biloxi+MS",
+    // Real, from the artist's Instagram
+    instagram: "https://instagram.com/inkdupjo",
+    instagramHandle: "@inkdupjo",
+    // Placeholders — replace with the shop's real details
+    phoneDisplay: "(000) 000-0000",
+    phoneHref: "tel:+10000000000",
+    email: "bookings@inkdupjo.com",
+    // No street address until the artist supplies one
+    area: "Ask for the shop location when you book",
   },
 
+  // Placeholder — confirm real opening hours
   hours: [
-    { days: "Tue – Sat", time: "12 pm – 9 pm" },
-    { days: "Sun", time: "1 pm – 6 pm" },
-    { days: "Mon", time: "Closed" },
+    { days: "Tue – Sat", time: "By appointment" },
+    { days: "Sun – Mon", time: "Closed" },
   ],
 
-  // The flash-sheet marquee strip
+  /** Styles visible in the artist's own posted work. */
   styles: [
-    "American Traditional",
-    "Fine Line",
-    "Blackwork",
-    "Neo-Traditional",
-    "Japanese",
-    "Realism",
     "Script & Lettering",
-    "Cover-Ups",
+    "Black & Grey",
+    "Realism",
+    "Portraits",
+    "Religious Pieces",
+    "Sleeve Work",
+    "Cloud & Smoke Fill",
+    "Color Accents",
   ],
 
   services: [
     {
       title: "Custom pieces",
-      body: "Bring a reference, an idea, or a half-formed thought. Your artist draws it for you — nothing traced from the wall of another shop.",
+      body: "Bring a reference, a verse, or an idea and it gets drawn for you. Every piece on this page started as somebody's own idea.",
     },
     {
-      title: "Walk-ins",
-      body: "Flash and small pieces, first come first served, every day we're open. Check the day's availability on Instagram before you drive over.",
+      title: "Sleeves, session by session",
+      body: "Large work is planned across sittings — filler, background, and flow mapped out so the finished arm reads as one piece.",
     },
     {
-      title: "Cover-ups & reworks",
-      body: "Old ink, faded lines, names that didn't age well. We'll tell you honestly what a cover-up can and can't do before any deposit changes hands.",
+      title: "Script & lettering",
+      body: "Verses, names, and passages in fine script, with colour picked out where it should carry weight.",
     },
     {
-      title: "Flash days",
-      body: "One-day sheets at a flat price, announced on Instagram. First tide gets the pick of the sheet.",
+      title: "Finishing work",
+      body: "Gaps closed, backgrounds tied together, existing pieces brought into one composition.",
     },
   ],
 
   artists: [
     {
-      slug: "mara-vex",
-      name: "Mara Vex",
-      role: "Owner · American Traditional & Neo-Trad",
-      years: "14 years",
-      bio: "Mara apprenticed in New Orleans and opened Iron Tide in 2016. Bold lines, heavy color, and flash that nods to the sailor shops that used to line the coast highway.",
-      instagram: "https://instagram.com/irontidetattoo",
-      photo: "", // set to "/photos/tattoo/artist-<name>.jpg" once the photo exists
-      design: "rose" as const,
-    },
-    {
-      slug: "theo-reyes",
-      name: "Theo Reyes",
-      role: "Fine Line & Black-and-Grey Realism",
-      years: "9 years",
-      bio: "Theo works single-needle. Portraits, botanical pieces, and micro lettering — the kind of detail you lean in close to read.",
-      instagram: "https://instagram.com/irontidetattoo",
-      photo: "", // set to "/photos/tattoo/artist-<name>.jpg" once the photo exists
-      design: "swallow" as const,
-    },
-    {
-      slug: "june-okafor",
-      name: "June Okafor",
-      role: "Blackwork & Japanese",
-      years: "11 years",
-      bio: "June builds large-scale work — sleeves, back pieces, full compositions planned across sessions. Book a consult; big pieces start with a conversation.",
-      instagram: "https://instagram.com/irontidetattoo",
-      photo: "", // set to "/photos/tattoo/artist-<name>.jpg" once the photo exists
-      design: "moth" as const,
+      slug: "inkdupjo",
+      name: "InkdUpJo",
+      role: "Spittin Ink Kreations",
+      // Placeholder — replace with the artist's own words
+      bio: "Custom script, black-and-grey and sleeve work. Booking runs through Instagram DMs — send your idea, placement, and rough size to get started.",
+      instagram: "https://instagram.com/inkdupjo",
+      photo: "", // "/photos/tattoo/artist-jo.jpg"
     },
   ],
 
   /**
-   * The work wall. Each entry shows the studio's photograph when `photo`
-   * names a file under /public/photos/tattoo, and falls back to the drawn
-   * flash design otherwise — so a slot is never empty while photos are
-   * still being shot.
+   * The artist's real posted work. `photo` stays empty until the image file
+   * is added to /public/photos/tattoo — no stand-in art is shown in its place.
    */
-  flash: [
-    { name: "Traditional Swallow", design: "swallow" as const, photo: "", artist: "Mara Vex", style: "American Traditional", size: '3–4"', price: "$160" },
-    { name: "Rose & Banner", design: "rose" as const, photo: "", artist: "Mara Vex", style: "American Traditional", size: '4–5"', price: "$200" },
-    { name: "Coast Serpent", design: "snake" as const, photo: "", artist: "June Okafor", style: "Neo-Traditional", size: '6–8"', price: "$260" },
-    { name: "Anchor & Rope", design: "anchor" as const, photo: "", artist: "Mara Vex", style: "American Traditional", size: '4"', price: "$180" },
-    { name: "Death's-Head Moth", design: "moth" as const, photo: "", artist: "June Okafor", style: "Neo-Traditional", size: '5"', price: "$240" },
-    { name: "Dagger & Heart", design: "dagger" as const, photo: "", artist: "Mara Vex", style: "American Traditional", size: '4–5"', price: "$200" },
-    { name: "Nautical Star", design: "star" as const, photo: "", artist: "Theo Reyes", style: "American Traditional", size: '2–3"', price: "$120" },
-    { name: "Biloxi Light", design: "lighthouse" as const, photo: "", artist: "Theo Reyes", style: "Neo-Traditional", size: '5"', price: "$210" },
-  ],
-
-  // A real sequence — the only place the site numbers anything
-  process: [
+  work: [
     {
-      step: "01",
-      title: "Consult",
-      body: "Free, in person or by email. Bring references and honest expectations. We talk placement, size, and budget before anything else.",
+      slug: "proverbs",
+      name: "Proverbs 13:4",
+      placement: "Upper arm — sleeve finish",
+      style: "Script & Black-and-Grey",
+      note: "Red script heading over a fine-script passage, with a winged cherub, cross, and cloud fill closing out the sleeve.",
+      photo: "", // "/photos/tattoo/work-proverbs.jpg"
     },
     {
-      step: "02",
-      title: "Design",
-      body: "Your artist draws the piece. A deposit holds your session and comes off the final price. One revision round is included.",
+      slug: "in-his-time",
+      name: "When the Time Is Right",
+      placement: "Forearm",
+      style: "Script & Realism",
+      note: "A realistic eye above banked cloudwork, script running down the forearm into stacked gothic crosses.",
+      photo: "", // "/photos/tattoo/work-in-his-time.jpg"
     },
     {
-      step: "03",
-      title: "Session",
-      body: "Eat first. Sessions run from forty minutes to six hours by the piece. Numbing available for long sits — ask ahead.",
+      slug: "no-mercy",
+      name: "Protect · Respect · Mercy",
+      placement: "Forearm to hand",
+      style: "Script & Colour Accents",
+      note: "Three-line script with the key words picked out in colour, running into smoke and skull work across the hand.",
+      photo: "", // "/photos/tattoo/work-no-mercy.jpg"
     },
     {
-      step: "04",
-      title: "Aftercare",
-      body: "Written instructions go home with you, and free touch-ups within ninety days. Healed photos welcome — we want to see it settled in.",
-    },
-  ],
-
-  reviews: [
-    {
-      quote:
-        "Mara took a photo of my grandfather's boat and turned it into the best tattoo I own. Booked session two before I left the chair.",
-      name: "Danielle R.",
-      detail: "Neo-trad, upper arm",
-    },
-    {
-      quote:
-        "Theo's line work is unreal. Tiny script, six words, and every letter is clean a year later.",
-      name: "Marcus T.",
-      detail: "Fine line, collarbone",
-    },
-    {
-      quote:
-        "Walked in on a Saturday with a bad idea. Walked out with a better one and a flash piece I get asked about constantly.",
-      name: "Alex P.",
-      detail: "Walk-in flash",
+      slug: "madonna",
+      name: "Madonna",
+      placement: "Half sleeve",
+      style: "Black & Grey Realism",
+      note: "Veiled portrait with a single red tear above a radiant cross, shaded in soft black and grey.",
+      photo: "", // "/photos/tattoo/work-madonna.jpg"
     },
   ],
 
+  /** Generic and safe — confirm each answer with the artist before launch. */
   faqs: [
     {
+      q: "How do I book?",
+      a: "Send a DM on Instagram to @inkdupjo with your idea, the placement, and a rough size. Reference photos help.",
+    },
+    {
       q: "How much will my tattoo cost?",
-      a: "The shop minimum is $100. Small flash runs $100–$250; custom work is quoted by the piece after your consult, and large-scale work is billed by the session. Your quote is settled before the deposit, not after.",
+      a: "Pricing is quoted per piece once the design and size are settled. Ask when you send your idea over and you'll get a straight answer before anything is booked.",
     },
     {
-      q: "Do I need an appointment?",
-      a: "For custom work, yes — book a consult first. Walk-ins are welcome for flash and small pieces any day we're open, first come first served.",
-    },
-    {
-      q: "How does the deposit work?",
-      a: "A $50–$100 deposit holds your session and comes off the final price. It covers drawing time, so it's non-refundable if you no-show — reschedules with 48 hours' notice keep the deposit.",
+      q: "Do you take walk-ins?",
+      a: "Message first to check the day's availability — appointments come first.",
     },
     {
       q: "How old do I have to be?",
-      a: "18, with a valid photo ID. Mississippi law — no exceptions, including with parental consent.",
+      a: "18 or over, with a valid government photo ID. Bring it to every session.",
     },
     {
       q: "How should I prepare for a session?",
-      a: "Sleep, eat a real meal, hydrate, and skip alcohol for 24 hours before. Wear clothing that leaves the placement easy to reach.",
+      a: "Sleep, eat a real meal beforehand, drink water, and skip alcohol for 24 hours. Wear something that leaves the placement easy to reach.",
     },
     {
-      q: "Do you do touch-ups?",
-      a: "Free within ninety days on work we did, once it's fully healed. After that, touch-ups are the shop minimum.",
+      q: "How long does a sleeve take?",
+      a: "Large work runs across several sittings. You'll get a plan for how many, and roughly how long each one runs, before the first needle.",
     },
   ],
 } as const;
 
-export type FlashItem = (typeof site.flash)[number];
+export type WorkItem = (typeof site.work)[number];
 export type Artist = (typeof site.artists)[number];

@@ -4,12 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/tattoo-site";
-import { IconStar } from "./icons";
+import Logo from "./Logo";
 
 const links = [
   { href: "/tattoo", label: "Home" },
   { href: "/tattoo/work", label: "Work" },
-  { href: "/tattoo/artists", label: "Artists" },
+  { href: "/tattoo/artists", label: "The Artist" },
   { href: "/tattoo/booking", label: "Booking" },
 ];
 
@@ -49,10 +49,7 @@ export default function Header() {
           href="/tattoo"
           className="flex items-center gap-2.5 text-salt hover:text-volt transition-colors duration-200"
         >
-          <IconStar className="w-6 h-6 text-volt" />
-          <span className="font-display font-extrabold uppercase tracking-[0.08em] text-2xl leading-none">
-            Iron Tide
-          </span>
+          <Logo />
         </Link>
 
         <nav aria-label="Main" className="hidden md:flex items-center gap-8">
@@ -73,10 +70,12 @@ export default function Header() {
             );
           })}
           <a
-            href={site.contact.phoneHref}
+            href={site.contact.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-mono text-[0.7rem] uppercase tracking-[0.24em] bg-volt text-void px-5 py-3 hover:bg-salt transition-colors duration-200"
           >
-            {site.contact.phoneDisplay}
+            DM to book
           </a>
         </nav>
 
@@ -114,10 +113,12 @@ export default function Header() {
             </Link>
           ))}
           <a
-            href={site.contact.phoneHref}
+            href={site.contact.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-6 font-mono text-xs uppercase tracking-[0.24em] bg-volt text-void px-6 py-4 text-center"
           >
-            Call {site.contact.phoneDisplay}
+            DM to book
           </a>
         </nav>
       )}

@@ -3,13 +3,13 @@ import Reveal from "@/components/Reveal";
 import BookingForm from "@/components/tattoo/BookingForm";
 import Marquee from "@/components/tattoo/Marquee";
 import { Eyebrow, SectionHeading, StarRule } from "@/components/tattoo/ui";
-import { IconClock, IconPhone, IconPin } from "@/components/tattoo/icons";
+import { IconClock, IconInstagram, IconPin } from "@/components/tattoo/icons";
 import { site } from "@/lib/tattoo-site";
 
 export const metadata: Metadata = {
   title: "Booking",
   description:
-    "Book a free tattoo consult at Iron Tide Tattoo in Biloxi. Deposits, pricing, age policy, and how to prepare — all the answers before you ask.",
+    "Book a free tattoo consult at InkdUpJo Tattoo in Biloxi. Deposits, pricing, age policy, and how to prepare — all the answers before you ask.",
 };
 
 export default function BookingPage() {
@@ -22,8 +22,8 @@ export default function BookingPage() {
           <span className="stroke-volt">conversation</span>
         </h1>
         <p className="mt-6 max-w-xl text-salt/80 text-lg leading-relaxed animate-fade-up">
-          Consults are free. Send the idea below, or skip the form — walk-ins
-          for flash and small pieces are welcome any day we&apos;re open.
+          The fastest route is a DM on Instagram. Prefer email? The form
+          below sends the same details straight over.
         </p>
       </section>
 
@@ -47,21 +47,18 @@ export default function BookingPage() {
               <p className="font-mono text-[0.68rem] uppercase tracking-[0.28em] text-volt">
                 The shop
               </p>
+              <p className="mt-4 flex items-start gap-3 text-salt/85">
+                <IconPin className="w-5 h-5 mt-0.5 shrink-0 text-volt" />
+                {site.contact.area}
+              </p>
               <a
-                href={site.contact.mapsHref}
+                href={site.contact.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 flex items-start gap-3 text-salt/85 hover:text-volt transition-colors duration-200"
-              >
-                <IconPin className="w-5 h-5 mt-0.5 shrink-0 text-volt" />
-                {site.contact.address}
-              </a>
-              <a
-                href={site.contact.phoneHref}
                 className="mt-3 flex items-center gap-3 text-salt/85 hover:text-volt transition-colors duration-200"
               >
-                <IconPhone className="w-5 h-5 shrink-0 text-volt" />
-                {site.contact.phoneDisplay}
+                <IconInstagram className="w-5 h-5 shrink-0 text-volt" />
+                DM {site.contact.instagramHandle}
               </a>
             </div>
             <div>
@@ -85,8 +82,8 @@ export default function BookingPage() {
                 18+ · valid ID required
               </p>
               <p className="mt-2 text-sm text-salt/70 leading-relaxed">
-                Mississippi law, no exceptions — including with parental
-                consent. Bring a government photo ID to every session.
+                No exceptions, including with parental consent. Bring a
+                government photo ID to every session.
               </p>
             </div>
           </aside>
