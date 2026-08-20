@@ -189,6 +189,16 @@ body {
   --color-smoke: #8b8e96;
 
   --animate-marquee: marquee 28s linear infinite;
+  --animate-ken-burns: ken-burns 30s ease-in-out infinite alternate;
+
+  @keyframes ken-burns {
+    from {
+      transform: scale(1.03) translate3d(0, 0, 0);
+    }
+    to {
+      transform: scale(1.14) translate3d(-1.5%, -2.5%, 0);
+    }
+  }
 
   @keyframes marquee {
     from {
@@ -244,6 +254,24 @@ body {
 .marquee:focus-within .marquee-track {
   animation-play-state: paused;
 }
+/* Slow drift across a still hero photo, so it reads as alive rather than parked. */
+.ken-burns {
+  animation: var(--animate-ken-burns);
+  will-change: transform;
+}
+
+/*
+ * The global reduced-motion rule collapses animations to 0.01ms, which would
+ * freeze this one on its final, most-zoomed frame. Stop it outright instead so
+ * the photo rests at its natural crop.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .ken-burns {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;

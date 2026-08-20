@@ -19,6 +19,7 @@ export default function TattooHome() {
           label=""
           className="absolute inset-0"
           objectPosition="center 20%"
+          imgClassName="ken-burns"
         />
         <div
           aria-hidden="true"
