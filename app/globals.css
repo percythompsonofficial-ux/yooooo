@@ -175,3 +175,77 @@ body {
     transform: none;
   }
 }
+
+/* ——— Iron Tide Tattoo theme (/tattoo) ——— */
+@theme {
+  /* Iron Tide Tattoo — "Electric Flash" tokens */
+  --color-void: #0a0a0c;
+  --color-char: #141418;
+  --color-salt: #f4f1e8;
+  --color-volt: #2fe6d0;
+  --color-flash: #ff3d2e;
+  --color-gold: #ffb627;
+  --color-violet: #a06bff;
+  --color-smoke: #8b8e96;
+
+  --animate-marquee: marquee 28s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.theme-tattoo {
+  --font-display: "Big Shoulders Display", "Arial Narrow", "Impact", sans-serif;
+  --font-sans: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+  font-family: var(--font-sans);
+  background: var(--color-void);
+  color: var(--color-salt);
+}
+.theme-tattoo ::selection {
+  background: var(--color-volt);
+  color: var(--color-void);
+}
+.theme-tattoo :focus-visible {
+  outline: 2px solid var(--color-volt);
+  outline-offset: 3px;
+}
+
+/* Poster type: outline-stroked display words */
+.stroke-volt {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-volt);
+  paint-order: stroke fill;
+}
+.stroke-salt {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-salt);
+  paint-order: stroke fill;
+}
+@media (max-width: 640px) {
+  .stroke-volt,
+  .stroke-salt {
+    -webkit-text-stroke-width: 1.4px;
+  }
+}
+
+/* Flash-sheet marquee — the site's signature strip */
+.marquee-track {
+  animation: var(--animate-marquee);
+  will-change: transform;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
