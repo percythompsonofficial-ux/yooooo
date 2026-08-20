@@ -1,13 +1,14 @@
 /**
  * Single source of truth for InkdUpJo.
  *
- * CONFIRMED from the artist's own Instagram: the handle @inkdupjo, the
- * studio name "Spittin Ink Kreations", and that booking runs through
- * Instagram DMs.
+ * CONFIRMED from the artist's own Instagram profile (@inkdupjo, verified):
+ * the display name "Tatz by Jo", the location Gautier, Mississippi, the
+ * shop account @spittin_ink_kreations, the $50 non-refundable deposit, the
+ * 18+ / ID-required policy, and the posted price list below.
  *
- * STILL PLACEHOLDER — replace before launch: phone, email, address, hours,
- * the artist bio, and every FAQ answer. Nothing below invents a price, a
- * deposit amount, a guarantee, or a client review.
+ * STILL PLACEHOLDER — replace before launch: phone, email, street address,
+ * opening hours, and the artist bio. Nothing below invents a price, a
+ * guarantee, or a client review.
  *
  * Photos: drop files in /public/photos/tattoo and point each `photo` field
  * at them. A slot with no photo holds its space with a plain panel.
@@ -17,18 +18,23 @@ export const site = {
   name: "InkdUpJo",
   fullName: "InkdUpJo Tattoo",
   studio: "Spittin Ink Kreations",
+  altName: "Tatz by Jo",
   tagline: "Custom script, black-and-grey, and sleeve work.",
+  location: "Gautier, Mississippi",
 
   contact: {
     // Real, from the artist's Instagram
     instagram: "https://instagram.com/inkdupjo",
     instagramHandle: "@inkdupjo",
+    // The shop account, per the artist's profile
+    shopInstagram: "https://instagram.com/spittin_ink_kreations",
+    shopHandle: "@spittin_ink_kreations",
     // Placeholders — replace with the shop's real details
     phoneDisplay: "(000) 000-0000",
     phoneHref: "tel:+10000000000",
     email: "bookings@inkdupjo.com",
-    // No street address until the artist supplies one
-    area: "Ask for the shop location when you book",
+    // Real city, per the artist's profile. No street address supplied yet.
+    area: "Gautier, Mississippi",
   },
 
   // Placeholder — confirm real opening hours
@@ -36,6 +42,30 @@ export const site = {
     { days: "Tue – Sat", time: "By appointment" },
     { days: "Sun – Mon", time: "Closed" },
   ],
+
+  /** Booking terms, straight from the artist's Instagram profile. */
+  booking: {
+    deposit: "$50",
+    depositNote: "Non-refundable, and it comes off the final price.",
+    minimumAge: "18+ with a valid photo ID",
+  },
+
+  /**
+   * The artist's posted price list. Every figure is his own; the note is a
+   * paraphrase of the one printed on his price sheet.
+   */
+  pricing: [
+    { item: "Name tattoos", price: "$40" },
+    { item: "Palm-sized tattoos", price: "$100+" },
+    { item: "Hand tattoos", price: "$120+" },
+    { item: "Spine tattoos", price: "$120+" },
+    { item: "Chest — half", price: "$150+" },
+    { item: "Quarter sleeves", price: "$200+" },
+    { item: "Chest — full", price: "$300+" },
+    { item: "Full sleeves", price: "$500+" },
+  ],
+  pricingNote:
+    "Prices vary with detail, size, placement, and complexity. Custom designs may require a deposit, and final pricing is always confirmed before tattooing starts.",
 
   /** Styles visible in the artist's own posted work. */
   styles: [
@@ -72,7 +102,7 @@ export const site = {
     {
       slug: "inkdupjo",
       name: "InkdUpJo",
-      role: "Spittin Ink Kreations",
+      role: "Tatz by Jo · Gautier, Mississippi",
       // Placeholder — replace with the artist's own words
       bio: "Custom script, black-and-grey and sleeve work. Booking runs through Instagram DMs — send your idea, placement, and rough size to get started.",
       instagram: "https://instagram.com/inkdupjo",
@@ -123,11 +153,15 @@ export const site = {
   faqs: [
     {
       q: "How do I book?",
-      a: "Send a DM on Instagram to @inkdupjo with your idea, the placement, and a rough size. Reference photos help.",
+      a: "Send a DM on Instagram to @inkdupjo with your idea, the placement, and a rough size. Reference photos help. A $50 deposit holds the session.",
     },
     {
       q: "How much will my tattoo cost?",
-      a: "Pricing is quoted per piece once the design and size are settled. Ask when you send your idea over and you'll get a straight answer before anything is booked.",
+      a: "There's a posted price list — name tattoos start at $40, palm-sized at $100, quarter sleeves at $200, full sleeves at $500. Prices move with detail, size, placement, and complexity, and the final figure is confirmed before any needle touches skin.",
+    },
+    {
+      q: "How does the deposit work?",
+      a: "A $50 deposit books your session and comes off the final price. It's non-refundable — it covers the drawing time already spent on your piece.",
     },
     {
       q: "Do you take walk-ins?",
@@ -135,7 +169,7 @@ export const site = {
     },
     {
       q: "How old do I have to be?",
-      a: "18 or over, with a valid government photo ID. Bring it to every session.",
+      a: "18 or over, with a valid photo ID — no exceptions. Bring it to every session.",
     },
     {
       q: "How should I prepare for a session?",

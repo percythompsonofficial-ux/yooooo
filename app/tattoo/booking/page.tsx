@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import BookingForm from "@/components/tattoo/BookingForm";
+import PriceList from "@/components/tattoo/PriceList";
 import Marquee from "@/components/tattoo/Marquee";
 import { Eyebrow, SectionHeading, StarRule } from "@/components/tattoo/ui";
 import { IconClock, IconInstagram, IconPin } from "@/components/tattoo/icons";
@@ -9,7 +10,7 @@ import { site } from "@/lib/tattoo-site";
 export const metadata: Metadata = {
   title: "Booking",
   description:
-    "Book a free tattoo consult at InkdUpJo Tattoo in Biloxi. Deposits, pricing, age policy, and how to prepare — all the answers before you ask.",
+    "Booking, price list, and deposit terms for InkdUpJo in Gautier, Mississippi. $50 deposit, 18+ with valid ID. DM @inkdupjo to book.",
 };
 
 export default function BookingPage() {
@@ -79,11 +80,17 @@ export default function BookingPage() {
             </div>
             <div className="border border-flash/40 bg-char p-6">
               <p className="font-display font-bold uppercase text-lg text-salt">
-                18+ · valid ID required
+                {site.booking.deposit} deposit
               </p>
               <p className="mt-2 text-sm text-salt/70 leading-relaxed">
-                No exceptions, including with parental consent. Bring a
-                government photo ID to every session.
+                {site.booking.depositNote}
+              </p>
+              <p className="mt-4 font-display font-bold uppercase text-lg text-salt">
+                {site.booking.minimumAge}
+              </p>
+              <p className="mt-2 text-sm text-salt/70 leading-relaxed">
+                No exceptions, including with parental consent. Bring it to
+                every session.
               </p>
             </div>
           </aside>
@@ -91,6 +98,17 @@ export default function BookingPage() {
       </section>
 
       <section className="bg-char/60 py-24">
+        <div className="mx-auto max-w-3xl px-5 sm:px-8">
+          <Reveal>
+            <SectionHeading center eyebrow="Price list" title="What it runs" />
+            <div className="mt-12">
+              <PriceList />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="py-24">
         <div className="mx-auto max-w-4xl px-5 sm:px-8">
           <Reveal>
             <SectionHeading center eyebrow="Before you ask" title="Straight answers" />

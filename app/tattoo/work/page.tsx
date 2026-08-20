@@ -8,7 +8,7 @@ import { site } from "@/lib/tattoo-site";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Recent tattoos by InkdUpJo — custom script, black-and-grey realism, portraits, and sleeve work.",
+    "Recent tattoos by InkdUpJo of Gautier, Mississippi — custom script, black-and-grey realism, portraits, and sleeve work.",
 };
 
 export default function WorkPage() {

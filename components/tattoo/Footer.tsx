@@ -64,7 +64,8 @@ export default function Footer() {
       <div className="border-t border-salt/10">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-5 flex flex-wrap items-center justify-between gap-3">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-smoke">
-            © {new Date().getFullYear()} {site.fullName} · 18+ with valid ID
+            © {new Date().getFullYear()} {site.fullName} · {site.location} ·{" "}
+            {site.booking.minimumAge}
           </p>
           <Link
             href="/tattoo/booking"

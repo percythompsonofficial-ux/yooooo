@@ -26,15 +26,17 @@ export default function TattooHome() {
         />
 
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8 pb-16 pt-40 w-full">
-          <Eyebrow className="animate-fade-up">{site.studio}</Eyebrow>
+          <Eyebrow className="animate-fade-up">
+            {site.location} · {site.altName}
+          </Eyebrow>
           <h1 className="mt-5 font-display font-extrabold uppercase leading-[0.88] text-[clamp(3.4rem,11vw,9.5rem)] text-salt animate-fade-up">
             Ink that
             <br />
             <span className="stroke-volt">holds up</span>
           </h1>
           <p className="mt-6 max-w-xl text-salt/85 text-lg leading-relaxed animate-fade-up">
-            Custom script, black-and-grey, and sleeve work. Send the idea over
-            and it gets drawn for you.
+            Custom script, black-and-grey, and sleeve work out of Gautier,
+            Mississippi. Send the idea over and it gets drawn for you.
           </p>
           <div className="mt-9 flex flex-wrap gap-4 animate-fade-up">
             <ButtonLink href={site.contact.instagram}>

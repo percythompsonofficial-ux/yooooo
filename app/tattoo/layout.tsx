@@ -4,11 +4,11 @@ import Footer from "@/components/tattoo/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "InkdUpJo Tattoo — Custom Tattoos in Biloxi, Mississippi",
+    default: "InkdUpJo — Tattoo Artist in Gautier, Mississippi",
     template: "%s — InkdUpJo Tattoo",
   },
   description:
-    "Custom tattoo studio on the Mississippi Gulf Coast. American traditional, fine line, blackwork, Japanese, and cover-ups. Walk-ins welcome. Book a free consult.",
+    "InkdUpJo (Tatz by Jo) — custom tattoos in Gautier, Mississippi. Script and lettering, black-and-grey realism, portraits, and sleeve work. $50 deposit, 18+ with ID. DM @inkdupjo to book.",
 };
 
 export default function TattooLayout({

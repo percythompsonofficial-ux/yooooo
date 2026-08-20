@@ -9,7 +9,7 @@ import { site } from "@/lib/tattoo-site";
 export const metadata: Metadata = {
   title: "The Artist",
   description:
-    "InkdUpJo of Spittin Ink Kreations — custom script, black-and-grey, portraits, and sleeve work. Booking through Instagram DMs.",
+    "InkdUpJo (Tatz by Jo) — custom script, black-and-grey, portraits, and sleeve work in Gautier, Mississippi. Booking through Instagram DMs.",
 };
 
 export default function ArtistPage() {
