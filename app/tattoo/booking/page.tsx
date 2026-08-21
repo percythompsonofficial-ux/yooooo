@@ -48,10 +48,15 @@ export default function BookingPage() {
               <p className="font-mono text-[0.68rem] uppercase tracking-[0.28em] text-volt">
                 The shop
               </p>
-              <p className="mt-4 flex items-start gap-3 text-salt/85">
+              <a
+                href={site.contact.mapsHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 flex items-start gap-3 text-salt/85 hover:text-volt transition-colors duration-200"
+              >
                 <IconPin className="w-5 h-5 mt-0.5 shrink-0 text-volt" />
-                {site.contact.area}
-              </p>
+                {site.contact.address}
+              </a>
               <a
                 href={site.contact.phoneHref}
                 className="mt-3 flex items-center gap-3 text-salt/85 hover:text-volt transition-colors duration-200"

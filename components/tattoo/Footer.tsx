@@ -46,10 +46,15 @@ export default function Footer() {
           <p className="font-mono text-[0.68rem] uppercase tracking-[0.28em] text-volt">
             Find us
           </p>
-          <p className="mt-4 flex items-start gap-2 text-sm text-salt/80">
+          <a
+            href={site.contact.mapsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 flex items-start gap-2 text-sm text-salt/80 hover:text-volt transition-colors duration-200"
+          >
             <IconPin className="w-4 h-4 mt-0.5 shrink-0" />
-            {site.contact.area}
-          </p>
+            {site.contact.address}
+          </a>
           <a
             href={site.contact.phoneHref}
             className="mt-3 block text-sm text-salt/80 hover:text-volt transition-colors duration-200"

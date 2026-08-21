@@ -6,8 +6,8 @@
  * shop account @spittin_ink_kreations, the $50 non-refundable deposit, the
  * 18+ / ID-required policy, and the posted price list below.
  *
- * STILL PLACEHOLDER — replace before launch: the street address, the opening
- * hours, and the artist bio. There is no email address anywhere: the artist
+ * STILL PLACEHOLDER — replace before launch: the opening hours and the
+ * artist bio. There is no email address anywhere: the artist
  * does not have one yet, so none is invented. Nothing below invents a price,
  * a guarantee, or a client review either.
  *
@@ -35,8 +35,9 @@ export const site = {
     smsHref: "sms:+12289180536",
     // No email yet. Nothing on the site invents one — the booking form texts
     // this number instead of composing mail to an address that doesn't exist.
-    // Real city, per the artist's profile. No street address supplied yet.
-    area: "Gautier, Mississippi",
+    address: "3204 Ladnier Rd, Gautier, MS 39553",
+    mapsHref:
+      "https://www.google.com/maps/search/?api=1&query=3204+Ladnier+Rd+Gautier+MS+39553",
   },
 
   // Placeholder — confirm real opening hours
