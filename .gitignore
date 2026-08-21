@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Generated demo snapshot: a single self-contained HTML file with every image,
+# font and video inlined as data URIs. Rebuilt on demand, ~9MB, not source.
+.artifact-demo.html
