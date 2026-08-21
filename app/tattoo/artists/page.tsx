@@ -44,7 +44,7 @@ export default function ArtistPage() {
               </p>
               <div className="mt-7 flex flex-wrap gap-4">
                 <ButtonLink href={site.contact.instagram}>
-                  DM to book <IconArrow className="w-4 h-4" />
+                  Book Now <IconArrow className="w-4 h-4" />
                 </ButtonLink>
                 <ButtonLink href={artist.instagram} variant="outline">
                   <IconInstagram className="w-4 h-4" /> Portfolio

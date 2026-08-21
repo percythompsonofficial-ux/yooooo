@@ -43,7 +43,7 @@ export default function TattooHome() {
           </p>
           <div className="mt-9 flex flex-wrap gap-4 animate-fade-up">
             <ButtonLink href={site.contact.instagram}>
-              DM to book <IconArrow className="w-4 h-4" />
+              Book Now <IconArrow className="w-4 h-4" />
             </ButtonLink>
             <ButtonLink href="/tattoo/work" variant="outline">
               See the work
@@ -96,7 +96,7 @@ export default function TattooHome() {
             </Link>
           </Reveal>
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {site.work.map((w, i) => (
+            {site.work.slice(0, 4).map((w, i) => (
               <Reveal key={w.slug} delay={(i % 4) * 80}>
                 <WorkCard item={w} />
               </Reveal>
@@ -151,7 +151,7 @@ export default function TattooHome() {
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <ButtonLink href={site.contact.instagram}>
-                DM to book <IconArrow className="w-4 h-4" />
+                Book Now <IconArrow className="w-4 h-4" />
               </ButtonLink>
               <ButtonLink href="/tattoo/booking" variant="outline">
                 Booking info

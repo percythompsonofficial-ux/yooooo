@@ -35,7 +35,7 @@ export default function WorkPage() {
         <p className="text-salt/75">Want something like this of your own?</p>
         <div className="mt-6 flex justify-center">
           <ButtonLink href={site.contact.instagram}>
-            DM to book <IconArrow className="w-4 h-4" />
+            Book Now <IconArrow className="w-4 h-4" />
           </ButtonLink>
         </div>
       </section>

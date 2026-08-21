@@ -75,7 +75,7 @@ export default function Header() {
             rel="noopener noreferrer"
             className="font-mono text-[0.7rem] uppercase tracking-[0.24em] bg-volt text-void px-5 py-3 hover:bg-salt transition-colors duration-200"
           >
-            DM to book
+            Book Now
           </a>
         </nav>
 
@@ -118,7 +118,7 @@ export default function Header() {
             rel="noopener noreferrer"
             className="mt-6 font-mono text-xs uppercase tracking-[0.24em] bg-volt text-void px-6 py-4 text-center"
           >
-            DM to book
+            Book Now
           </a>
         </nav>
       )}

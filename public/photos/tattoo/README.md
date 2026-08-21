@@ -10,9 +10,8 @@
 | `work-in-his-time.jpg` | When the Time Is Right |
 | `work-no-mercy.jpg` | Protect · Respect · Mercy |
 | `work-madonna.jpg` | Madonna |
-| `work-sun-sleeve.jpg` | Sun & Lilies |
 | `work-dragon.jpg` | Dragon & Pagoda |
-| `hero-sleeve.webm` / `.mp4` | The looping homepage hero clip |
+| `hero-sleeve.webm` / `.mp4` | The looping homepage hero clip — the sun-and-lilies sleeve, which is why that piece is not also in the gallery |
 | `hero-sleeve-poster.jpg` | Still shown before the clip loads, and instead of it under reduced motion |
 
 All five were processed from the artist's originals: Instagram app chrome

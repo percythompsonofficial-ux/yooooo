@@ -117,6 +117,10 @@ export const site = {
   ],
 
   /**
+   * The artist's real posted work. The sun-and-lilies sleeve is deliberately
+   * absent — it already carries the homepage hero, so listing it here too
+   * would show the same piece twice.
+   *
    * The artist's real posted work. `style` is kept to a few broad buckets so
    * the gallery filter actually groups pieces; the finer description of each
    * piece lives in its `note`. `photo` stays empty until the image file is
@@ -167,15 +171,6 @@ export const site = {
       note: "An Eastern dragon coiled over a pagoda, with hibiscus in soft red and hand-drawn characters running down the leg.",
       focus: "38% 45%",
       photo: "/photos/tattoo/work-dragon.jpg",
-    },
-    {
-      slug: "sun-lilies-sleeve",
-      name: "Sun & Lilies",
-      placement: "Full sleeve",
-      style: "Colour",
-      note: "A red sun and crescent moon set over lilies, a rose, and butterflies, with black-and-grey shading carrying the fill down the arm.",
-      focus: "center 40%",
-      photo: "/photos/tattoo/work-sun-sleeve.jpg"
     },
   ],
 
