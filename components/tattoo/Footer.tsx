@@ -79,7 +79,7 @@ export default function Footer() {
             {site.booking.minimumAge}
           </p>
           <Link
-            href="/tattoo/booking"
+            href="/booking"
             className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-volt hover:text-salt transition-colors duration-200"
           >
             Booking info →

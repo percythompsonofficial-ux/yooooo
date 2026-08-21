@@ -45,7 +45,7 @@ export default function TattooHome() {
             <ButtonLink href={site.contact.instagram}>
               Book Now <IconArrow className="w-4 h-4" />
             </ButtonLink>
-            <ButtonLink href="/tattoo/work" variant="outline">
+            <ButtonLink href="/work" variant="outline">
               See the work
             </ButtonLink>
           </div>
@@ -89,7 +89,7 @@ export default function TattooHome() {
           <Reveal className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading eyebrow="Recent work" title="Straight off the arm" />
             <Link
-              href="/tattoo/work"
+              href="/work"
               className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-volt hover:text-salt transition-colors duration-200 pb-2"
             >
               All work →
@@ -125,7 +125,7 @@ export default function TattooHome() {
                 <ButtonLink href={site.contact.instagram}>
                   <IconInstagram className="w-4 h-4" /> {site.contact.instagramHandle}
                 </ButtonLink>
-                <ButtonLink href="/tattoo/booking" variant="outline">
+                <ButtonLink href="/booking" variant="outline">
                   Booking info
                 </ButtonLink>
               </div>
@@ -153,7 +153,7 @@ export default function TattooHome() {
               <ButtonLink href={site.contact.instagram}>
                 Book Now <IconArrow className="w-4 h-4" />
               </ButtonLink>
-              <ButtonLink href="/tattoo/booking" variant="outline">
+              <ButtonLink href="/booking" variant="outline">
                 Booking info
               </ButtonLink>
             </div>

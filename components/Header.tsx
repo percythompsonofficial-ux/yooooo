@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import Wordmark from "./Wordmark";
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/portfolio", label: "Our Work" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/songy", label: "Home" },
+  { href: "/songy/services", label: "Services" },
+  { href: "/songy/portfolio", label: "Our Work" },
+  { href: "/songy/about", label: "About" },
+  { href: "/songy/contact", label: "Contact" },
 ];
 
 export default function Header() {
@@ -46,7 +46,7 @@ export default function Header() {
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-20">
         <Link
-          href="/"
+          href="/songy"
           className="text-ivory hover:text-brass transition-colors duration-200"
           aria-label="Songy Brothers Lawn & Landscape — home"
         >
@@ -76,7 +76,7 @@ export default function Header() {
             })}
             <li>
               <Link
-                href="/contact"
+                href="/songy/contact"
                 className="text-[0.78rem] uppercase tracking-[0.22em] text-pine bg-brass hover:bg-ivory transition-colors duration-200 px-5 py-3"
               >
                 Free Estimate
@@ -145,7 +145,7 @@ export default function Header() {
               style={{ transitionDelay: open ? "400ms" : "0ms" }}
             >
               <Link
-                href="/contact"
+                href="/songy/contact"
                 className="text-sm uppercase tracking-[0.22em] text-pine bg-brass px-8 py-4 inline-block"
               >
                 Free Estimate

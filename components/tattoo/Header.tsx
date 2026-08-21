@@ -7,10 +7,10 @@ import { site } from "@/lib/tattoo-site";
 import Logo from "./Logo";
 
 const links = [
-  { href: "/tattoo", label: "Home" },
-  { href: "/tattoo/work", label: "Work" },
-  { href: "/tattoo/artists", label: "The Artist" },
-  { href: "/tattoo/booking", label: "Booking" },
+  { href: "/", label: "Home" },
+  { href: "/work", label: "Work" },
+  { href: "/artists", label: "The Artist" },
+  { href: "/booking", label: "Booking" },
 ];
 
 export default function Header() {
@@ -46,7 +46,7 @@ export default function Header() {
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-20">
         <Link
-          href="/tattoo"
+          href="/"
           className="flex items-center gap-2.5 text-salt hover:text-volt transition-colors duration-200"
         >
           <Logo />
@@ -55,7 +55,7 @@ export default function Header() {
         <nav aria-label="Main" className="hidden md:flex items-center gap-8">
           {links.map((l) => {
             const active =
-              l.href === "/tattoo" ? pathname === l.href : pathname.startsWith(l.href);
+              l.href === "/" ? pathname === l.href : pathname.startsWith(l.href);
             return (
               <Link
                 key={l.href}

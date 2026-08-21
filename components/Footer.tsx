@@ -21,10 +21,10 @@ export default function Footer() {
             </h2>
             <ul className="space-y-3 text-sm">
               {[
-                ["Services", "/services"],
-                ["Our Work", "/portfolio"],
-                ["About", "/about"],
-                ["Contact", "/contact"],
+                ["Services", "/songy/services"],
+                ["Our Work", "/songy/portfolio"],
+                ["About", "/songy/about"],
+                ["Contact", "/songy/contact"],
               ].map(([label, href]) => (
                 <li key={href}>
                   <Link

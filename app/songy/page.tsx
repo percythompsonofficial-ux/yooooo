@@ -97,8 +97,8 @@ export default function Home() {
             className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up"
             style={{ animationDelay: "1.1s" }}
           >
-            <ButtonLink href="/contact">Get a Free Estimate</ButtonLink>
-            <ButtonLink href="/portfolio" variant="outline">
+            <ButtonLink href="/songy/contact">Get a Free Estimate</ButtonLink>
+            <ButtonLink href="/songy/portfolio" variant="outline">
               See Our Work
             </ButtonLink>
           </div>
@@ -146,7 +146,7 @@ export default function Home() {
                   </>
                 }
               />
-              <ButtonLink href="/services" variant="outline-dark" className="shrink-0">
+              <ButtonLink href="/songy/services" variant="outline-dark" className="shrink-0">
                 All Services
               </ButtonLink>
             </div>
@@ -160,7 +160,7 @@ export default function Home() {
                 className="group border-ink/20 border-b sm:border-r last:border-b-0 sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(4n)]:border-r-0 sm:[&:nth-last-child(-n+2)]:border-b-0 lg:border-b-0"
               >
                 <Link
-                  href="/services"
+                  href="/songy/services"
                   className="block h-full p-8 lg:p-10 transition-colors duration-300 hover:bg-linen"
                 >
                   <s.icon className="w-9 h-9 text-brass-deep" />
@@ -194,7 +194,7 @@ export default function Home() {
           <div className="mt-16 grid gap-10 lg:grid-cols-3">
             {work.map((pr, i) => (
               <Reveal key={pr.title} delay={i * 110}>
-                <Link href="/portfolio" className="group block">
+                <Link href="/songy/portfolio" className="group block">
                   <div className="overflow-hidden">
                     <ProjectImage
                       src={pr.photo}
@@ -258,7 +258,7 @@ export default function Home() {
               you&apos;re proud of?
             </h2>
             <div className="mt-10">
-              <ButtonLink href="/contact">Get a Free Estimate</ButtonLink>
+              <ButtonLink href="/songy/contact">Get a Free Estimate</ButtonLink>
             </div>
           </Reveal>
         </div>

@@ -126,7 +126,7 @@ export default function AboutPage() {
               Let&apos;s take care of your yard
             </h2>
             <div className="mt-9">
-              <ButtonLink href="/contact">Get a Free Estimate</ButtonLink>
+              <ButtonLink href="/songy/contact">Get a Free Estimate</ButtonLink>
             </div>
           </Reveal>
         </div>
