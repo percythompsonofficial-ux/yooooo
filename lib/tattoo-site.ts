@@ -104,8 +104,8 @@ export const site = {
       slug: "inkdupjo",
       name: "InkdUpJo",
       role: "Tatz by Jo · Gautier, Mississippi",
-      // Placeholder — replace with the artist's own words
-      bio: "Custom script, black-and-grey and sleeve work. Booking runs through Instagram DMs — send your idea, placement, and rough size to get started.",
+      // Holding copy in the artist's register — swap for his own words
+      bio: "I don't copy tattoos. Bring me the verse, the name, whatever picture you got in your head — I'll draw it and put it on you clean. Script, black and grey, portraits, sleeves done session by session. Gautier, MS.",
       instagram: "https://instagram.com/inkdupjo",
       photo: "", // "/photos/tattoo/artist-jo.jpg"
     },
