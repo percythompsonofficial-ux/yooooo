@@ -109,7 +109,7 @@ export default function TattooHome() {
       <section className="mx-auto max-w-7xl px-5 sm:px-8 py-24">
         <Reveal>
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <ArtistMark photo={artist.photo} className="aspect-[4/3]" />
+            <ArtistMark photo={artist.photo} className="aspect-square" />
             <div>
               <Eyebrow>The artist</Eyebrow>
               <h2 className="mt-4 font-display text-[clamp(2.4rem,5vw,4rem)] leading-[0.95] text-salt">

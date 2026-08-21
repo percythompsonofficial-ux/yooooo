@@ -5,6 +5,7 @@
 | File | Used for |
 | --- | --- |
 | `brand-logo.png` | The logo mark, in the header and footer |
+| `brand-logo-square.png` | The same mark with its white carried to the corners, filling the artist panel |
 | `work-proverbs.jpg` | Proverbs 13:4 |
 | `work-in-his-time.jpg` | When the Time Is Right |
 | `work-no-mercy.jpg` | Protect · Respect · Mercy |

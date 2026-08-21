@@ -31,7 +31,7 @@ export default function ArtistPage() {
       <section className="mx-auto max-w-7xl px-5 sm:px-8 py-20">
         <Reveal>
           <article className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            <ArtistMark photo={artist.photo} className="aspect-[4/3]" />
+            <ArtistMark photo={artist.photo} className="aspect-square" />
             <div>
               <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[0.95] text-salt">
                 {artist.name}

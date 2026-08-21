@@ -3,7 +3,8 @@ import { site } from "@/lib/tattoo-site";
 
 /**
  * Stands in for a portrait. The logo is already a drawing of the artist at
- * work, so it says what a photograph would — and it's his own mark.
+ * work, so it says what a photograph would — and it's his own mark. It fills
+ * the panel outright rather than floating inside it.
  */
 export default function ArtistMark({
   photo = "",
@@ -25,29 +26,13 @@ export default function ArtistMark({
   }
 
   return (
-    <div
-      className={`relative grid place-items-center overflow-hidden bg-char border border-salt/12 ${className}`}
-    >
-      {/* faint tide lines, echoing the rule marks used elsewhere */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-[0.14]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(115deg, transparent 0 22px, var(--color-volt) 22px 23px)",
-        }}
+    <div className={`relative overflow-hidden bg-salt ${className}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/photos/tattoo/brand-logo-square.png"
+        alt={`${site.fullName} logo`}
+        className="absolute inset-0 w-full h-full object-cover"
       />
-      <div className="relative flex flex-col items-center gap-5 px-6 py-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/photos/tattoo/brand-logo.png"
-          alt={`${site.fullName} logo`}
-          className="w-40 sm:w-52 rounded-full"
-        />
-        <p className="font-mono text-[0.6rem] uppercase tracking-[0.24em] text-smoke text-center">
-          {site.studio} · {site.location}
-        </p>
-      </div>
     </div>
   );
 }
