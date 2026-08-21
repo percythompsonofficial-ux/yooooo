@@ -4,7 +4,7 @@ import BookingForm from "@/components/tattoo/BookingForm";
 import PriceList from "@/components/tattoo/PriceList";
 import Marquee from "@/components/tattoo/Marquee";
 import { Eyebrow, SectionHeading, StarRule } from "@/components/tattoo/ui";
-import { IconClock, IconInstagram, IconPin } from "@/components/tattoo/icons";
+import { IconClock, IconInstagram, IconPhone, IconPin } from "@/components/tattoo/icons";
 import { site } from "@/lib/tattoo-site";
 
 export const metadata: Metadata = {
@@ -52,6 +52,13 @@ export default function BookingPage() {
                 <IconPin className="w-5 h-5 mt-0.5 shrink-0 text-volt" />
                 {site.contact.area}
               </p>
+              <a
+                href={site.contact.phoneHref}
+                className="mt-3 flex items-center gap-3 text-salt/85 hover:text-volt transition-colors duration-200"
+              >
+                <IconPhone className="w-5 h-5 shrink-0 text-volt" />
+                {site.contact.phoneDisplay}
+              </a>
               <a
                 href={site.contact.instagram}
                 target="_blank"

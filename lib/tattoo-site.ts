@@ -6,9 +6,10 @@
  * shop account @spittin_ink_kreations, the $50 non-refundable deposit, the
  * 18+ / ID-required policy, and the posted price list below.
  *
- * STILL PLACEHOLDER — replace before launch: phone, email, street address,
- * opening hours, and the artist bio. Nothing below invents a price, a
- * guarantee, or a client review.
+ * STILL PLACEHOLDER — replace before launch: the street address, the opening
+ * hours, and the artist bio. There is no email address anywhere: the artist
+ * does not have one yet, so none is invented. Nothing below invents a price,
+ * a guarantee, or a client review either.
  *
  * Photos: drop files in /public/photos/tattoo and point each `photo` field
  * at them. A slot with no photo holds its space with a plain panel.
@@ -29,10 +30,11 @@ export const site = {
     // The shop account, per the artist's profile
     shopInstagram: "https://instagram.com/spittin_ink_kreations",
     shopHandle: "@spittin_ink_kreations",
-    // Placeholders — replace with the shop's real details
-    phoneDisplay: "(000) 000-0000",
-    phoneHref: "tel:+10000000000",
-    email: "bookings@inkdupjo.com",
+    phoneDisplay: "(228) 918-0536",
+    phoneHref: "tel:+12289180536",
+    smsHref: "sms:+12289180536",
+    // No email yet. Nothing on the site invents one — the booking form texts
+    // this number instead of composing mail to an address that doesn't exist.
     // Real city, per the artist's profile. No street address supplied yet.
     area: "Gautier, Mississippi",
   },

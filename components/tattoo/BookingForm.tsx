@@ -42,7 +42,8 @@ export default function BookingForm() {
         String(data.get("idea")),
       ].join("\n"),
     );
-    window.location.href = `mailto:${site.contact.email}?subject=${subject}&body=${body}`;
+    // No shop email exists, so this opens a text to the shop instead.
+    window.location.href = `${site.contact.smsHref}?&body=${subject}%0A%0A${body}`;
     setSent(true);
   }
 
@@ -54,8 +55,8 @@ export default function BookingForm() {
           Request sent
         </p>
         <p className="mt-3 text-salt/75 leading-relaxed">
-          Your email draft opened — hit send and we&apos;ll get back to you
-          shortly. In a hurry?{" "}
+          Your message opened in your texts — hit send and we&apos;ll get back
+          to you shortly. Prefer Instagram?{" "}
           <a
             href={site.contact.instagram}
             target="_blank"
@@ -173,10 +174,11 @@ export default function BookingForm() {
         type="submit"
         className="w-full sm:w-auto font-mono text-[0.72rem] uppercase tracking-[0.22em] bg-volt text-void px-10 py-4 hover:bg-salt transition-colors duration-200 cursor-pointer"
       >
-        Request consult
+        Text the shop
       </button>
       <p className="text-xs text-smoke">
-        Sends an email from your own mail app — nothing is stored on this site.
+        Opens a text to {site.contact.phoneDisplay} from your own phone — nothing
+        is stored on this site.
       </p>
     </form>
   );

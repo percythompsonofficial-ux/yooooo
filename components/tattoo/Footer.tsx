@@ -51,10 +51,16 @@ export default function Footer() {
             {site.contact.area}
           </p>
           <a
+            href={site.contact.phoneHref}
+            className="mt-3 block text-sm text-salt/80 hover:text-volt transition-colors duration-200"
+          >
+            {site.contact.phoneDisplay}
+          </a>
+          <a
             href={site.contact.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 block text-sm text-salt/80 hover:text-volt transition-colors duration-200"
+            className="mt-1 block text-sm text-salt/80 hover:text-volt transition-colors duration-200"
           >
             DM {site.contact.instagramHandle} to book
           </a>
