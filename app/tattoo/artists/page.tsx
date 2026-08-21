@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import Marquee from "@/components/tattoo/Marquee";
-import TattooImage from "@/components/tattoo/TattooImage";
+import ArtistMark from "@/components/tattoo/ArtistMark";
 import { ButtonLink, Eyebrow } from "@/components/tattoo/ui";
 import { IconArrow, IconInstagram } from "@/components/tattoo/icons";
 import { site } from "@/lib/tattoo-site";
@@ -31,12 +31,7 @@ export default function ArtistPage() {
       <section className="mx-auto max-w-7xl px-5 sm:px-8 py-20">
         <Reveal>
           <article className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            <TattooImage
-              src={artist.photo}
-              alt={`Portrait of ${artist.name}`}
-              label={artist.name}
-              className="aspect-[4/3]"
-            />
+            <ArtistMark photo={artist.photo} className="aspect-[4/3]" />
             <div>
               <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[0.95] text-salt">
                 {artist.name}

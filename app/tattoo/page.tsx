@@ -2,7 +2,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import Marquee from "@/components/tattoo/Marquee";
 import HeroVideo from "@/components/tattoo/HeroVideo";
-import TattooImage from "@/components/tattoo/TattooImage";
+import ArtistMark from "@/components/tattoo/ArtistMark";
 import WorkCard from "@/components/tattoo/WorkCard";
 import { ButtonLink, Eyebrow, SectionHeading } from "@/components/tattoo/ui";
 import { IconArrow, IconInstagram, IconStar } from "@/components/tattoo/icons";
@@ -109,12 +109,7 @@ export default function TattooHome() {
       <section className="mx-auto max-w-7xl px-5 sm:px-8 py-24">
         <Reveal>
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <TattooImage
-              src={artist.photo}
-              alt={`Portrait of ${artist.name}`}
-              label={artist.name}
-              className="aspect-[4/3]"
-            />
+            <ArtistMark photo={artist.photo} className="aspect-[4/3]" />
             <div>
               <Eyebrow>The artist</Eyebrow>
               <h2 className="mt-4 font-display text-[clamp(2.4rem,5vw,4rem)] leading-[0.95] text-salt">

@@ -10,6 +10,7 @@
 | `work-no-mercy.jpg` | Protect · Respect · Mercy |
 | `work-madonna.jpg` | Madonna |
 | `work-sun-sleeve.jpg` | Sun & Lilies |
+| `work-dragon.jpg` | Dragon & Pagoda |
 | `hero-sleeve.webm` / `.mp4` | The looping homepage hero clip |
 | `hero-sleeve-poster.jpg` | Still shown before the clip loads, and instead of it under reduced motion |
 
@@ -20,8 +21,14 @@ they are now ~130KB JPEGs.
 
 ## Still needed
 
-- `work-dragon.jpg` — the colour dragon and hibiscus
-- `artist-jo.jpg` — a portrait of Jo for the artist section
+Nothing blocking. Two optional additions:
+
+- A portrait of the artist. There is no gap without one — the logo, being a
+  drawing of him at work, stands in — but set `artists[0].photo` to a file
+  here and the photograph takes over.
+- A sharper hero clip. The current one came from a screen recording of an
+  Instagram post, so it is soft at source; the original from his camera roll
+  would be noticeably better.
 
 ## Video
 

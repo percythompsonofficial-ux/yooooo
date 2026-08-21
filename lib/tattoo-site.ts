@@ -107,7 +107,9 @@ export const site = {
       // Holding copy in the artist's register — swap for his own words
       bio: "I don't copy tattoos. Bring me the verse, the name, whatever picture you got in your head — I'll draw it and put it on you clean. Script, black and grey, portraits, sleeves done session by session. Gautier, MS.",
       instagram: "https://instagram.com/inkdupjo",
-      photo: "", // "/photos/tattoo/artist-jo.jpg"
+      // No portrait yet — the logo stands in. Set this to a file under
+      // /public/photos/tattoo and a real photo takes over automatically.
+      photo: "",
     },
   ],
 
@@ -156,12 +158,12 @@ export const site = {
     },
     {
       slug: "dragon-hibiscus",
-      name: "Dragon & Hibiscus",
-      placement: "Leg", // inferred from the photo — confirm with the artist
-      style: "Colour",
-      note: "A coiled dragon in full colour over a hibiscus bloom, finished with red lettering — the brightest piece in the portfolio.",
-      focus: "center",
-      photo: "", // "/photos/tattoo/work-dragon.jpg"
+      name: "Dragon & Pagoda",
+      placement: "Thigh",
+      style: "Japanese",
+      note: "An Eastern dragon coiled over a pagoda, with hibiscus in soft red and hand-drawn characters running down the leg.",
+      focus: "38% 45%",
+      photo: "/photos/tattoo/work-dragon.jpg",
     },
     {
       slug: "sun-lilies-sleeve",
