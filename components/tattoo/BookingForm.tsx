@@ -50,7 +50,7 @@ export default function BookingForm() {
     return (
       <div role="status" className="border border-volt/50 bg-char p-8 text-center">
         <IconCheck className="w-10 h-10 mx-auto text-volt" />
-        <p className="mt-4 font-display font-extrabold uppercase text-2xl text-salt">
+        <p className="mt-4 font-display text-2xl text-salt">
           Request sent
         </p>
         <p className="mt-3 text-salt/75 leading-relaxed">

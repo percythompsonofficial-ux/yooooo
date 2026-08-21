@@ -18,7 +18,7 @@ export default function ArtistPage() {
     <>
       <section className="mx-auto max-w-7xl px-5 sm:px-8 pt-40 pb-16">
         <Eyebrow className="animate-fade-up">The artist</Eyebrow>
-        <h1 className="mt-5 font-display font-extrabold uppercase leading-[0.88] text-[clamp(3rem,9vw,7.5rem)] text-salt animate-fade-up">
+        <h1 className="mt-5 font-display leading-[0.88] text-[clamp(3rem,9vw,7.5rem)] text-salt animate-fade-up">
           {site.name}
         </h1>
         <p className="mt-6 max-w-xl text-salt/80 text-lg leading-relaxed animate-fade-up">
@@ -38,7 +38,7 @@ export default function ArtistPage() {
               className="aspect-[4/3]"
             />
             <div>
-              <h2 className="font-display font-extrabold uppercase text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[0.95] text-salt">
+              <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[0.95] text-salt">
                 {artist.name}
               </h2>
               <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-volt">

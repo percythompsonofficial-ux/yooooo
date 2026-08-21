@@ -32,7 +32,7 @@ export default function TattooHome() {
           <Eyebrow className="animate-fade-up">
             {site.location} · {site.altName}
           </Eyebrow>
-          <h1 className="mt-5 font-display font-extrabold uppercase leading-[0.88] text-[clamp(3.4rem,11vw,9.5rem)] text-salt animate-fade-up">
+          <h1 className="mt-5 font-display leading-[0.88] text-[clamp(3.4rem,11vw,9.5rem)] text-salt animate-fade-up">
             Ink that
             <br />
             <span className="stroke-volt">holds up</span>
@@ -73,7 +73,7 @@ export default function TattooHome() {
             <Reveal key={s.title} delay={i * 80}>
               <div className="bg-void p-8 sm:p-10 h-full hover:bg-char transition-colors duration-300">
                 <IconStar className="w-5 h-5 text-flash" />
-                <h3 className="mt-5 font-display font-bold uppercase text-2xl tracking-[0.02em] text-salt">
+                <h3 className="mt-5 font-display text-2xl tracking-[0.02em] text-salt">
                   {s.title}
                 </h3>
                 <p className="mt-3 text-salt/70 leading-relaxed">{s.body}</p>
@@ -117,7 +117,7 @@ export default function TattooHome() {
             />
             <div>
               <Eyebrow>The artist</Eyebrow>
-              <h2 className="mt-4 font-display font-extrabold uppercase text-[clamp(2.4rem,5vw,4rem)] leading-[0.95] text-salt">
+              <h2 className="mt-4 font-display text-[clamp(2.4rem,5vw,4rem)] leading-[0.95] text-salt">
                 {artist.name}
               </h2>
               <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-volt">
@@ -145,7 +145,7 @@ export default function TattooHome() {
       <section className="relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-28 text-center">
           <Reveal>
-            <h2 className="font-display font-extrabold uppercase leading-[0.9] text-[clamp(2.8rem,8vw,6.5rem)] text-salt">
+            <h2 className="font-display leading-[0.9] text-[clamp(2.8rem,8vw,6.5rem)] text-salt">
               Your skin,
               <br />
               <span className="stroke-volt">your story</span>

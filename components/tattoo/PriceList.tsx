@@ -10,7 +10,7 @@ export default function PriceList() {
             key={row.item}
             className="flex items-baseline justify-between gap-6 py-3.5"
           >
-            <dt className="font-display font-bold uppercase tracking-[0.02em] text-lg text-salt">
+            <dt className="font-display tracking-[0.02em] text-lg text-salt">
               {row.item}
             </dt>
             <dd className="font-mono text-sm tracking-[0.06em] text-volt shrink-0">

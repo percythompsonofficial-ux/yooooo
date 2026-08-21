@@ -10,7 +10,7 @@ export function Eyebrow({
 }) {
   return (
     <p
-      className={`font-mono text-[0.68rem] sm:text-xs uppercase tracking-[0.28em] text-volt ${className}`}
+      className={`font-script text-xl sm:text-2xl leading-none tracking-[0.02em] text-volt ${className}`}
     >
       {children}
     </p>
@@ -31,7 +31,7 @@ export function SectionHeading({
   return (
     <div className={`${center ? "text-center" : ""} ${className}`}>
       <Eyebrow>{eyebrow}</Eyebrow>
-      <h2 className="mt-4 font-display font-extrabold uppercase text-[clamp(2.4rem,5.5vw,4.2rem)] leading-[0.95] tracking-[0.01em] text-salt">
+      <h2 className="mt-4 font-display text-[clamp(2.4rem,5.5vw,4.2rem)] leading-[0.95] tracking-[0.01em] text-salt">
         {title}
       </h2>
     </div>

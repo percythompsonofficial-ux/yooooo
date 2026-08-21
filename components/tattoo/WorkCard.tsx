@@ -15,7 +15,7 @@ export default function WorkCard({ item }: { item: WorkItem }) {
       />
       <figcaption className="p-4 border-t border-salt/12">
         {/* two-line floor keeps card captions aligned when a title wraps */}
-        <h3 className="min-h-[2.5rem] font-display font-bold uppercase text-xl leading-[1.15] text-salt group-hover:text-volt transition-colors duration-200">
+        <h3 className="min-h-[2.5rem] font-display text-xl leading-[1.15] text-salt group-hover:text-volt transition-colors duration-200">
           {item.name}
         </h3>
         <p className="mt-2.5 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-volt">

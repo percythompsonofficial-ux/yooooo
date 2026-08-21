@@ -18,7 +18,7 @@ export default function BookingPage() {
     <>
       <section className="mx-auto max-w-7xl px-5 sm:px-8 pt-40 pb-16">
         <Eyebrow className="animate-fade-up">Booking</Eyebrow>
-        <h1 className="mt-5 font-display font-extrabold uppercase leading-[0.88] text-[clamp(3rem,9vw,7.5rem)] text-salt animate-fade-up">
+        <h1 className="mt-5 font-display leading-[0.88] text-[clamp(3rem,9vw,7.5rem)] text-salt animate-fade-up">
           Start with a<br />
           <span className="stroke-volt">conversation</span>
         </h1>
@@ -33,7 +33,7 @@ export default function BookingPage() {
       <section className="mx-auto max-w-7xl px-5 sm:px-8 py-20 grid gap-14 lg:grid-cols-[1.4fr_1fr]">
         <Reveal>
           <div>
-            <h2 className="font-display font-bold uppercase text-3xl text-salt">
+            <h2 className="font-display text-3xl text-salt">
               Request a consult
             </h2>
             <div className="mt-8">
@@ -79,13 +79,13 @@ export default function BookingPage() {
               </ul>
             </div>
             <div className="border border-flash/40 bg-char p-6">
-              <p className="font-display font-bold uppercase text-lg text-salt">
+              <p className="font-display text-lg text-salt">
                 {site.booking.deposit} deposit
               </p>
               <p className="mt-2 text-sm text-salt/70 leading-relaxed">
                 {site.booking.depositNote}
               </p>
-              <p className="mt-4 font-display font-bold uppercase text-lg text-salt">
+              <p className="mt-4 font-display text-lg text-salt">
                 {site.booking.minimumAge}
               </p>
               <p className="mt-2 text-sm text-salt/70 leading-relaxed">
@@ -117,7 +117,7 @@ export default function BookingPage() {
             {site.faqs.map((f, i) => (
               <Reveal key={f.q} delay={i * 50}>
                 <details className="group border border-salt/15 bg-void open:border-volt/50 transition-colors duration-200">
-                  <summary className="flex items-center justify-between gap-4 cursor-pointer list-none px-6 py-5 font-display font-bold uppercase tracking-[0.03em] text-lg text-salt group-open:text-volt">
+                  <summary className="flex items-center justify-between gap-4 cursor-pointer list-none px-6 py-5 font-display tracking-[0.03em] text-lg text-salt group-open:text-volt">
                     {f.q}
                     <span
                       aria-hidden="true"

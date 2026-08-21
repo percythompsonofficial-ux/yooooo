@@ -16,7 +16,7 @@ export default function WorkPage() {
     <>
       <section className="mx-auto max-w-7xl px-5 sm:px-8 pt-40 pb-16">
         <Eyebrow className="animate-fade-up">The gallery</Eyebrow>
-        <h1 className="mt-5 font-display font-extrabold uppercase leading-[0.88] text-[clamp(3rem,9vw,7.5rem)] text-salt animate-fade-up">
+        <h1 className="mt-5 font-display leading-[0.88] text-[clamp(3rem,9vw,7.5rem)] text-salt animate-fade-up">
           Recent
           <br />
           <span className="stroke-volt">work</span>

@@ -106,7 +106,7 @@ export default function Header() {
             <Link
               key={l.href}
               href={l.href}
-              className="font-display font-extrabold uppercase text-4xl py-3 text-salt hover:text-volt transition-colors duration-200 border-b border-salt/10"
+              className="font-display text-4xl py-3 text-salt hover:text-volt transition-colors duration-200 border-b border-salt/10"
               style={{ transitionDelay: `${i * 30}ms` }}
             >
               {l.label}

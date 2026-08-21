@@ -23,7 +23,7 @@ export default function Logo({
   if (!LOGO_SRC || failed) {
     return (
       <span
-        className={`font-display font-extrabold uppercase tracking-[0.06em] leading-none ${wordmarkClassName}`}
+        className={`font-display tracking-[0.06em] leading-none ${wordmarkClassName}`}
       >
         {site.name}
       </span>

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./fonts.css";
 
 @theme {
   /* Beau Jardin palette — Gulf Coast oak grove */
@@ -211,12 +212,17 @@ body {
 }
 
 .theme-tattoo {
-  --font-display: "Big Shoulders Display", "Arial Narrow", "Impact", sans-serif;
+  --font-display: "Pirata One", "Impact", sans-serif;
+  --font-script: "Pinyon Script", "Snell Roundhand", cursive;
   --font-sans: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "IBM Plex Mono", "Courier New", monospace;
   font-family: var(--font-sans);
   background: var(--color-void);
   color: var(--color-salt);
+}
+
+.theme-tattoo .font-script {
+  font-family: var(--font-script);
 }
 .theme-tattoo ::selection {
   background: var(--color-volt);
