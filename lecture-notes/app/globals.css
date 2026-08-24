@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  /* Lecture Hall — dark-first, because half of these rooms have the lights off */
+  --color-void: #0b0b0e;
+  --color-panel: #15151b;
+  --color-panel-2: #1d1d25;
+  --color-hairline: #2b2b36;
+  --color-chalk: #eeecf2;
+  --color-muted: #9995a6;
+  --color-faint: #6d6a7a;
+  --color-rec: #e5484d;
+  --color-star: #e8a33d;
+  --color-live: #4fbf7f;
+  --color-ink: #12121a;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-chalk);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  /* Recording screen sits under the notch on a propped-up phone */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* Never let a stray long token (a mangled chemical name, a URL) blow out the layout */
+p, li, h1, h2, h3, dd, dt {
+  overflow-wrap: break-word;
+}
+
+@keyframes pulse-rec {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.rec-dot {
+  animation: pulse-rec 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rec-dot { animation: none; }
+}
+
+/* The native audio element is a white pill in a dark app. WebKit lets us
+   repaint its panel; browsers that don't support these selectors simply keep
+   the default controls, which still work. */
+audio {
+  width: 100%;
+  border-radius: 0.75rem;
+}
+audio::-webkit-media-controls-panel {
+  background-color: var(--color-panel);
+}
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  color: var(--color-chalk);
+  text-shadow: none;
+}
