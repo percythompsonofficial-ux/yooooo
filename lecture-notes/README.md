@@ -22,12 +22,17 @@ You need two keys:
 | Key                 | What for                | Notes                                                                                            |
 | ------------------- | ----------------------- | ------------------------------------------------------------------------------------------------ |
 | `ANTHROPIC_API_KEY` | Writing the notes       | Required.                                                                                         |
+| `ANTHROPIC_MODEL`   | Which model writes them | Optional. Defaults to `claude-sonnet-5`; set `claude-opus-5` to spend more for sharper judgement.  |
 | `DEEPGRAM_API_KEY`  | Transcription           | **Recommended.** No file size limit, labels speakers, handles a full lecture in one request.       |
 | `OPENAI_API_KEY`    | Transcription, fallback | Used only if Deepgram isn't set. Whisper caps uploads at 25 MB — roughly 70 minutes of audio here. |
 
-A typical 75-minute lecture costs a few cents to transcribe and a few more to
-turn into notes. Check current pricing before you commit to a provider; these
-rates move.
+Deepgram's free credit is generous enough that transcription is effectively
+free for a long time. The notes pass is the part that costs money — on the
+default Sonnet model, roughly 10-25 cents for a 75-minute lecture, more if you
+photographed a lot of slides. Switching `ANTHROPIC_MODEL` to `claude-opus-5`
+roughly doubles that.
+
+Check current pricing before you rely on those numbers; these rates move.
 
 ## Getting it onto your phone
 

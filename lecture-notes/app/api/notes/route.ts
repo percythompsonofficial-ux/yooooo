@@ -30,6 +30,18 @@ const MAX_TRANSCRIPT_CHARS = 600_000;
 /** Every photo costs input tokens, so there is a point of diminishing returns. */
 const MAX_SLIDES = 40;
 
+/**
+ * Sonnet is the default because a semester of lectures is a recurring bill and
+ * this is a well-specified extraction task, which is where the gap between the
+ * two models is narrowest.
+ *
+ * Opus is meaningfully better at the judgement calls — deciding that ten
+ * minutes spent on one idea was itself the exam signal, or that a professor
+ * contradicted themselves. Set ANTHROPIC_MODEL=claude-opus-5 for a lecture
+ * worth the extra, or if the notes start feeling shallow.
+ */
+const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-5";
+
 const SYSTEM = `You turn a transcript of a university lecture into the notes a student would want to have taken.
 
 WHAT YOU ARE READING
@@ -175,7 +187,7 @@ export async function POST(request: Request) {
 
   try {
     const response = await client.messages.parse({
-      model: "claude-opus-5",
+      model: MODEL,
       max_tokens: 16000,
       thinking: { type: "adaptive" },
       output_config: {
