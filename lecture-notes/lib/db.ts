@@ -1,6 +1,6 @@
 "use client";
 
-import type { Lecture, LectureResult, TranscriptSegment } from "./types";
+import type { Lecture, LectureResult, Slide, TranscriptSegment } from "./types";
 import type { LectureNotes } from "./notes-schema";
 
 /**
@@ -17,12 +17,14 @@ import type { LectureNotes } from "./notes-schema";
  */
 
 const DB_NAME = "lecture-notes";
-const DB_VERSION = 1;
+// v2 added the slides store.
+const DB_VERSION = 2;
 
 const LECTURES = "lectures";
 const CHUNKS = "chunks";
 const AUDIO = "audio";
 const RESULTS = "results";
+const SLIDES = "slides";
 
 let dbPromise: Promise<IDBDatabase> | null = null;
 
@@ -49,6 +51,12 @@ function openDB(): Promise<IDBDatabase> {
       }
       if (!db.objectStoreNames.contains(RESULTS)) {
         db.createObjectStore(RESULTS, { keyPath: "lectureId" });
+      }
+      if (!db.objectStoreNames.contains(SLIDES)) {
+        // Keyed by id rather than [lectureId, at] because two photos of the
+        // same board a second apart are a normal thing to do.
+        const store = db.createObjectStore(SLIDES, { keyPath: "id" });
+        store.createIndex("lectureId", "lectureId");
       }
     };
 
@@ -248,6 +256,53 @@ export async function saveNotes(
 }
 
 /* ------------------------------------------------------------------ */
+/* Slides                                                             */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Photos of the board or the projected slide, each pinned to the second it was
+ * taken. Audio alone misses everything a professor writes down rather than
+ * says, which is usually the half you actually need.
+ */
+export async function addSlide(
+  lectureId: string,
+  at: number,
+  blob: Blob,
+  width: number,
+  height: number,
+): Promise<Slide> {
+  const slide: Slide = {
+    id: `${lectureId}-${Date.now().toString(36)}-${Math.random()
+      .toString(36)
+      .slice(2, 6)}`,
+    lectureId,
+    at,
+    blob,
+    width,
+    height,
+    createdAt: Date.now(),
+  };
+  await tx(SLIDES, "readwrite", (s) => s.put(slide));
+  return slide;
+}
+
+export async function listSlides(lectureId: string): Promise<Slide[]> {
+  const rows = await tx<Slide[]>(SLIDES, "readonly", (s) =>
+    s.index("lectureId").getAll(lectureId),
+  );
+  return (rows ?? []).sort((a, b) => a.at - b.at);
+}
+
+export async function deleteSlide(id: string): Promise<void> {
+  await tx(SLIDES, "readwrite", (s) => s.delete(id));
+}
+
+async function clearSlides(lectureId: string): Promise<void> {
+  const slides = await listSlides(lectureId);
+  for (const slide of slides) await deleteSlide(slide.id);
+}
+
+/* ------------------------------------------------------------------ */
 /* Housekeeping                                                        */
 /* ------------------------------------------------------------------ */
 
@@ -256,6 +311,7 @@ export async function deleteLecture(lectureId: string): Promise<void> {
   await tx(RESULTS, "readwrite", (s) => s.delete(lectureId));
   await tx(AUDIO, "readwrite", (s) => s.delete(lectureId));
   await clearChunks(lectureId);
+  await clearSlides(lectureId);
 }
 
 /**

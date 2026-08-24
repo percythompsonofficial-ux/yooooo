@@ -5,12 +5,16 @@ import { LectureNotesSchema } from "@/lib/notes-schema";
 import type { Mark, TranscriptSegment } from "@/lib/types";
 
 /**
- * Transcript in, structured notes out.
+ * Transcript (and any photos of the board) in, structured notes out.
  *
  * The value of this route is entirely in the prompt and the schema. A generic
  * "summarize this" produces a paragraph nobody studies from; what a student
  * needs is the professor's own definitions, the formulas as stated, and above
  * all the moments where the professor said what was going to be on the test.
+ *
+ * Photos matter because a lecture is only half spoken. Anything written on the
+ * board and then referred to as "this" is invisible in a transcript, and a
+ * single photo recovers it.
  */
 
 export const runtime = "nodejs";
@@ -23,6 +27,9 @@ export const maxDuration = 300;
  */
 const MAX_TRANSCRIPT_CHARS = 600_000;
 
+/** Every photo costs input tokens, so there is a point of diminishing returns. */
+const MAX_SLIDES = 40;
+
 const SYSTEM = `You turn a transcript of a university lecture into the notes a student would want to have taken.
 
 WHAT YOU ARE READING
@@ -31,9 +38,19 @@ Each line is prefixed with the second it begins, in brackets: "[452] ...". Speak
 TIMESTAMPS
 Every item you produce needs "at" — the bracketed second where that material was discussed. Take it from the bracket on the relevant line. Never invent or estimate a timestamp. These become buttons that replay the audio, so a wrong one sends the student to the wrong moment of a 75-minute recording.
 
+SLIDE PHOTOS
+The student may have photographed the board or the projected slides. Each photo is labelled with the second it was taken. These are the most valuable input you have, because a lecture is only half spoken: the professor writes a formula, then says "so this gives us that", and the transcript preserves nothing.
+
+Use the photos to:
+- Read out what was written, into board_content.
+- Recover formulas and notation that were written but never said. Mark those with source "slide".
+- Resolve garbled transcription. A photo showing "Kakutani" settles what the transcriber heard as "cocotini".
+
+Two cautions. A photo is timestamped when it was taken, which is usually a little after the thing was written — use the surrounding transcript to place it correctly. And if part of a photo is blurred, glared out, or cut off, say so rather than guessing; a confidently invented formula is worse than an acknowledged gap.
+
 FIDELITY
 - Definitions must be the professor's, phrased the way they phrased it — not the textbook definition you already know.
-- Put in "formulas" only what was actually stated aloud. If a formula was referenced but not stated, that belongs in open_questions instead. Never reconstruct one from your own knowledge.
+- Put in "formulas" only what was stated aloud or is legible in a photo, and set "source" accordingly. If a formula was referenced but neither said nor shown, that belongs in open_questions. Never reconstruct one from your own knowledge.
 - If the professor said something wrong or contradicted themselves, record what they said. The exam follows the professor.
 - Empty arrays are correct and expected. A lecture with no assignments gets an empty assignments array; do not pad a section to make it look complete.
 
@@ -46,7 +63,7 @@ Professors telegraph exams constantly. Capture:
 Mark confidence "explicit" only for a direct statement about an exam, "strong" for heavy repetition or emphasis, "possible" for a hunch. Quote what was actually said.
 
 TRANSCRIPTION ERRORS
-Speech-to-text mangles technical vocabulary, names, and notation — it will render "eigenvalue" as "Iron value" and "Nash equilibrium" as "gnash equilibrium". Use context to read through the garbling, and list the ones you had to guess at in suspected_mistranscriptions so the student can verify them. Do not silently correct a term you are unsure about.
+Speech-to-text mangles technical vocabulary, names, and notation — it will render "eigenvalue" as "Iron value" and "Nash equilibrium" as "gnash equilibrium". Use context, and the photos, to read through the garbling, and list the ones you had to guess at in suspected_mistranscriptions so the student can verify them. Do not silently correct a term you are unsure about.
 
 STARRED MOMENTS
 The student may have starred moments during class. Those are the parts they knew mattered while sitting there. Treat them as high signal: make sure whatever was being discussed at that second appears somewhere in the notes.
@@ -57,10 +74,12 @@ function bad(message: string, status = 400) {
   return Response.json({ error: message }, { status });
 }
 
-type Body = {
+type Payload = {
   segments?: TranscriptSegment[];
   marks?: Mark[];
   course?: string;
+  /** One entry per uploaded `slide` file, in the same order. */
+  slides?: { at: number }[];
 };
 
 export async function POST(request: Request) {
@@ -71,14 +90,18 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: Body;
+  let payload: Payload;
+  let slideFiles: File[] = [];
+
   try {
-    body = (await request.json()) as Body;
+    const form = await request.formData();
+    payload = JSON.parse(String(form.get("payload") ?? "{}")) as Payload;
+    slideFiles = form.getAll("slide").filter((f): f is File => f instanceof File);
   } catch {
     return bad("Malformed request body.");
   }
 
-  const segments = body.segments ?? [];
+  const segments = payload.segments ?? [];
   if (segments.length === 0) return bad("No transcript segments provided.");
 
   const transcript = segments
@@ -96,16 +119,57 @@ export async function POST(request: Request) {
     );
   }
 
-  const marks = body.marks ?? [];
+  if (slideFiles.length > MAX_SLIDES) {
+    return bad(
+      `${slideFiles.length} photos is more than this can send in one request ` +
+        `(the limit is ${MAX_SLIDES}). Delete the near-duplicates and retry.`,
+      413,
+    );
+  }
+
+  const marks = payload.marks ?? [];
   const starred = marks.length
     ? `\n\nThe student starred these moments during class (seconds): ${marks
         .map((m) => Math.round(m.at))
         .join(", ")}.`
     : "";
 
-  const course = body.course
-    ? `\n\nThis is for a course the student labelled "${body.course}".`
+  const course = payload.course
+    ? `\n\nThis is for a course the student labelled "${payload.course}".`
     : "";
+
+  const content: Anthropic.ContentBlockParam[] = [
+    {
+      type: "text",
+      text: `Here is the transcript of today's lecture.${course}${starred}\n\n<transcript>\n${transcript}\n</transcript>`,
+    },
+  ];
+
+  if (slideFiles.length > 0) {
+    const times = payload.slides ?? [];
+    content.push({
+      type: "text",
+      text:
+        `The student took ${slideFiles.length} photo(s) of the board or the ` +
+        `projected slides during this lecture. Each is labelled with the ` +
+        `second it was taken.`,
+    });
+
+    for (const [i, file] of slideFiles.entries()) {
+      const at = Math.round(times[i]?.at ?? 0);
+      const data = Buffer.from(await file.arrayBuffer()).toString("base64");
+      content.push({ type: "text", text: `Photo taken at [${at}]:` });
+      content.push({
+        type: "image",
+        source: {
+          type: "base64",
+          // Everything is normalised to JPEG on the way into storage.
+          media_type: "image/jpeg",
+          data,
+        },
+      });
+    }
+  }
 
   const client = new Anthropic();
 
@@ -119,12 +183,7 @@ export async function POST(request: Request) {
         format: zodOutputFormat(LectureNotesSchema),
       },
       system: SYSTEM,
-      messages: [
-        {
-          role: "user",
-          content: `Here is the transcript of today's lecture.${course}${starred}\n\n<transcript>\n${transcript}\n</transcript>`,
-        },
-      ],
+      messages: [{ role: "user", content }],
     });
 
     if (response.stop_reason === "refusal") {

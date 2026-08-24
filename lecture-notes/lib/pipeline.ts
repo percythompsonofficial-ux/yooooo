@@ -58,15 +58,26 @@ export async function generateNotes(lectureId: string): Promise<void> {
 
   await updateLecture(lectureId, { status: "noting", error: "" });
 
-  const res = await fetch("/api/notes", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+  // Photos of the board go up alongside the transcript. Multipart rather than
+  // JSON so the images travel as bytes instead of inflating 33% as base64.
+  const { listSlides } = await import("./db");
+  const slides = await listSlides(lectureId);
+
+  const form = new FormData();
+  form.append(
+    "payload",
+    JSON.stringify({
       segments: result.segments,
       marks: lecture.marks,
       course: lecture.course,
+      slides: slides.map((s) => ({ at: s.at })),
     }),
-  });
+  );
+  for (const slide of slides) {
+    form.append("slide", slide.blob, `${slide.id}.jpg`);
+  }
+
+  const res = await fetch("/api/notes", { method: "POST", body: form });
   if (!res.ok) throw new Error(await readError(res));
 
   const notes = (await res.json()) as LectureNotes;

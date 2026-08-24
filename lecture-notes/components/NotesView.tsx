@@ -1,6 +1,7 @@
 "use client";
 
 import type { LectureNotes } from "@/lib/notes-schema";
+import type { Slide } from "@/lib/types";
 import { stamp } from "@/lib/format";
 
 /**
@@ -44,10 +45,29 @@ function Section({
 export default function NotesView({
   notes,
   onSeek,
+  slides = [],
+  slideUrls = {},
 }: {
   notes: LectureNotes;
   onSeek: (seconds: number) => void;
+  slides?: Slide[];
+  slideUrls?: Record<string, string>;
 }) {
+  /**
+   * Board content is transcribed from a photo, so showing that photo beside it
+   * lets you check the reading at a glance — which matters most exactly where
+   * handwriting is worst. Pick the photo taken nearest the moment.
+   */
+  const slideNear = (at: number): Slide | undefined => {
+    if (slides.length === 0) return undefined;
+    let best = slides[0];
+    for (const slide of slides) {
+      if (Math.abs(slide.at - at) < Math.abs(best.at - at)) best = slide;
+    }
+    // Beyond a couple of minutes it is a different part of the lecture.
+    return Math.abs(best.at - at) <= 120 ? best : undefined;
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <section>
@@ -108,7 +128,7 @@ export default function NotesView({
       <Section
         title="Formulas & results"
         count={notes.formulas.length}
-        hint="Only what was stated aloud."
+        hint="Stated aloud, or read off a photo of the board."
       >
         {notes.formulas.map((item, i) => (
           <div key={i} className="flex gap-2.5">
@@ -119,10 +139,54 @@ export default function NotesView({
               </pre>
               <p className="mt-1 text-xs leading-relaxed text-muted">
                 {item.notation_notes}
+                {item.source !== "spoken" && (
+                  <span className="ml-1.5 rounded bg-panel-2 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-faint">
+                    {item.source === "slide" ? "from a photo" : "said & written"}
+                  </span>
+                )}
               </p>
             </div>
           </div>
         ))}
+      </Section>
+
+      <Section
+        title="From the board"
+        count={notes.board_content.length}
+        hint="Read out of your photos — the half of a lecture that never gets said."
+      >
+        {notes.board_content.map((item, i) => {
+          const slide = slideNear(item.at);
+          return (
+            <div key={i} className="flex gap-2.5">
+              <Stamp at={item.at} onSeek={onSeek} />
+              <div className="min-w-0 flex-1">
+                <pre className="overflow-x-auto whitespace-pre-wrap rounded-lg border border-hairline bg-panel-2 px-3 py-2 font-mono text-sm leading-relaxed text-chalk">
+                  {item.transcription}
+                </pre>
+                <p className="mt-1 text-xs leading-relaxed text-muted">
+                  {item.context}
+                </p>
+                {slide && slideUrls[slide.id] && (
+                  <button
+                    onClick={() => onSeek(slide.at)}
+                    className="mt-2 block overflow-hidden rounded-lg border border-hairline transition-colors hover:border-faint"
+                    title="Jump to when this was photographed"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={slideUrls[slide.id]}
+                      alt={`The board at ${stamp(slide.at)}`}
+                      width={slide.width}
+                      height={slide.height}
+                      className="max-h-64 w-auto"
+                    />
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </Section>
 
       <Section title="Worked examples" count={notes.examples.length}>

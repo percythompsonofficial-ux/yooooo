@@ -63,10 +63,35 @@ export const LectureNotesSchema = z.object({
         notation_notes: z
           .string()
           .describe("What each symbol means, and any stated conditions."),
+        source: z
+          .enum(["spoken", "slide", "both"])
+          .describe(
+            "Where this came from: said aloud, read off a slide photo, or both.",
+          ),
       }),
     )
     .describe(
-      "Only formulas actually stated aloud. Never reconstruct one from memory.",
+      "Formulas stated aloud or legible in a slide photo. Never reconstruct " +
+        "one from your own knowledge.",
+    ),
+
+  board_content: z
+    .array(
+      z.object({
+        ...timestamped,
+        transcription: z
+          .string()
+          .describe(
+            "What is written on the board or slide, transcribed as faithfully " +
+              "as the photo allows. Preserve structure — lines, lists, labels.",
+          ),
+        context: z
+          .string()
+          .describe("What the professor was saying about it at the time."),
+      }),
+    )
+    .describe(
+      "Content read out of the slide photos. Empty when no photos were taken.",
     ),
 
   examples: z.array(

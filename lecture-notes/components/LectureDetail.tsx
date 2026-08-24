@@ -4,18 +4,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import {
+  addSlide,
   deleteAudio,
   deleteLecture,
+  deleteSlide,
   getAudio,
   getLecture,
   getResult,
+  listSlides,
 } from "@/lib/db";
+import { prepareSlide } from "@/lib/images";
 import { processLecture } from "@/lib/pipeline";
 import { bytes, hhmmss, relativeDate, stamp } from "@/lib/format";
-import type { Lecture, LectureResult } from "@/lib/types";
+import type { Lecture, LectureResult, Slide } from "@/lib/types";
 import NotesView from "./NotesView";
 
-type Tab = "notes" | "transcript" | "starred";
+type Tab = "notes" | "transcript" | "slides" | "starred";
 
 export default function LectureDetail({ id }: { id: string }) {
   const router = useRouter();
@@ -29,13 +33,18 @@ export default function LectureDetail({ id }: { id: string }) {
   const [now, setNow] = useState(0);
   const [loading, setLoading] = useState(true);
   const [speed, setSpeed] = useState(1);
+  const [slides, setSlides] = useState<Slide[]>([]);
+  const [slideUrls, setSlideUrls] = useState<Record<string, string>>({});
+  const [adding, setAdding] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const fileRef = useRef<HTMLInputElement | null>(null);
 
   const load = useCallback(async () => {
     const l = await getLecture(id);
     setLecture(l ?? null);
     setResult((await getResult(id)) ?? null);
+    setSlides(await listSlides(id));
     if (l?.error) setError(l.error);
     setLoading(false);
   }, [id]);
@@ -43,6 +52,12 @@ export default function LectureDetail({ id }: { id: string }) {
   useEffect(() => {
     void load();
   }, [load]);
+
+  // Before anything is processed, Notes is an empty room — open on the photos.
+  useEffect(() => {
+    if (loading) return;
+    if (!result?.notes && slides.length > 0) setTab("slides");
+  }, [loading, result, slides.length]);
 
   // Object URLs leak if they aren't revoked, and an hour of audio is not small.
   useEffect(() => {
@@ -58,6 +73,15 @@ export default function LectureDetail({ id }: { id: string }) {
       if (url) URL.revokeObjectURL(url);
     };
   }, [id]);
+
+  useEffect(() => {
+    const urls: Record<string, string> = {};
+    for (const slide of slides) urls[slide.id] = URL.createObjectURL(slide.blob);
+    setSlideUrls(urls);
+    return () => {
+      for (const url of Object.values(urls)) URL.revokeObjectURL(url);
+    };
+  }, [slides]);
 
   // Search results link straight to a moment: /lectures/<id>#t=452
   useEffect(() => {
@@ -96,6 +120,48 @@ export default function LectureDetail({ id }: { id: string }) {
       setStep("");
     }
   }, [id, load]);
+
+  /**
+   * Adding photos after class uses the ordinary file picker — safe here,
+   * unlike during a recording, where handing off to the camera app would
+   * background the tab.
+   */
+  const addPhotos = useCallback(
+    async (files: FileList | null) => {
+      if (!files?.length) return;
+      setAdding(true);
+      setError("");
+      try {
+        for (const file of Array.from(files)) {
+          const prepared = await prepareSlide(file);
+          // Photos added later have no moment of their own, so they land at
+          // wherever the player is sitting — scrub to the right spot first.
+          await addSlide(
+            id,
+            audioRef.current?.currentTime ?? 0,
+            prepared.blob,
+            prepared.width,
+            prepared.height,
+          );
+        }
+        setSlides(await listSlides(id));
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err));
+      } finally {
+        setAdding(false);
+        if (fileRef.current) fileRef.current.value = "";
+      }
+    },
+    [id],
+  );
+
+  const removeSlide = useCallback(
+    async (slideId: string) => {
+      await deleteSlide(slideId);
+      setSlides(await listSlides(id));
+    },
+    [id],
+  );
 
   const dropAudio = useCallback(async () => {
     if (
@@ -215,15 +281,27 @@ export default function LectureDetail({ id }: { id: string }) {
         </p>
       )}
 
-      {(notes || segments.length > 0) && (
+      {(notes || segments.length > 0 || slides.length > 0) && (
         <>
           <nav className="flex gap-1 border-b border-hairline">
             {(
               [
-                ["notes", "Notes"],
-                ["transcript", `Transcript`],
-                ["starred", `Starred${lecture.marks.length ? ` (${lecture.marks.length})` : ""}`],
-              ] as const
+                // Slides is always offered: photos are worth adding before the
+                // notes are written, not just after.
+                ...(notes ? ([["notes", "Notes"]] as const) : []),
+                ...(segments.length > 0
+                  ? ([["transcript", "Transcript"]] as const)
+                  : []),
+                [
+                  "slides",
+                  `Slides${slides.length ? ` (${slides.length})` : ""}`,
+                ],
+                ...(lecture.marks.length > 0
+                  ? ([
+                      ["starred", `Starred (${lecture.marks.length})`],
+                    ] as const)
+                  : []),
+              ] as [Tab, string][]
             ).map(([key, label]) => (
               <button
                 key={key}
@@ -241,7 +319,7 @@ export default function LectureDetail({ id }: { id: string }) {
 
           {tab === "notes" &&
             (notes ? (
-              <NotesView notes={notes} onSeek={seek} />
+              <NotesView notes={notes} onSeek={seek} slides={slides} slideUrls={slideUrls} />
             ) : (
               <p className="text-sm text-faint">
                 Transcribed, but the notes haven&rsquo;t been written yet.
@@ -274,6 +352,71 @@ export default function LectureDetail({ id }: { id: string }) {
                   </button>
                 );
               })}
+            </div>
+          )}
+
+          {tab === "slides" && (
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-xs leading-relaxed text-faint">
+                  Photos of the board, each pinned to a moment. These are read
+                  alongside the transcript when the notes are written.
+                </p>
+                <button
+                  onClick={() => fileRef.current?.click()}
+                  disabled={adding}
+                  className="shrink-0 rounded-lg border border-hairline px-3 py-2 text-xs font-medium text-muted transition-colors hover:border-faint hover:text-chalk disabled:opacity-40"
+                >
+                  {adding ? "Adding…" : "Add photos"}
+                </button>
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  hidden
+                  onChange={(e) => void addPhotos(e.target.files)}
+                />
+              </div>
+
+              {slides.length === 0 ? (
+                <p className="text-sm text-faint">
+                  No photos yet. Anything the professor wrote rather than said
+                  is invisible to the transcript — a photo is what recovers it.
+                </p>
+              ) : (
+                <ul className="grid grid-cols-2 gap-3">
+                  {slides.map((slide) => (
+                    <li key={slide.id} className="flex flex-col gap-1">
+                      <button
+                        onClick={() => seek(slide.at)}
+                        className="overflow-hidden rounded-lg border border-hairline transition-colors hover:border-faint"
+                        title="Jump to when this was taken"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={slideUrls[slide.id]}
+                          alt={`Board at ${stamp(slide.at)}`}
+                          width={slide.width}
+                          height={slide.height}
+                          className="h-full w-full object-cover"
+                        />
+                      </button>
+                      <div className="flex items-center justify-between px-0.5">
+                        <span className="font-mono text-[11px] tabular-nums text-faint">
+                          {stamp(slide.at)}
+                        </span>
+                        <button
+                          onClick={() => void removeSlide(slide.id)}
+                          className="text-[11px] text-faint transition-colors hover:text-rec"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
 

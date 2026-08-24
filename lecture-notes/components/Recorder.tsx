@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import {
+  addSlide,
   createLecture,
   finalizeAudio,
   findInterrupted,
@@ -13,6 +14,7 @@ import {
 } from "@/lib/db";
 import { LectureRecorder, type RecorderState } from "@/lib/recorder";
 import { hhmmss } from "@/lib/format";
+import SlideCamera from "./SlideCamera";
 import type { Lecture, Mark } from "@/lib/types";
 
 const COURSE_KEY = "lecture-notes:last-course";
@@ -40,6 +42,8 @@ export default function Recorder() {
   const [busy, setBusy] = useState("");
   const [interrupted, setInterrupted] = useState<Lecture[]>([]);
   const [showIOSWarning, setShowIOSWarning] = useState(false);
+  const [cameraOpen, setCameraOpen] = useState(false);
+  const [slideCount, setSlideCount] = useState(0);
 
   const recorderRef = useRef<LectureRecorder | null>(null);
   const lectureIdRef = useRef<string>("");
@@ -74,6 +78,7 @@ export default function Recorder() {
       recorderRef.current = rec;
 
       setMarks([]);
+      setSlideCount(0);
       setSavedThroughMs(0);
       await rec.start();
     } catch (err) {
@@ -97,6 +102,22 @@ export default function Recorder() {
     await updateLecture(lectureIdRef.current, { marks: next });
     if (navigator.vibrate) navigator.vibrate(20);
   }, [marks]);
+
+  const captureSlide = useCallback(
+    async (blob: Blob, width: number, height: number) => {
+      const rec = recorderRef.current;
+      if (!rec) return;
+      await addSlide(
+        lectureIdRef.current,
+        rec.elapsedMs() / 1000,
+        blob,
+        width,
+        height,
+      );
+      setSlideCount((n) => n + 1);
+    },
+    [],
+  );
 
   const stop = useCallback(async () => {
     const rec = recorderRef.current;
@@ -276,18 +297,37 @@ export default function Recorder() {
           </button>
         ) : (
           <div className="flex w-full flex-col items-center gap-4">
-            <button
-              onClick={() => void addMark()}
-              className="flex h-24 w-full items-center justify-center gap-3 rounded-2xl border-2 border-star/50 bg-star/10 text-lg font-semibold text-star transition-transform active:scale-[0.98]"
-            >
-              <span className="text-2xl">★</span>
-              Mark this moment
-              {marks.length > 0 && (
-                <span className="rounded-full bg-star/20 px-2 py-0.5 text-sm">
-                  {marks.length}
-                </span>
-              )}
-            </button>
+            <div className="flex w-full gap-3">
+              <button
+                onClick={() => void addMark()}
+                className="flex h-24 flex-1 items-center justify-center gap-2.5 rounded-2xl border-2 border-star/50 bg-star/10 text-base font-semibold text-star transition-transform active:scale-[0.98]"
+              >
+                <span className="text-2xl">★</span>
+                Mark this
+                {marks.length > 0 && (
+                  <span className="rounded-full bg-star/20 px-2 py-0.5 text-sm">
+                    {marks.length}
+                  </span>
+                )}
+              </button>
+
+              {/* Opens a viewfinder inside the page rather than handing off to
+                  the camera app, which would background the tab and cut the
+                  recording short. */}
+              <button
+                onClick={() => setCameraOpen(true)}
+                aria-label="Photograph the board"
+                className="flex h-24 w-24 flex-col items-center justify-center gap-1 rounded-2xl border-2 border-hairline bg-panel-2 text-xs font-semibold text-muted transition-transform active:scale-[0.98]"
+              >
+                <CameraIcon />
+                Slide
+                {slideCount > 0 && (
+                  <span className="rounded-full bg-hairline px-2 text-[11px] text-chalk">
+                    {slideCount}
+                  </span>
+                )}
+              </button>
+            </div>
 
             <div className="flex w-full gap-3">
               <button
@@ -346,6 +386,13 @@ export default function Recorder() {
         </section>
       )}
 
+      {cameraOpen && (
+        <SlideCamera
+          onCapture={captureSlide}
+          onClose={() => setCameraOpen(false)}
+        />
+      )}
+
       {!live && (
         <p className="text-center text-xs leading-relaxed text-faint">
           Recordings stay on this device. Ask your professor before recording —
@@ -353,5 +400,23 @@ export default function Recorder() {
         </p>
       )}
     </div>
+  );
+}
+
+function CameraIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-6 w-6"
+      aria-hidden="true"
+    >
+      <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.2a1 1 0 0 0 .83-.45l.94-1.4A1 1 0 0 1 9.3 4.7h5.4a1 1 0 0 1 .83.45l.94 1.4a1 1 0 0 0 .83.45h2.2A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z" />
+      <circle cx="12" cy="12.8" r="3.4" />
+    </svg>
   );
 }

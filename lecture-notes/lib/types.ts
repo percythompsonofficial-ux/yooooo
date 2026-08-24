@@ -25,6 +25,18 @@ export type TranscriptSegment = {
   text: string;
 };
 
+/** A photo of the board or a projected slide, pinned to a moment in the audio. */
+export type Slide = {
+  id: string;
+  lectureId: string;
+  /** Seconds from the start of the recording. */
+  at: number;
+  blob: Blob;
+  width: number;
+  height: number;
+  createdAt: number;
+};
+
 export type Lecture = {
   id: string;
   course: string;

@@ -1,9 +1,10 @@
 # Lecture Notes
 
-Hit one button when the professor starts talking. Get back notes with the key
-concepts, the formulas as stated, the assignments mentioned out loud, and —
-most usefully — every moment the professor signalled something would be on the
-exam. Every line of notes is a button that replays the audio of that sentence.
+Hit one button when the professor starts talking. Snap a photo whenever
+something goes up on the board. Get back notes with the key concepts, the
+formulas as stated, the assignments mentioned out loud, and — most usefully —
+every moment the professor signalled something would be on the exam. Every line
+of notes is a button that replays the audio of that sentence.
 
 Recordings never leave your device. Audio is sent once, in transit, to a
 transcription API, and is stored only in your browser.
@@ -78,10 +79,12 @@ Android Chrome is considerably more forgiving, but the same safety net applies.
 1. Type the course (it remembers the last one), hit **Record**.
 2. Watch the level meter move. If it's flat, the microphone isn't hearing the
    room and you want to know that now rather than tonight.
-3. Hit **★ Mark this moment** whenever something lands as important. Those
-   timestamps are fed to the notes pass as high-signal moments, and they get
-   their own tab afterward.
-4. **Stop** → you land on the lecture → **Transcribe & write notes**. Give it a
+3. Hit **★ Mark this** whenever something lands as important. Those timestamps
+   are fed to the notes pass as high-signal moments, and they get their own tab
+   afterward.
+4. Hit **Slide** to photograph the board. Take one whenever the professor writes
+   something down — see below for why this matters more than it sounds.
+5. **Stop** → you land on the lecture → **Transcribe & write notes**. Give it a
    couple of minutes for a full lecture and leave the tab open.
 
 Afterwards, every timestamp in the notes seeks the recording. The search box on
@@ -91,6 +94,40 @@ which is the thing you actually want the week before finals.
 Storage adds up — an hour is ~22 MB and a semester of one course is over a
 gigabyte. Any lecture page has **Delete audio, keep notes** for once you've
 studied it.
+
+## Photographing the board
+
+**This is the single biggest quality difference in the app.** A lecture is only
+half spoken. The professor writes a formula, turns around, and says "so this
+gives us that" — and a transcript preserves none of it. One photo recovers the
+whole thing.
+
+The **Slide** button opens a viewfinder *inside the page*. That's deliberate and
+not the obvious implementation: the normal way to take a photo on the web is
+`<input type="file" capture>`, which hands off to the system camera app and
+backgrounds the tab. On iOS that suspends the page and gives the microphone to
+the camera — so the obvious version would end your recording every time you
+photographed a slide. The in-page viewfinder never leaves the page, and the
+audio stream is untouched.
+
+Photos are timestamped with the moment you took them, resized to 1568px on the
+long edge, and stored as JPEG — around 200 KB each rather than the four
+megabytes your camera produces.
+
+They then go to the notes pass alongside the transcript, where they're used to:
+
+- Fill in a **From the board** section transcribing what was written.
+- Recover **formulas that were written but never said** — those get tagged
+  `from a photo` in the notes.
+- **Settle garbled transcription.** A photo showing "Kakutani" resolves what the
+  transcriber heard as "cocotini".
+
+You can also add photos after class from the **Slides** tab — scrub the audio to
+the right moment first, and the photo pins itself there.
+
+Each photo adds input tokens to the notes request, so a heavily photographed
+lecture costs more than a bare one. Thirty photos is a normal upper bound; past
+forty the request is rejected and asks you to delete near-duplicates.
 
 ## Permission
 
@@ -107,9 +144,13 @@ app/
   lectures/[id]/page.tsx    one lecture: audio, notes, transcript, starred
   api/transcribe/route.ts   audio -> timestamped segments (Deepgram or Whisper)
   api/notes/route.ts        transcript -> structured notes (Claude)
+components/
+  SlideCamera.tsx           in-page viewfinder, so photographing never
+                            backgrounds the tab and kills the recording
 lib/
   recorder.ts               MediaRecorder, wake lock, level meter, chunked saves
-  db.ts                     IndexedDB: lectures, chunks, audio, results
+  images.ts                 EXIF-correct resize to 1568px, JPEG
+  db.ts                     IndexedDB: lectures, chunks, audio, slides, results
   notes-schema.ts           the note structure, as a Zod schema
   pipeline.ts               transcribe -> notes, resumable
 ```
@@ -123,16 +164,16 @@ automatic gain on, which is what rescues a quiet professor.
 
 **`app/api/notes/route.ts`** is where the quality lives. The schema in
 `lib/notes-schema.ts` asks for specific things — definitions phrased the way the
-professor phrased them, formulas only if actually stated aloud, exam signals
-graded by confidence, and a list of words the transcriber probably got wrong.
-Every item carries the second it was said. If the notes ever feel generic, the
-prompt in that file is the thing to edit.
+professor phrased them, formulas only if stated aloud or legible in a photo,
+exam signals graded by confidence, and a list of words the transcriber probably
+got wrong. Every item carries the second it was said. Slide photos are
+interleaved into the request as image blocks, each labelled with its timestamp.
+If the notes ever feel generic, the prompt in that file is the thing to edit.
 
 ## Not built yet
 
-- **Slide and whiteboard photos.** Audio misses everything written down, and
-  this is the biggest quality gain still on the table: attach a photo to a
-  timestamp and hand it to the model alongside the transcript.
 - **Background recording on iOS.** Needs a native app or a Shortcut that records
   via Voice Memos and uploads afterwards.
 - **Export.** Notes live in the browser; there's no PDF or Markdown out yet.
+- **Automatic slide detection.** Right now you press the button. Watching the
+  camera for a stable, changed frame could take the photo for you.
