@@ -15,6 +15,7 @@ import {
 import { LectureRecorder, type RecorderState } from "@/lib/recorder";
 import { hhmmss } from "@/lib/format";
 import SlideCamera from "./SlideCamera";
+import { importRecording } from "@/lib/import-audio";
 import type { Lecture, Mark } from "@/lib/types";
 
 const COURSE_KEY = "lecture-notes:last-course";
@@ -44,8 +45,10 @@ export default function Recorder() {
   const [showIOSWarning, setShowIOSWarning] = useState(false);
   const [cameraOpen, setCameraOpen] = useState(false);
   const [slideCount, setSlideCount] = useState(0);
+  const [importing, setImporting] = useState(false);
 
   const recorderRef = useRef<LectureRecorder | null>(null);
+  const importRef = useRef<HTMLInputElement | null>(null);
   const lectureIdRef = useRef<string>("");
 
   useEffect(() => {
@@ -102,6 +105,26 @@ export default function Recorder() {
     await updateLecture(lectureIdRef.current, { marks: next });
     if (navigator.vibrate) navigator.vibrate(20);
   }, [marks]);
+
+  const runImport = useCallback(
+    async (files: FileList | null) => {
+      const file = files?.[0];
+      if (!file) return;
+      setImporting(true);
+      setError("");
+      try {
+        localStorage.setItem(COURSE_KEY, course);
+        const id = await importRecording(file, course);
+        router.push(`/lectures/${id}`);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err));
+      } finally {
+        setImporting(false);
+        if (importRef.current) importRef.current.value = "";
+      }
+    },
+    [course, router],
+  );
 
   const captureSlide = useCallback(
     async (blob: Blob, width: number, height: number) => {
@@ -358,6 +381,27 @@ export default function Recorder() {
           </p>
         )}
       </section>
+
+      {!live && (
+        <div className="text-center">
+          <button
+            onClick={() => importRef.current?.click()}
+            disabled={importing}
+            className="text-xs font-medium text-muted underline decoration-hairline underline-offset-4 transition-colors hover:text-chalk disabled:opacity-50"
+          >
+            {importing
+              ? "Importing…"
+              : "Or import a recording from Voice Memos"}
+          </button>
+          <input
+            ref={importRef}
+            type="file"
+            accept="audio/*,video/*,.m4a,.mp3,.wav,.aac"
+            hidden
+            onChange={(e) => void runImport(e.target.files)}
+          />
+        </div>
+      )}
 
       {busy && <p className="text-center text-sm text-muted">{busy}</p>}
 

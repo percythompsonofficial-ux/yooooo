@@ -100,6 +100,33 @@ Storage adds up — an hour is ~22 MB and a semester of one course is over a
 gigabyte. Any lecture page has **Delete audio, keep notes** for once you've
 studied it.
 
+## Importing a recording made elsewhere
+
+**This is the most reliable way to use the app, and it needs no deployment at
+all.** Record the lecture in your phone's Voice Memos, then import the file.
+
+The phone's own recorder beats any browser: it runs in the background, so you
+can lock the screen, text, and put the phone in your pocket while it records.
+The browser can't do that. For a lecture you cannot afford to lose, record it
+there.
+
+Afterwards:
+
+1. Get the file onto the machine running this app. In Voice Memos: tap the
+   recording → **…** → **Share** → AirDrop to a Mac, or Mail it to yourself.
+2. Run the app locally — `npm run dev`, then open `http://localhost:3000`.
+   **localhost counts as a secure context, so no HTTPS, no tunnel, no deploy.**
+3. Click **Or import a recording from Voice Memos** and pick the file.
+4. **Transcribe & write notes.**
+
+The lecture is dated from the file's own timestamp, so the library still sorts
+by when the class happened rather than when you got round to importing it.
+
+Two things only in-browser recording gives you: star marks during class, and
+slide photos pinned to the second. You can still add photos after the fact from
+the Slides tab — scrub the audio to the right moment first, and the photo pins
+itself there.
+
 ## Photographing the board
 
 **This is the single biggest quality difference in the app.** A lecture is only
@@ -177,8 +204,8 @@ If the notes ever feel generic, the prompt in that file is the thing to edit.
 
 ## Not built yet
 
-- **Background recording on iOS.** Needs a native app or a Shortcut that records
-  via Voice Memos and uploads afterwards.
+- **Background recording on iOS.** Needs a native app or a Shortcut. Until
+  then, record in Voice Memos and import the file (see above).
 - **Export.** Notes live in the browser; there's no PDF or Markdown out yet.
 - **Automatic slide detection.** Right now you press the button. Watching the
   camera for a stable, changed frame could take the photo for you.

@@ -194,6 +194,12 @@ export async function finalizeAudio(
   return blob;
 }
 
+/** Store an audio file directly — used when importing a recording made elsewhere. */
+export async function putAudio(lectureId: string, blob: Blob): Promise<void> {
+  await tx(AUDIO, "readwrite", (s) => s.put({ lectureId, blob }));
+  await updateLecture(lectureId, { sizeBytes: blob.size });
+}
+
 export async function getAudio(lectureId: string): Promise<Blob | null> {
   const row = await tx<{ lectureId: string; blob: Blob } | undefined>(
     AUDIO,
