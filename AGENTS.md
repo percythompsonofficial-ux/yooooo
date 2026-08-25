@@ -18,3 +18,9 @@ Any UI, page, component, or visual-design task uses **both** of these skills, in
 
 `frontend-design` decides the point of view; `ui-ux-pro-max` grounds and validates it. Do not use one
 without the other on design work.
+
+# Picking this up
+
+Read `HANDOFF.md` first. It carries the current state of the InkdUpJo site —
+what is deployed and where, what is still placeholder, and the traps already
+hit and solved.
