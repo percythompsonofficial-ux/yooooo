@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
   title: "Lecture Notes",
@@ -30,10 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-dvh">
-        <Nav />
-        <main>{children}</main>
-      </body>
+      <body className="min-h-dvh">{children}</body>
     </html>
   );
 }

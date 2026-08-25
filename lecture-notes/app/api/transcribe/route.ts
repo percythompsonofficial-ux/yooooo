@@ -1,4 +1,5 @@
 import type { TranscriptSegment } from "@/lib/types";
+import { checkAuth } from "@/lib/auth";
 
 /**
  * Audio in, timestamped transcript out.
@@ -24,6 +25,22 @@ function bad(message: string, status = 400) {
 }
 
 export async function POST(request: Request) {
+  // The URL is public even when the password isn't; these two routes are the
+  // ones that spend money, so they check for themselves rather than trusting
+  // that a page-level guard ran.
+  const auth = await checkAuth();
+  if (!auth.ok) {
+    return Response.json(
+      {
+        error:
+          auth.reason === "unconfigured"
+            ? "This deployment has no APP_PASSWORD set."
+            : "Not signed in. Reload the page and enter the password.",
+      },
+      { status: auth.reason === "unconfigured" ? 501 : 401 },
+    );
+  }
+
   let form: FormData;
   try {
     form = await request.formData();

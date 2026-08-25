@@ -23,6 +23,7 @@ You need two keys:
 | ------------------- | ----------------------- | ------------------------------------------------------------------------------------------------ |
 | `ANTHROPIC_API_KEY` | Writing the notes       | Required.                                                                                         |
 | `ANTHROPIC_MODEL`   | Which model writes them | Optional. Defaults to `claude-sonnet-5`; set `claude-opus-5` to spend more for sharper judgement.  |
+| `APP_PASSWORD`      | Locking the deployment  | Required in production, ignored locally. See [The password](#the-password).                        |
 | `DEEPGRAM_API_KEY`  | Transcription           | **Recommended.** No file size limit, labels speakers, handles a full lecture in one request.       |
 | `OPENAI_API_KEY`    | Transcription, fallback | Used only if Deepgram isn't set. Whisper caps uploads at 25 MB — roughly 70 minutes of audio here. |
 
@@ -77,8 +78,31 @@ The same image runs anywhere that takes a container — Railway, Render, a VPS,
 a Raspberry Pi on your desk. Set the two keys as environment variables and
 expose port 3000.
 
-**Anyone with the URL can use your API keys.** There's no login. Don't post the
-link anywhere, or put your host's access control in front of it.
+### The password
+
+A deployed URL will eventually be found, and the thing worth protecting is not
+the lectures — it's your API keys. So set one:
+
+```bash
+fly secrets set APP_PASSWORD='a-long-random-phrase'
+```
+
+**In production this is mandatory, not advisory.** Without `APP_PASSWORD` the
+app refuses to run and the transcription and notes routes return 501 rather
+than quietly serving anyone who finds the host. Locally (`npm run dev`) no
+password is asked for at all.
+
+Signing in sets an HttpOnly cookie holding a value derived from the password,
+not the password itself, and it lasts about six months. **Lock** in the header
+clears it.
+
+Make the password long. There's no lockout after a wrong guess — only a small
+delay — so length is what actually protects you. A four-word phrase is plenty;
+`hunter2` is not.
+
+There are no user accounts, and there's nothing to separate: lectures live in
+the browser's own storage, so signing in from another device shows an empty
+library rather than someone else's notes.
 
 ## Recording on iPhone — read this once
 
