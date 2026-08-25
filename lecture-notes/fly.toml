@@ -1,0 +1,25 @@
+# fly launch --no-deploy will rewrite the app name; everything else here is
+# tuned for this workload.
+app = "lecture-notes"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  # Recording in the browser needs HTTPS, which Fly terminates for you.
+
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  # Scale to zero when idle. A cold start costs a couple of seconds; a lecture
+  # upload takes minutes, so it isn't worth paying to idle between classes.
+  min_machines_running = 0
+
+[[vm]]
+  # Transcription and the notes pass are both waiting on someone else's API,
+  # so this is about holding an upload in memory, not compute.
+  memory = "1gb"
+  cpu_kind = "shared"
+  cpus = 1

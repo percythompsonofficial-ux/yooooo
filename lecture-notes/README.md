@@ -53,15 +53,32 @@ like an app.
 
 ## Deploying it
 
-**Don't deploy this to Vercel's serverless functions without thinking about
-upload size.** A one-hour recording is around 22 MB, and Vercel's request body
-limit is 4.5 MB, so the transcription upload will fail. Use a host that takes
-large request bodies — Fly.io, Railway, Render, a small VPS, or a Raspberry Pi
-on your desk. `npm run build && npm run start` is all it needs.
+Deploying is optional — importing a voice memo works fine at `localhost`. Deploy
+when you want the app on your phone: an HTTPS URL is what unlocks in-browser
+recording, live star marks, and slide photos taken during class.
 
-If you're set on Vercel, the fix is to upload audio straight from the browser to
-object storage and hand the transcription API a URL instead of a file. That's a
-real change, not a config flag.
+**Do not use serverless.** A one-hour recording is 20-30 MB and Vercel's request
+body limit is 4.5 MB, so the upload fails. A plain container has no such cap —
+verified with a 30 MB upload straight through the transcribe route.
+
+A `Dockerfile` and `fly.toml` are included. On [Fly.io](https://fly.io):
+
+```bash
+fly launch --no-deploy          # pick a name; keeps the included fly.toml
+fly secrets set ANTHROPIC_API_KEY=sk-ant-... DEEPGRAM_API_KEY=...
+fly deploy
+```
+
+That gives you `https://your-app.fly.dev`. Open it on your phone and add it to
+the home screen. The config scales to zero between classes, so you pay for the
+minutes you actually use rather than for idling.
+
+The same image runs anywhere that takes a container — Railway, Render, a VPS,
+a Raspberry Pi on your desk. Set the two keys as environment variables and
+expose port 3000.
+
+**Anyone with the URL can use your API keys.** There's no login. Don't post the
+link anywhere, or put your host's access control in front of it.
 
 ## Recording on iPhone — read this once
 

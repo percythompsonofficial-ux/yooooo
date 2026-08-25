@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     }
     return bad(
       "No transcription key configured. Set DEEPGRAM_API_KEY (recommended) " +
-        "or OPENAI_API_KEY in .env.local.",
+        "or OPENAI_API_KEY — in .env.local locally, or as a secret on your host.",
       501,
     );
   } catch (err) {

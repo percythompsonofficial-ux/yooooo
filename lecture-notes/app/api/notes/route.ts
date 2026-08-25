@@ -97,7 +97,8 @@ type Payload = {
 export async function POST(request: Request) {
   if (!process.env.ANTHROPIC_API_KEY) {
     return bad(
-      "ANTHROPIC_API_KEY isn't set. Add it to .env.local and restart the server.",
+      "ANTHROPIC_API_KEY isn't set. Put it in .env.local when running locally, " +
+        "or set it as a secret on your host (fly secrets set ANTHROPIC_API_KEY=…).",
       501,
     );
   }
