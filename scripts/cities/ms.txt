@@ -1,0 +1,52 @@
+# Mississippi metros and towns, roughly by population.
+# Gulf Coast first — that's Coast to Coast Roofing's own market.
+Gulfport
+Biloxi
+Ocean Springs
+D'Iberville
+Long Beach
+Pass Christian
+Bay St. Louis
+Diamondhead
+Waveland
+Pascagoula
+Gautier
+Moss Point
+Picayune
+Poplarville
+Wiggins
+Lucedale
+Jackson
+Pearl
+Ridgeland
+Madison
+Clinton
+Brandon
+Flowood
+Byram
+Canton
+Vicksburg
+Hattiesburg
+Petal
+Laurel
+Ellisville
+Columbia
+Southaven
+Olive Branch
+Horn Lake
+Hernando
+Meridian
+Tupelo
+Oxford
+Starkville
+Columbus
+West Point
+Greenville
+Cleveland
+Clarksdale
+Greenwood
+Grenada
+Corinth
+Natchez
+McComb
+Brookhaven

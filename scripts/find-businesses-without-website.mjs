@@ -18,7 +18,9 @@
  *   --cities <list>       Comma-separated cities. Strongly recommended: Text
  *                         Search caps at ~60 results per query, so coverage
  *                         comes from city x category fan-out.
- *   --cities-file <path>  One city per line. Alternative to --cities.
+ *   --cities-file <path>  One city per line, # for comments. Alternative to
+ *                         --cities. With neither flag, scripts/cities/<state>.txt
+ *                         is used when present.
  *   --categories <list>   Comma-separated. Defaults to the service trades below.
  *   --target <n>          Stop once this many leads are found. Default 150.
  *   --out <path>          CSV output path. Default leads.csv
@@ -166,13 +168,25 @@ async function main() {
     ? String(args.categories).split(',').map((s) => s.trim()).filter(Boolean)
     : DEFAULT_CATEGORIES;
 
+  const parseCityList = (text) => text
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#'));
+
+  const { readFileSync, existsSync } = await import('node:fs');
+
   let cities = [];
   if (args['cities-file']) {
-    const { readFileSync } = await import('node:fs');
-    cities = readFileSync(args['cities-file'], 'utf8')
-      .split('\n').map((s) => s.trim()).filter(Boolean);
+    cities = parseCityList(readFileSync(args['cities-file'], 'utf8'));
   } else if (args.cities) {
     cities = String(args.cities).split(',').map((s) => s.trim()).filter(Boolean);
+  } else {
+    // Fall back to a checked-in preset for the state, if one exists.
+    const presetPath = new URL(`./cities/${String(state).toLowerCase()}.txt`, import.meta.url);
+    if (existsSync(presetPath)) {
+      cities = parseCityList(readFileSync(presetPath, 'utf8'));
+      console.log(`Using ${cities.length} preset cities for ${state}. Override with --cities.`);
+    }
   }
 
   // With no cities, query the state as a whole. Coverage will be thin —
