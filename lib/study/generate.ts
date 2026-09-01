@@ -175,6 +175,58 @@ export async function generateCards(
 }
 
 /* ------------------------------------------------------------------ */
+/* notes pass                                                          */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Prose notes for the whole lecture, written against the section outline so
+ * the notes and the cards agree on how the lecture is divided.
+ *
+ * Plain text out rather than a schema: the body is one long markdown string,
+ * and wrapping prose in JSON only buys escaping problems.
+ */
+export async function generateNotes(
+  transcript: string,
+  sections: { heading: string; thesis: string }[],
+  courseName?: string,
+): Promise<string> {
+  const outline = sections
+    .map((s, i) => `${i + 1}. ${s.heading} — ${s.thesis}`)
+    .join("\n");
+  const context = courseName ? ` for a course on ${courseName}` : "";
+
+  const message = await client().messages.create({
+    model: MODEL,
+    max_tokens: 16000,
+    output_config: { effort: "high" },
+    system: cachedTranscript(transcript),
+    messages: [
+      {
+        role: "user",
+        content:
+          `Write revision notes for this lecture${context}, following the ` +
+          `section outline below.\n\n${outline}\n\n` +
+          "Rules:\n" +
+          "- Markdown. A `## ` heading per section, matching the outline order.\n" +
+          "- Under each heading, the substance: definitions, mechanisms, " +
+          "worked reasoning, and any numbers or names the lecturer stressed.\n" +
+          "- Write what the lecture actually established, not general " +
+          "background. If the lecturer flagged something as exam-relevant or " +
+          "commonly misunderstood, say so.\n" +
+          "- No preamble, no closing summary, no meta-commentary about the " +
+          "transcript. Start at the first heading.",
+      },
+    ],
+  });
+
+  return message.content
+    .filter((b): b is Anthropic.TextBlock => b.type === "text")
+    .map((b) => b.text)
+    .join("")
+    .trim();
+}
+
+/* ------------------------------------------------------------------ */
 /* grounding check                                                     */
 /* ------------------------------------------------------------------ */
 

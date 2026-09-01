@@ -7,14 +7,21 @@
     "build": "next build",
     "start": "next start",
     "db:migrate": "tsx --env-file-if-exists=.env.local scripts/migrate.ts",
-    "study:smoke": "tsx --env-file-if-exists=.env.local scripts/smoke.ts"
+    "study:smoke": "tsx --env-file-if-exists=.env.local scripts/smoke.ts",
+    "study:smoke:jobs": "tsx --env-file-if-exists=.env.local scripts/smoke-jobs.ts",
+    "study:smoke:anki": "tsx --env-file-if-exists=.env.local scripts/smoke-anki.ts",
+    "jobs:work": "tsx --env-file-if-exists=.env.local scripts/work.ts",
+    "jobs:once": "tsx --env-file-if-exists=.env.local scripts/work.ts --once",
+    "study:smoke:pipeline": "tsx --env-file-if-exists=.env.local scripts/smoke-pipeline.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.122.0",
+    "fflate": "^0.8.3",
     "next": "16.2.10",
     "pg": "^8.23.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "sql.js": "^1.14.2",
     "ts-fsrs": "^5.4.2",
     "zod": "^4.5.4"
   },

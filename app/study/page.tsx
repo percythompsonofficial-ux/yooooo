@@ -1,101 +1,140 @@
 import Link from "next/link";
 import { IngestForm } from "@/components/study/IngestForm";
-import { removeLecture } from "@/app/study/actions";
-import { listLectures, queueCounts } from "@/lib/study/db";
+import { LectureRow } from "@/components/study/LectureRow";
+import { addCourse } from "@/app/study/actions";
+import { listCourses, listLectures, queueCounts } from "@/lib/study/db";
+import { progressByLecture } from "@/lib/study/jobs";
+import type { Course } from "@/lib/study/db";
 import type { LectureSummary } from "@/lib/study/types";
-
-const STATUS_STYLE: Record<string, string> = {
-  ready: "bg-teal-100 text-teal-900",
-  failed: "bg-red-100 text-red-900",
-  pending: "bg-stone-200 text-stone-700",
-  structuring: "bg-amber-100 text-amber-900",
-  generating: "bg-amber-100 text-amber-900",
-};
 
 export default async function StudyHome() {
   let lectures: LectureSummary[] = [];
+  let courses: Course[] = [];
+  let progress = new Map<string, Awaited<ReturnType<typeof progressByLecture>> extends Map<string, infer V> ? V : never>();
   let due = 0;
   let reachable = true;
 
   try {
-    [lectures, { due }] = await Promise.all([listLectures(), queueCounts()]);
+    [lectures, courses, progress, { due }] = await Promise.all([
+      listLectures(),
+      listCourses(),
+      progressByLecture(),
+      queueCounts(),
+    ]);
   } catch {
     reachable = false;
   }
+
+  const realCourses = courses.filter((c) => c.lecture_count > 0 || c.name !== "Unfiled");
 
   return (
     <div className="flex flex-col gap-12">
       <section className="flex flex-col gap-3">
         <h1 className="text-2xl font-semibold tracking-tight">Add a lecture</h1>
         <p className="max-w-prose text-sm text-stone-600">
-          Paste a transcript. You get back a section outline and a set of recall
-          cards, each one carrying the verbatim line it came from.
+          Paste a transcript. You get back a section outline, revision notes, and
+          recall cards for every section — each card carrying the verbatim line
+          it came from.
         </p>
         <div className="mt-2">
-          <IngestForm />
+          <IngestForm
+            courses={courses.map((c) => ({ id: c.id, name: c.name, term: c.term }))}
+          />
         </div>
       </section>
 
       {reachable && (
-        <section className="flex flex-col gap-4">
-          <div className="flex items-baseline justify-between border-b border-stone-200 pb-2">
-            <h2 className="text-lg font-semibold tracking-tight">Lectures</h2>
-            {due > 0 && (
-              <Link
-                href="/study/review"
-                className="text-sm font-medium text-teal-800 underline underline-offset-2"
-              >
-                {due} card{due === 1 ? "" : "s"} due
-              </Link>
-            )}
-          </div>
-
-          {lectures.length === 0 ? (
-            <p className="py-6 text-sm text-stone-500">
-              Nothing yet. Paste a transcript above to get started.
-            </p>
-          ) : (
-            <ul className="flex flex-col">
-              {lectures.map((l) => (
-                <li
-                  key={l.id}
-                  className="flex items-start gap-4 border-b border-stone-200 py-3.5"
+        <>
+          <section className="flex flex-col gap-4">
+            <div className="flex items-baseline justify-between border-b border-stone-200 pb-2">
+              <h2 className="text-lg font-semibold tracking-tight">Courses</h2>
+              {due > 0 && (
+                <Link
+                  href="/study/review"
+                  className="text-sm font-medium text-teal-800 underline underline-offset-2"
                 >
-                  <div className="flex-1">
-                    <p className="font-medium">{l.title}</p>
-                    <p className="mt-0.5 font-mono text-xs text-stone-500 tabular-nums">
-                      {l.card_count} card{l.card_count === 1 ? "" : "s"}
-                      {l.due_count > 0 && ` · ${l.due_count} due`}
-                      {" · "}
-                      {new Date(l.created_at).toLocaleDateString()}
-                    </p>
-                    {l.status === "failed" && l.error && (
-                      <p className="mt-1 text-xs text-red-700">{l.error}</p>
-                    )}
-                  </div>
+                  {due} card{due === 1 ? "" : "s"} due
+                </Link>
+              )}
+            </div>
 
-                  <span
-                    className={`rounded px-2 py-0.5 font-mono text-[11px] ${
-                      STATUS_STYLE[l.status] ?? "bg-stone-200 text-stone-700"
-                    }`}
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {realCourses.map((c) => (
+                <li key={c.id}>
+                  <Link
+                    href={`/study/courses/${c.id}`}
+                    className="flex flex-col gap-1 rounded border border-stone-200 bg-white p-3.5 transition-colors hover:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
                   >
-                    {l.status}
-                  </span>
-
-                  <form action={removeLecture}>
-                    <input type="hidden" name="lectureId" value={l.id} />
-                    <button
-                      type="submit"
-                      className="text-xs text-stone-400 underline underline-offset-2 transition-colors hover:text-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                    >
-                      Delete
-                    </button>
-                  </form>
+                    <span className="font-medium">{c.name}</span>
+                    <span className="font-mono text-xs text-stone-500 tabular-nums">
+                      {c.term && `${c.term} · `}
+                      {c.lecture_count} lecture{c.lecture_count === 1 ? "" : "s"} ·{" "}
+                      {c.card_count} card{c.card_count === 1 ? "" : "s"}
+                      {c.due_count > 0 && (
+                        <span className="text-teal-800"> · {c.due_count} due</span>
+                      )}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
-          )}
-        </section>
+
+            <form action={addCourse} className="flex flex-wrap items-end gap-2">
+              <div className="flex flex-col gap-1">
+                <label htmlFor="course-name" className="text-xs text-stone-500">
+                  New course
+                </label>
+                <input
+                  id="course-name"
+                  name="name"
+                  required
+                  placeholder="Organic Chemistry II"
+                  className="rounded border border-stone-300 bg-white px-2.5 py-1.5 text-sm outline-none placeholder:text-stone-400 focus-visible:border-teal-700"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="course-term" className="text-xs text-stone-500">
+                  Term
+                </label>
+                <input
+                  id="course-term"
+                  name="term"
+                  placeholder="Fall 2026"
+                  className="rounded border border-stone-300 bg-white px-2.5 py-1.5 text-sm outline-none placeholder:text-stone-400 focus-visible:border-teal-700"
+                />
+              </div>
+              <button
+                type="submit"
+                className="rounded border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 transition-colors hover:border-teal-700 hover:text-teal-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
+              >
+                Add
+              </button>
+            </form>
+          </section>
+
+          <section className="flex flex-col gap-4">
+            <h2 className="border-b border-stone-200 pb-2 text-lg font-semibold tracking-tight">
+              All lectures
+            </h2>
+            {lectures.length === 0 ? (
+              <p className="py-6 text-sm text-stone-500">
+                Nothing yet. Paste a transcript above to get started.
+              </p>
+            ) : (
+              <ul className="flex flex-col">
+                {lectures.map((l) => (
+                  <LectureRow
+                    key={l.id}
+                    lecture={l}
+                    progress={progress.get(l.id)}
+                    showCourse
+                    returnTo="/study"
+                  />
+                ))}
+              </ul>
+            )}
+          </section>
+        </>
       )}
     </div>
   );

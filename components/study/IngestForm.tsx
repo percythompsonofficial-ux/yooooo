@@ -4,7 +4,15 @@ import { useActionState } from "react";
 import Link from "next/link";
 import { ingestLecture, type IngestResult } from "@/app/study/actions";
 
-export function IngestForm() {
+type CourseOption = { id: string; name: string; term: string };
+
+export function IngestForm({
+  courses,
+  defaultCourseId,
+}: {
+  courses: CourseOption[];
+  defaultCourseId?: string;
+}) {
   const [result, action, pending] = useActionState<IngestResult | null, FormData>(
     ingestLecture,
     null,
@@ -12,17 +20,41 @@ export function IngestForm() {
 
   return (
     <form action={action} className="flex flex-col gap-4">
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="title" className="text-sm font-medium text-stone-700">
-          Title <span className="font-normal text-stone-400">(optional)</span>
-        </label>
-        <input
-          id="title"
-          name="title"
-          type="text"
-          placeholder="Week 4 — E1 elimination"
-          className="rounded border border-stone-300 bg-white px-3 py-2 text-sm outline-none placeholder:text-stone-400 focus-visible:border-teal-700 focus-visible:ring-2 focus-visible:ring-teal-700/20"
-        />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="title" className="text-sm font-medium text-stone-700">
+            Title <span className="font-normal text-stone-400">(optional)</span>
+          </label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Week 4 — E1 elimination"
+            className="rounded border border-stone-300 bg-white px-3 py-2 text-sm outline-none placeholder:text-stone-400 focus-visible:border-teal-700 focus-visible:ring-2 focus-visible:ring-teal-700/20"
+          />
+          <p className="text-xs text-stone-500">
+            Left blank, the model titles it from the transcript.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="courseId" className="text-sm font-medium text-stone-700">
+            Course
+          </label>
+          <select
+            id="courseId"
+            name="courseId"
+            defaultValue={defaultCourseId}
+            className="rounded border border-stone-300 bg-white px-3 py-2 text-sm outline-none focus-visible:border-teal-700 focus-visible:ring-2 focus-visible:ring-teal-700/20"
+          >
+            {courses.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+                {c.term ? ` · ${c.term}` : ""}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="flex flex-col gap-1.5">
@@ -38,8 +70,8 @@ export function IngestForm() {
           className="resize-y rounded border border-stone-300 bg-white px-3 py-2 font-mono text-[13px] leading-relaxed outline-none placeholder:text-stone-400 focus-visible:border-teal-700 focus-visible:ring-2 focus-visible:ring-teal-700/20"
         />
         <p className="text-xs text-stone-500">
-          Phase one structures the whole lecture, then writes cards for the first
-          section only — enough to judge whether the cards are worth reviewing.
+          Queued, not generated on the spot — a full lecture is a dozen model
+          calls. The worker picks it up and the page tracks progress.
         </p>
       </div>
 
@@ -49,13 +81,8 @@ export function IngestForm() {
           disabled={pending}
           className="rounded bg-teal-800 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-teal-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700 disabled:cursor-not-allowed disabled:bg-stone-400"
         >
-          {pending ? "Generating…" : "Generate cards"}
+          {pending ? "Queueing…" : "Queue lecture"}
         </button>
-        {pending && (
-          <span className="text-sm text-stone-500">
-            Two model calls, usually under a minute.
-          </span>
-        )}
       </div>
 
       {result && !result.ok && (
@@ -66,22 +93,12 @@ export function IngestForm() {
 
       {result?.ok && (
         <div className="rounded border border-teal-300 bg-teal-50 px-3 py-2.5 text-sm text-teal-900">
-          <p>
-            Found {result.sections} sections and wrote{" "}
-            <strong>{result.cards} cards</strong> for the first one
-            {result.dropped > 0 && (
-              <>
-                {" "}
-                — dropped {result.dropped} that quoted text not in the transcript
-              </>
-            )}
-            .
-          </p>
+          <p>Queued. Generation runs in the background.</p>
           <Link
-            href="/study/review"
+            href={`/study/lectures/${result.lectureId}`}
             className="mt-1 inline-block font-medium underline underline-offset-2"
           >
-            Start reviewing →
+            Watch it come in →
           </Link>
         </div>
       )}

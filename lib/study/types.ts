@@ -41,6 +41,8 @@ export type LectureSummary = {
   created_at: Date;
   card_count: number;
   due_count: number;
+  course_id?: string;
+  course_name?: string;
 };
 
 /** The scheduling row as stored — mirrors the ts-fsrs Card interface. */

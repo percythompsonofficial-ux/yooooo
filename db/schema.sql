@@ -87,3 +87,36 @@ create table if not exists reviews (
 );
 
 create index if not exists reviews_card_idx on reviews (card_id, rated_at desc);
+
+/* ------------------------------------------------------------------ */
+/* phase two: background jobs                                          */
+/* ------------------------------------------------------------------ */
+
+-- Generating a lecture takes minutes, which is far longer than a request may
+-- run. Ingest writes a row here and returns; a cron-triggered worker drains
+-- the queue. One row per unit of work, so a single bad section fails and
+-- retries on its own instead of losing the whole lecture.
+create table if not exists jobs (
+  id           bigserial primary key,
+  lecture_id   uuid not null references lectures(id) on delete cascade,
+  kind         text not null,                    -- structure | cards | notes
+  payload      jsonb not null default '{}'::jsonb, -- e.g. {"section_id": "..."}
+  status       text not null default 'queued',   -- queued | running | done | failed
+  attempts     int  not null default 0,
+  max_attempts int  not null default 3,
+  error        text,
+  run_after    timestamptz not null default now(),
+  locked_at    timestamptz,
+  created_at   timestamptz not null default now(),
+  finished_at  timestamptz
+);
+
+create index if not exists jobs_claim_idx on jobs (status, run_after, id);
+create index if not exists jobs_lecture_idx on jobs (lecture_id);
+
+-- Courses gained a created_at once they had their own page.
+alter table courses add column if not exists created_at timestamptz not null default now();
+
+-- Cards are regenerated per section, so a stable key lets a re-run replace a
+-- section's cards instead of duplicating them.
+create index if not exists cards_section_idx on cards (section_id);

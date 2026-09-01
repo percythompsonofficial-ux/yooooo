@@ -3,37 +3,35 @@
 import { refresh } from "next/cache";
 import { redirect } from "next/navigation";
 import {
+  createCourse,
   createLecture,
+  deleteCourse,
   deleteLecture,
-  insertCards,
-  replaceSections,
-  setLectureStatus,
+  moveLecture,
+  renameCourse,
 } from "@/lib/study/db";
-import {
-  generateCards,
-  structureLecture,
-  verifyGrounding,
-} from "@/lib/study/generate";
-import { applyReview, initialState } from "@/lib/study/scheduler";
-import { RATINGS, type RatingValue } from "@/lib/study/types";
+import { enqueue, retryFailed } from "@/lib/study/jobs";
+import { applyReview } from "@/lib/study/scheduler";
+import { syncLectureStatus } from "@/lib/study/runner";
+import { RATINGS, UNFILED_COURSE_ID, type RatingValue } from "@/lib/study/types";
 
 export type IngestResult =
-  | { ok: true; lectureId: string; cards: number; dropped: number; sections: number }
+  | { ok: true; lectureId: string }
   | { ok: false; error: string };
 
 /**
- * Phase one: structure the lecture, then generate cards for the FIRST section
- * only. Two model calls, which comfortably fits a request. The full per-section
- * fan-out is phase two, and it must move to a background job first — a whole
- * lecture takes minutes and a serverless function will be killed partway,
- * leaving a half-generated lecture and no error.
+ * Creates the lecture and queues the work, then returns. Generation runs in
+ * the worker (`/api/jobs/run`), because a full lecture is many model calls
+ * over several minutes and a request would be killed partway through,
+ * leaving a half-generated lecture and no error to show for it.
  */
 export async function ingestLecture(
   _prev: IngestResult | null,
   formData: FormData,
 ): Promise<IngestResult> {
   const transcript = String(formData.get("transcript") ?? "").trim();
-  const givenTitle = String(formData.get("title") ?? "").trim();
+  const title = String(formData.get("title") ?? "").trim();
+  const courseId = String(formData.get("courseId") ?? "") || UNFILED_COURSE_ID;
 
   if (transcript.length < 200) {
     return {
@@ -42,62 +40,29 @@ export async function ingestLecture(
     };
   }
 
-  let lectureId: string | null = null;
   try {
-    lectureId = await createLecture(givenTitle || "Untitled lecture", transcript);
-
-    await setLectureStatus(lectureId, "structuring");
-    const structure = await structureLecture(transcript);
-
-    const sections = await replaceSections(
-      lectureId,
-      structure.sections.map((s, i) => ({
-        ord: i + 1,
-        heading: s.heading,
-        thesis: s.thesis,
-      })),
+    const lectureId = await createLecture(
+      title || "Untitled lecture",
+      transcript,
+      courseId,
     );
-    if (sections.length === 0) {
-      throw new Error("The structure pass found no sections in this transcript.");
-    }
-
-    await setLectureStatus(lectureId, "generating");
-    const generated = await generateCards(transcript, sections[0]);
-    const { kept, dropped } = verifyGrounding(transcript, generated);
-
-    const written = await insertCards(
-      lectureId,
-      kept.map((c) => ({
-        section_id: sections[0].id,
-        kind: c.kind,
-        prompt: c.prompt,
-        answer: c.answer,
-        distractors: c.kind === "mcq" && c.distractors.length ? c.distractors : null,
-        source_span: c.source_span,
-        difficulty: c.difficulty,
-      })),
-      initialState,
-    );
-
-    await setLectureStatus(lectureId, "ready");
+    await enqueue(lectureId, "structure");
+    await syncLectureStatus(lectureId);
     refresh();
-
-    return {
-      ok: true,
-      lectureId,
-      cards: written,
-      dropped: dropped.length,
-      sections: sections.length,
-    };
+    return { ok: true, lectureId };
   } catch (err) {
-    const error = err instanceof Error ? err.message : "Generation failed.";
-    if (lectureId) await setLectureStatus(lectureId, "failed", error);
-    refresh();
-    return { ok: false, error };
+    return {
+      ok: false,
+      error: err instanceof Error ? err.message : "Could not queue this lecture.",
+    };
   }
 }
 
-export async function rateCard(cardId: string, rating: RatingValue, elapsedMs?: number) {
+export async function rateCard(
+  cardId: string,
+  rating: RatingValue,
+  elapsedMs?: number,
+) {
   const valid = Object.values(RATINGS).includes(rating);
   if (!valid) throw new Error(`Invalid rating: ${rating}`);
   const outcome = await applyReview(cardId, rating, elapsedMs);
@@ -111,7 +76,68 @@ export async function rateCard(cardId: string, rating: RatingValue, elapsedMs?: 
 
 export async function removeLecture(formData: FormData) {
   const id = String(formData.get("lectureId") ?? "");
+  const back = String(formData.get("returnTo") ?? "/study");
   if (id) await deleteLecture(id);
   refresh();
+  redirect(back);
+}
+
+/* ------------------------------------------------------------------ */
+/* generation control                                                  */
+/* ------------------------------------------------------------------ */
+
+export async function retryLecture(formData: FormData) {
+  const id = String(formData.get("lectureId") ?? "");
+  if (!id) return;
+  const n = await retryFailed(id);
+  // Nothing failed but the user asked again — re-run from the top.
+  if (n === 0) await enqueue(id, "structure");
+  await syncLectureStatus(id);
+  refresh();
+}
+
+export async function regenerateNotes(formData: FormData) {
+  const id = String(formData.get("lectureId") ?? "");
+  if (!id) return;
+  await enqueue(id, "notes");
+  await syncLectureStatus(id);
+  refresh();
+}
+
+/* ------------------------------------------------------------------ */
+/* courses                                                             */
+/* ------------------------------------------------------------------ */
+
+export async function addCourse(formData: FormData) {
+  const name = String(formData.get("name") ?? "").trim();
+  const term = String(formData.get("term") ?? "").trim();
+  if (!name) return;
+  const id = await createCourse(name, term);
+  refresh();
+  redirect(`/study/courses/${id}`);
+}
+
+export async function editCourse(formData: FormData) {
+  const id = String(formData.get("courseId") ?? "");
+  const name = String(formData.get("name") ?? "").trim();
+  const term = String(formData.get("term") ?? "").trim();
+  if (!id || !name) return;
+  await renameCourse(id, name, term);
+  refresh();
+}
+
+export async function removeCourse(formData: FormData) {
+  const id = String(formData.get("courseId") ?? "");
+  if (!id) return;
+  await deleteCourse(id);
+  refresh();
   redirect("/study");
+}
+
+export async function assignLecture(formData: FormData) {
+  const lectureId = String(formData.get("lectureId") ?? "");
+  const courseId = String(formData.get("courseId") ?? "");
+  if (!lectureId || !courseId) return;
+  await moveLecture(lectureId, courseId);
+  refresh();
 }

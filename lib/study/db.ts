@@ -49,12 +49,13 @@ export { tx };
 export async function createLecture(
   title: string,
   transcript: string,
+  courseId: string = UNFILED_COURSE_ID,
 ): Promise<string> {
   const { rows } = await pool().query<{ id: string }>(
     `insert into lectures (course_id, title, transcript, source_kind, status)
      values ($1, $2, $3, 'paste', 'pending')
      returning id`,
-    [UNFILED_COURSE_ID, title, transcript],
+    [courseId, title, transcript],
   );
   return rows[0].id;
 }
@@ -81,12 +82,14 @@ export async function getTranscript(id: string): Promise<string | null> {
 export async function listLectures(): Promise<LectureSummary[]> {
   const { rows } = await pool().query<LectureSummary>(
     `select l.id, l.title, l.status, l.error, l.created_at,
+            l.course_id, co.name as course_name,
             count(c.id)::int as card_count,
             count(c.id) filter (where s.due <= now())::int as due_count
        from lectures l
+       join courses co        on co.id = l.course_id
        left join cards c      on c.lecture_id = l.id
        left join card_state s on s.card_id = c.id
-      group by l.id
+      group by l.id, co.name
       order by l.created_at desc`,
   );
   return rows;
@@ -269,4 +272,212 @@ export async function queueCounts(): Promise<{ due: number; total: number }> {
        from card_state`,
   );
   return { due: Number(rows[0].due), total: Number(rows[0].total) };
+}
+
+/* ------------------------------------------------------------------ */
+/* notes                                                               */
+/* ------------------------------------------------------------------ */
+
+export async function upsertNotes(
+  lectureId: string,
+  bodyMd: string,
+  model: string,
+): Promise<void> {
+  await pool().query(
+    `insert into notes (lecture_id, body_md, model, generated_at)
+     values ($1, $2, $3, now())
+     on conflict (lecture_id)
+     do update set body_md = excluded.body_md,
+                   model = excluded.model,
+                   generated_at = now()`,
+    [lectureId, bodyMd, model],
+  );
+}
+
+export async function getNotes(
+  lectureId: string,
+): Promise<{ body_md: string; generated_at: Date } | null> {
+  const { rows } = await pool().query<{ body_md: string; generated_at: Date }>(
+    `select body_md, generated_at from notes where lecture_id = $1`,
+    [lectureId],
+  );
+  return rows[0] ?? null;
+}
+
+/* ------------------------------------------------------------------ */
+/* courses                                                             */
+/* ------------------------------------------------------------------ */
+
+export type Course = {
+  id: string;
+  name: string;
+  term: string;
+  lecture_count: number;
+  card_count: number;
+  due_count: number;
+};
+
+export async function listCourses(): Promise<Course[]> {
+  const { rows } = await pool().query<Course>(
+    `select co.id, co.name, co.term,
+            count(distinct l.id)::int as lecture_count,
+            count(c.id)::int          as card_count,
+            count(c.id) filter (where st.due <= now())::int as due_count
+       from courses co
+       left join lectures l   on l.course_id = co.id
+       left join cards c      on c.lecture_id = l.id
+       left join card_state st on st.card_id = c.id
+      group by co.id
+      order by co.created_at`,
+  );
+  return rows;
+}
+
+export async function getCourse(id: string): Promise<Course | null> {
+  const all = await listCourses();
+  return all.find((c) => c.id === id) ?? null;
+}
+
+export async function createCourse(name: string, term: string): Promise<string> {
+  const { rows } = await pool().query<{ id: string }>(
+    `insert into courses (name, term) values ($1, $2) returning id`,
+    [name, term],
+  );
+  return rows[0].id;
+}
+
+export async function renameCourse(
+  id: string,
+  name: string,
+  term: string,
+): Promise<void> {
+  await pool().query(`update courses set name = $2, term = $3 where id = $1`, [
+    id,
+    name,
+    term,
+  ]);
+}
+
+export async function deleteCourse(id: string): Promise<void> {
+  if (id === UNFILED_COURSE_ID) throw new Error("The Unfiled course cannot be deleted.");
+  await pool().query(`delete from courses where id = $1`, [id]);
+}
+
+export async function moveLecture(lectureId: string, courseId: string): Promise<void> {
+  await pool().query(`update lectures set course_id = $2 where id = $1`, [
+    lectureId,
+    courseId,
+  ]);
+}
+
+export async function courseNameFor(lectureId: string): Promise<string | null> {
+  const { rows } = await pool().query<{ name: string }>(
+    `select co.name from lectures l join courses co on co.id = l.course_id
+      where l.id = $1`,
+    [lectureId],
+  );
+  const name = rows[0]?.name;
+  return !name || name === "Unfiled" ? null : name;
+}
+
+/* ------------------------------------------------------------------ */
+/* regeneration                                                        */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Clears a section's cards before writing new ones, so a retried or
+ * regenerated job replaces its output instead of duplicating it. Review
+ * history in `reviews` survives for cards that keep their id; cards that are
+ * genuinely regenerated are new rows, which is the honest outcome — the
+ * question changed.
+ */
+export async function clearSectionCards(sectionId: string): Promise<number> {
+  const { rowCount } = await pool().query(`delete from cards where section_id = $1`, [
+    sectionId,
+  ]);
+  return rowCount ?? 0;
+}
+
+export async function getSection(
+  sectionId: string,
+): Promise<Section | null> {
+  const { rows } = await pool().query<Section>(
+    `select id, lecture_id, ord, heading, thesis from sections where id = $1`,
+    [sectionId],
+  );
+  return rows[0] ?? null;
+}
+
+export type LectureDetail = {
+  id: string;
+  title: string;
+  status: LectureStatus;
+  error: string | null;
+  created_at: Date;
+  transcript: string;
+  course_id: string;
+  course_name: string;
+};
+
+export async function getLecture(id: string): Promise<LectureDetail | null> {
+  const { rows } = await pool().query<LectureDetail>(
+    `select l.id, l.title, l.status, l.error, l.created_at, l.transcript,
+            l.course_id, co.name as course_name
+       from lectures l join courses co on co.id = l.course_id
+      where l.id = $1`,
+    [id],
+  );
+  return rows[0] ?? null;
+}
+
+export async function listLecturesForCourse(
+  courseId: string,
+): Promise<LectureSummary[]> {
+  const { rows } = await pool().query<LectureSummary>(
+    `select l.id, l.title, l.status, l.error, l.created_at,
+            count(c.id)::int as card_count,
+            count(c.id) filter (where s.due <= now())::int as due_count
+       from lectures l
+       left join cards c      on c.lecture_id = l.id
+       left join card_state s on s.card_id = c.id
+      where l.course_id = $1
+      group by l.id
+      order by l.created_at desc`,
+    [courseId],
+  );
+  return rows;
+}
+
+/** Cards plus scheduling, for the Anki export. */
+export async function cardsForExport(
+  courseId?: string,
+  lectureId?: string,
+): Promise<
+  (Card & {
+    heading: string;
+    lecture_title: string;
+    course_name: string;
+    state: number;
+    due: Date;
+    scheduled_days: number;
+    reps: number;
+    lapses: number;
+  })[]
+> {
+  const { rows } = await pool().query(
+    `select c.id, c.lecture_id, c.section_id, c.kind, c.prompt, c.answer,
+            c.distractors, c.source_span, c.difficulty,
+            sec.heading, l.title as lecture_title, co.name as course_name,
+            st.state, st.due, st.scheduled_days, st.reps, st.lapses
+       from cards c
+       join sections sec  on sec.id = c.section_id
+       join lectures l    on l.id = c.lecture_id
+       join courses co    on co.id = l.course_id
+       join card_state st on st.card_id = c.id
+      where ($1::uuid is null or l.course_id = $1)
+        and ($2::uuid is null or l.id = $2)
+      order by l.created_at, sec.ord, c.created_at`,
+    [courseId ?? null, lectureId ?? null],
+  );
+  return rows;
 }
